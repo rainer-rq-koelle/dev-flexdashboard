@@ -1,0 +1,50 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "05/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("dplyr")
+library("purrr")
+```
+
+This RMarkdown document explores the rendering of multiple dashboards.
+
+```{r render}
+rmarkdown::render(
+  input = "apt_dashboard_01.Rmd"
+  # , params = list(seg = "Focus1", grp = "Core", per = "Weekly")
+  , output_file = "test_01.html"
+  #, output_dir = "/myfiles-dir"
+)
+```
+
+
+In order to produce a series of dashboards, the render call needs to be looped over the set of airports.
+For this we 
+
+* create an iterator, 
+* pass the airport location identifier as a parameter to the template dashboard pages, and
+* render the output to a specific file name (apt.html).
+
+```{r}
+apts <- c("EGLL", "EDDF")
+mydf <- iris
+
+apts %>% 
+  purrr::walk(
+    .f=~rmarkdown::render(
+      input = "apt_dashboard_01.Rmd"
+      , params = list(apt = ., df = mydf)  #paste0(.))
+      #, output_dir = "/boards"
+      , output_file = paste0(.,".html")
+      )
+    )
+```
+
+wrap this into function and then load "payload data", filter it for apt and provide it to template with parameter
+df <- readxl::read_excel(tfc, sheet = "DATA")
+                   

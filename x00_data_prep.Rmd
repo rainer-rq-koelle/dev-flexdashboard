@@ -1,0 +1,22 @@
+---
+title: "Data Download and Preparation"
+author: "RQ"
+date: "05/11/2019"
+output: word_document
+---
+
+PRU publishes open performance data on a monthly basis at ansperformance.eu.
+
+```{r}
+library(readxl)
+# note: readxl does not yet support to read from url
+# thus, we download the file first
+tfc_xlsx <- "https://ansperformance.eu/download/xls/Airport_Traffic.xlsx"
+tfc <- basename(tfc_xlsx)
+download.file(url = tfc_xlsx, destfile = tfc
+              , mode="wb"   # on Windows specify binary mode!
+              )
+
+df <- readxl::read_excel(tfc, sheet = "DATA")
+```
+
