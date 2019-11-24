@@ -2,42 +2,54 @@
 params:
   apt : "EDDS"
   date: !r lubridate::today()
-  df: !r mtcars
+  tfc: !r mtcars
 title: "`r params$apt`"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
+    orientation: rows # columns
+    #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
 ---
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(ggplot2)
 ```
 
 # Home {data-icon="fa-list"}
 
+Overview {.sidebar}
+-------------------------------------
 
-Cool text before anything starts!
+For more information contact <a href="mailto:pru@eurocontrol.int?subject=Airport Dashboard">PRU Support</a>.
+
+
+Column {data-width=400, .tabset}
+-----------------------------------------------------------------------
+
+### Plot
 
 ```{r}
-summary(params$df)
+ggplot2::ggplot(data = params$tfc, mapping = aes(x = FLT_DATE, y = FLT_ARR_1, group = YEAR)) +
+  geom_line() + 
+  theme_minimal()
 ```
 
 
-Column {data-width=650}
------------------------------------------------------------------------
-
-### Chart A
+### Data Table
 
 ```{r}
-
+DT::datatable(
+    params$tfc
+  , options = list(pageLength = 25)
+  )
 ```
 
 ***
 
 This report was created on `r params$date` and presents the performance at `r params$apt`. 
 
-Column {data-width=350}
+
+Column {data-width=300}
 -----------------------------------------------------------------------
 
 ### ValueBox Example
@@ -71,15 +83,53 @@ gauge(rate, min = 0, max = 100, symbol = "%"
 
 ```{r}
 DT::datatable(
-    mtcars
+    params$tfc
   , options = list(pageLength = 25)
   )
 ```
+
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+
+Here could go some basis text as well. How does this look like?
+
+
+
 
 # More Stuff
 
 This needs to be further developed
 
+Row
+-----------------------------------------------------------------------
+
+### Panel A {data-width=300}
+
+### Panel B {data-width=300}
+
+### Panel C {data-width=300}
+
+
+Row
+-----------------------------------------------------------------------
+
+### Panel A {data-width=300}
+
+### Panel B {data-width=300}
+
+### Panel C {data-width=300}
+
+
+
+
 # Info & Disclaimer {data-icon="fa-question-circle"}
 
-This page will comprise info and disclaimer
+© European Organisation for the Safety of Air Navigation (EUROCONTROL) 
+
+These webpages and data is published by the EUROCONTROL Performance Review Unit in the interest of the exchange of information. It may be copied in whole or in part providing that this copyright notice and disclaimer are included. 
+The information may not be modified without prior written permission from the EUROCONTROL Performance Review Unit.
+
+The information does not necessarily reflect the official views or policy of EUROCONTROL, which makes no warranty, either implied or express, for the information contained in this document, including its accuracy, completeness or usefulness.
+
+Throughout the preparation of the information presented on these webpages or the underlying data all due care have been given. If however, you find an error or inaccuracy, please let us know.

@@ -31,14 +31,14 @@ For this we
 * render the output to a specific file name (apt.html).
 
 ```{r}
-apts <- c("EGLL", "EDDF")
-mydf <- iris
+apts   <- c("EGLL", "EDDF")
+tfc_df <- iris
 
 apts %>% 
   purrr::walk(
     .f=~rmarkdown::render(
       input = "apt_dashboard_01.Rmd"
-      , params = list(apt = ., df = mydf)  #paste0(.))
+      , params = list(apt = ., tfc = tfc_df)  #paste0(.))
       #, output_dir = "/boards"
       , output_file = paste0(.,".html")
       )
@@ -47,4 +47,62 @@ apts %>%
 
 wrap this into function and then load "payload data", filter it for apt and provide it to template with parameter
 df <- readxl::read_excel(tfc, sheet = "DATA")
+
+```{r}
+apts   <- c("EGLL", "EDDF", "EIDW")
+
+
+## ------------ READ DATA TABLES FROM DOWNLOAD POINT ------------------
+
+tfc_df <- readxl::read_excel("Airport_Traffic.xlsx", sheet = "DATA"
+  # readxl style to force all chr # , col_types = "text" #
+) %>%
+  mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
+
+
+
+## ------------ UTILITY FUNCTIONS -------------------------------------
+
+##### --------- DOWNSAMPLE DATA --------------------------------
+
+filter_df_by_apt <- function(.df, .apt){
+  df <- .df %>% filter(APT_ICAO == .apt)
+}
+
+
+## ------------ RENDER DASHBOARDS -------------------------------------
+
+apts %>% 
+  purrr::walk(
+    .f=~rmarkdown::render(
+        input  = "apt_dashboard_02.Rmd"
+      , params = list(apt = ., tfc = filter_df_by_apt(tfc_df, .apt = .) )
+      
+      
+      #, output_dir = "/boards"
+      , output_file = paste0(.,".html")
+      )
+    )
+
+
+```
+
+geht nicht mehr
+
+apts %>% 
+  purrr::walk(
+    .f=~rmarkdown::render(
+      #input = "apt_dashboard_01.Rmd"
+      input = "apt_dashboard_02.Rmd"
+      , params = list(apt = . 
+                      , tfc = filter_df_by_apt(tfc_df, .apt = .)  
+      ) # end params list
+                      #   #paste0(.)) .. %>% filter_df_by_apt(.apt = .)   )
+      #, output_dir = "/boards"
+      , output_file = paste0(.,".html")
+      )
+    )
+
+
+
                    

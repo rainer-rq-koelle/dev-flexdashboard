@@ -1,0 +1,128 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "14/11/2019"
+output: html_document
+---
+
+```{r setup}
+library(readxl)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(ggplot2)
+library(plotly)
+```
+
+## Load and Package Data
+
+```{r}
+atfms <- readxl::read_excel("Airport_Arrival_ATFM_Delay.xlsx", sheet = "DATA") %>%
+  mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
+
+tfcs  <- readxl::read_excel("Airport_Traffic.xlsx", sheet = "DATA") %>%
+  mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
+
+ds    <- atfms %>% filter(APT_ICAO == "EGLL")
+
+```
+
+## Simple Trendline
+
+```{r}
+rq <- ds %>% group_by(FLT_DATE) %>%
+  summarise( ARRS         = sum(FLT_ARR_1, na.rm = TRUE)
+            ,TOT_ARR_ATFM = sum(DLY_APT_ARR_1, na.rm = TRUE)
+            ,DLYD_ARRS    = sum(FLT_ARR_1_DLY, na.rm = TRUE)
+            ,DLYS_ARRS_15 = sum(FLT_ARR_1_DLY_15, na.rm = TRUE)
+            )
+```
+
+```{r}
+g <- ggplot(data = rq, mapping = aes(x = FLT_DATE, y = TOT_ARR_ATFM)) +
+  geom_line() +
+  theme_minimal()
+
+g
+```
+
+```{r}
+p <- rq %>%
+  plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM, type = 'scatter', mode = 'lines'
+          , line = list(shape = "hvh", width = 1, color = 'lightgreen')
+          ) %>%
+  layout(title = "Daily Total Arrival ATFM Delay"
+         , margin = list(t = 75)  # increase margin to deconflict titel and buttons
+         , xaxis = list(title = ""
+         , rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "1 yr",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                        )
+         , yaxis = list(title = "Daily Total ATFM Delay (min)")
+         ) 
+
+p
+```
+
+Barchart
+
+Animals <- c("giraffes", "orangutans", "monkeys")
+SF_Zoo <- c(20, 14, 23)
+LA_Zoo <- c(12, 18, 29)
+data <- data.frame(Animals, SF_Zoo, LA_Zoo)
+
+p <- plot_ly(data, x = ~Animals, y = ~SF_Zoo, type = 'bar', name = 'SF Zoo') %>%
+  add_trace(y = ~LA_Zoo, name = 'LA Zoo') %>%
+  layout(yaxis = list(title = 'Count'), barmode = 'group')
+
+
+# Grouped Boxplot
+
+```{r}
+ds2 <- tfcs %>% filter(APT_ICAO == "EGLL") %>%
+  select(YEAR, DATE = FLT_DATE, FLT_DEP_1, FLT_ARR_1) %>%
+  pivot_longer(cols = starts_with("FLT_"), names_to = "PHASE", values_to = "MVTS") %>%
+  separate(PHASE, into = c(NA, "PHASE", NA), sep = "_")
+
+pbox_group <- plot_ly(ds2, x = ~YEAR, legendgroup = ~YEAR, y = ~MVTS, color = ~PHASE, type = "box") %>%
+  layout(boxmode = "group"
+         ,xaxis = list(type = "multicategory")
+         )
+
+pbox_group
+```
+
+
+
+
+
+# Sunburst
+
+p <- plot_ly(
+  labels = c("Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"),
+  parents = c("", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"),
+  values = c(10, 14, 12, 10, 2, 6, 6, 4, 4),
+  type = 'sunburst'
+)
