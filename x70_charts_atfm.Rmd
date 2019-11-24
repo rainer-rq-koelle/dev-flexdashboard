@@ -108,7 +108,7 @@ ds2 <- tfcs %>% filter(APT_ICAO == "EGLL") %>%
 
 pbox_group <- plot_ly(ds2, x = ~YEAR, legendgroup = ~YEAR, y = ~MVTS, color = ~PHASE, type = "box") %>%
   layout(boxmode = "group"
-         ,xaxis = list(type = "multicategory")
+         ,xaxis=list(type='category')
          )
 
 pbox_group
