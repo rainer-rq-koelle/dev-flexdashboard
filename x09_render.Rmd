@@ -63,6 +63,15 @@ tfc_df <- readxl::read_excel("Airport_Traffic.xlsx", sheet = "DATA"
 atfm_df <- readxl::read_excel("Airport_Arrival_ATFM_Delay.xlsx", sheet = "DATA") %>%
   mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
 
+asma_df <- readxl::read_excel("ASMA_Additional_Time.xlsx", sheet = "DATA") %>%
+  select(-PIVOT_LABEL)  %>%
+  #ASMA provided on an aggregated monthly basis
+  mutate( DATE = paste(YEAR, "-", MONTH_NUM, sep = "")
+         ,DATE = lubridate::parse_date_time(DATE, "Ym")  
+         ,DATE = lubridate::date(DATE)
+         ,AVG_ADD_ASMA_TIME = TIME_ASMA_ADD_2/FLT_ASMA_UNIMP_2
+         )
+
 
 ## ------------ UTILITY FUNCTIONS -------------------------------------
 
@@ -79,8 +88,11 @@ apts %>%
   purrr::walk(
     .f=~rmarkdown::render(
         input  = "apt_dashboard_02.Rmd"
-      , params = list(apt = ., tfc = filter_df_by_apt(tfc_df, .apt = .)
-                      , atfm = filter_df_by_apt(atfm_df, .apt = .))
+      , params = list(  apt  = .
+                      , tfc  = filter_df_by_apt(tfc_df, .apt = .)
+                      , atfm = filter_df_by_apt(atfm_df,.apt = .)
+                      , asma = filter_df_by_apt(asma_df,.apt = .)
+                      )
       
       
       #, output_dir = "/boards"

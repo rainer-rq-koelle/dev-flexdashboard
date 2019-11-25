@@ -4,6 +4,7 @@ params:
   date: !r lubridate::today()
   tfc: !r mtcars
   atfm: !r mtcars
+  asma: !r mtcars
 title: "`r params$apt`"
 output: 
   flexdashboard::flex_dashboard:
@@ -14,6 +15,8 @@ output:
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(ggplot2)
+library(dplyr)
+library(tidyr)
 library(plotly)
 ```
 
@@ -198,7 +201,7 @@ p <- tmp %>%
 
       rangeslider = list(type = "date")
                         )
-         , yaxis = list(title = "Arrival ATFM Delay (min)")
+         , yaxis = list(title = "Arrival ATFM Delay [min]")
          ) %>% 
   
   config(displayModeBar = F)   # deactivate complete ModeBar
@@ -254,20 +257,59 @@ p
 
 ### More explanation
 
-TO be developed.
+To be developed.
 
-# More Stuff
+# Efficiency
 
-This needs to be further developed
+Overview {.sidebar}
+-------------------------------------
+
+Within the airport context Flight Efficiency is expressed with
+
+* additional ASMA time
+* additional taxi-out time
+
 
 Row
 -----------------------------------------------------------------------
 
-### Panel A {data-width=300}
+### Monthly Variation of the Average Additional ASMA Time  {data-width=300}
+
+```{r}
+tmp <- params$asma
+
+p <- tmp %>%
+  plot_ly(x = ~DATE, y = ~AVG_ADD_ASMA_TIME, type = "bar") %>%
+  
+  # layout graph
+  layout(
+    xaxis = list( title = ""
+                 ,rangeselector = list(
+                    buttons = list(
+                       list( count = 3, label = "3 mo", step = "month"
+                            , stepmode = "backward")
+                      ,list( count = 6, label = "6 mo", step = "month"
+                            , stepmode = "backward")
+                      ,list( count = 1, label = "1 yr", step = "year"
+                            , stepmode = "backward")
+                      ,list( count = 1, label = "YTD",  step = "year"
+                            , stepmode = "todate")
+                      ,list( step = "all")
+                      ) # end buttons
+                    ) # end rangeselector
+                 ,rangeslider = list(type = "date")
+
+      ) # end xaxis
+    , yaxis = list(title = "Average Additional ASMA Time [min]")
+  ) %>% 
+  
+  config(displayModeBar = F)   # deactivate complete ModeBar
+
+p
+```
+
 
 ### Panel B {data-width=300}
-
-### Panel C {data-width=300}
 
 
 Row
