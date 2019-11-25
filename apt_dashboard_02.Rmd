@@ -3,6 +3,7 @@ params:
   apt : "EDDS"
   date: !r lubridate::today()
   tfc: !r mtcars
+  atfm: !r mtcars
 title: "`r params$apt`"
 output: 
   flexdashboard::flex_dashboard:
@@ -144,6 +145,116 @@ Row
 
 2nd row for more fun stuff
 
+# ATFM Delay
+
+
+Row
+-----------------------------------------------------------------------
+
+### Annual Variation of Arrival ATFM Delay {data-width=300}
+
+```{r}
+atfms <- params$atfm 
+
+tmp <- atfms %>% group_by(FLT_DATE) %>%
+  summarise( ARRS         = sum(FLT_ARR_1, na.rm = TRUE)
+            ,TOT_ARR_ATFM = sum(DLY_APT_ARR_1, na.rm = TRUE)
+            ,DLYD_ARRS    = sum(FLT_ARR_1_DLY, na.rm = TRUE)
+            ,DLYS_ARRS_15 = sum(FLT_ARR_1_DLY_15, na.rm = TRUE)
+            )
+
+p <- tmp %>%
+  plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM
+          , type = 'scatter', mode = 'lines'
+          , line = list(shape = "hvh", width = 1)
+          ) %>%
+  layout(#title = "Daily Total Arrival ATFM Delay"
+         #, margin = list(t = 75)  # increase margin to deconflict titel and buttons
+         #, 
+         xaxis = list(title = ""
+         , rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "1 yr",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                        )
+         , yaxis = list(title = "Arrival ATFM Delay (min)")
+         ) %>% 
+  
+  config(displayModeBar = F)   # deactivate complete ModeBar
+p
+```
+
+### List of Top 5
+
+Add a list here of the 5 worst days
+
+
+Row
+-----------------------------------------------------------------------
+
+### Monthly Aggregated Arrival ATFM Delay by Delay Code {data-width=300}
+
+```{r}
+tmp <- atfms %>%
+  select(YEAR, MONTH_NUM, starts_with("DLY_APT_ARR_")) %>%
+  group_by(YEAR, MONTH_NUM) %>%
+  summarise_at(vars(-group_cols()), sum , na.rm = TRUE) %>%
+  ungroup() %>%
+  pivot_longer(cols = starts_with("DLY_APT_ARR_"), names_to = "DLY", values_to = "TIME") %>%
+  separate(DLY, into = c(NA, NA, NA, "DLY", "GRP"), sep = "_") %>%
+  mutate(DLY = replace(DLY, DLY == 1, "TOT"), GRP = replace_na(GRP, "TOT")) %>%
+  mutate(DATE = paste(YEAR,"-", MONTH_NUM, sep = ""))
+```
+
+```{r}
+p <- tmp %>% filter(DLY != "TOT") %>%
+  plot_ly(x=~DATE, y=~TIME, color = ~DLY, type = "bar"
+          
+          ,text = ~DLY
+          ,hovertemplate = paste(
+               "Delay Code <b>%{text}</b><br>"
+              ,"ATFM Delay %{y} min"
+            )
+          
+          ) %>%
+  layout(barmode = "stack"
+         ,xaxis = list(
+               type = "date"
+              ,title="" 
+              ,tickformat ="%b %Y"
+            )
+         ,yaxis = list(title = "Arrival ATFM Delay [min]")
+         ,legend= list(orientation = "h", y = -0.1)
+         ) %>% 
+  config(displayModeBar = F)   # deactivate complete ModeBar
+
+p
+```
+
+### More explanation
+
+TO be developed.
 
 # More Stuff
 
@@ -167,7 +278,6 @@ Row
 ### Panel B {data-width=300}
 
 ### Panel C {data-width=300}
-
 
 
 

@@ -49,11 +49,14 @@ g
 ```{r}
 p <- rq %>%
   plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM, type = 'scatter', mode = 'lines'
-          , line = list(shape = "hvh", width = 1, color = 'lightgreen')
+          , line = list(shape = "hvh", width = 1
+                        #, color = 'lightgreen'
+                        )
           ) %>%
-  layout(title = "Daily Total Arrival ATFM Delay"
-         , margin = list(t = 75)  # increase margin to deconflict titel and buttons
-         , xaxis = list(title = ""
+  layout(#title = "Daily Total Arrival ATFM Delay"
+         #, margin = list(t = 75)  # increase margin to deconflict titel and buttons
+         #, 
+         xaxis = list(title = ""
          , rangeselector = list(
         buttons = list(
           list(
@@ -80,9 +83,9 @@ p <- rq %>%
 
       rangeslider = list(type = "date")
                         )
-         , yaxis = list(title = "Daily Total ATFM Delay (min)")
+         , yaxis = list(title = "Arrival ATFM Delay (min)")
          ) 
-
+ # %>% config(displayModeBar = F)   # deactivate complete ModeBar
 p
 ```
 
@@ -115,8 +118,51 @@ pbox_group
 ```
 
 
+# ATFM
 
+```{r}
+tmp <- atfms %>% filter(APT_ICAO == "EGLL") %>%
+  select(YEAR, MONTH_NUM, starts_with("DLY_APT_ARR_")) %>%
+  group_by(YEAR, MONTH_NUM) %>%
+  summarise_at(vars(-group_cols()), sum , na.rm = TRUE) %>%
+  ungroup() %>%
+  pivot_longer(cols = starts_with("DLY_APT_ARR_"), names_to = "DLY", values_to = "TIME") %>%
+  separate(DLY, into = c(NA, NA, NA, "DLY", "GRP"), sep = "_") %>%
+  mutate(DLY = replace(DLY, DLY == 1, "TOT"), GRP = replace_na(GRP, "TOT")) %>%
+  mutate(DATE = paste(YEAR,"-", MONTH_NUM, sep = ""))
+  
+```
 
+p <- plot_ly(
+  x = c("giraffes", "orangutans", "monkeys"),
+  y = c(20, 14, 23),
+  name = "SF Zoo",
+  type = "bar"
+)
+```{r}
+p <- tmp %>% filter(DLY != "TOT") %>%
+  plot_ly(x=~DATE, y=~TIME, color = ~DLY, type = "bar"
+          
+          ,text = ~DLY
+          ,hovertemplate = paste(
+               "Delay Code <b>%{text}</b><br>"
+              ,"ATFM Delay %{y} min"
+            )
+          
+          ) %>%
+  layout(barmode = "stack"
+         ,xaxis = list(
+               type = "date"
+              ,title="" 
+              ,tickformat ="%b %Y"
+            )
+         ,yaxis = list(title = "Arrival ATFM Delay [min]")
+         ,legend= list(orientation = "h", y = -0.1)
+         ) %>% 
+  config(displayModeBar = F)   # deactivate complete ModeBar
+
+p
+```
 
 # Sunburst
 
@@ -126,3 +172,38 @@ p <- plot_ly(
   values = c(10, 14, 12, 10, 2, 6, 6, 4, 4),
   type = 'sunburst'
 )
+
+
+
+# Scatter Map
+
+worked when saved out. Unsure what problem is.
+
+```{}
+df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_february_us_airport_traffic.csv')
+
+# geo styling
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showland = TRUE,
+  landcolor = toRGB("gray95"),
+  subunitcolor = toRGB("gray85"),
+  countrycolor = toRGB("gray85"),
+  countrywidth = 0.5,
+  subunitwidth = 0.5
+)
+
+p <- plot_geo(df, lat = ~lat, lon = ~long) %>%
+  add_markers(
+    text = ~paste(airport, city, state, paste("Arrivals:", cnt), sep = "<br />"),
+    color = ~cnt, symbol = I("square"), size = I(8), hoverinfo = "text"
+  ) %>%
+  colorbar(title = "Incoming flights<br />February 2011") %>%
+  layout(
+    title = 'Most trafficked US airports<br />(Hover for airport)', geo = g
+  )
+
+p
+```
+

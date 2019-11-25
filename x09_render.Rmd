@@ -60,6 +60,9 @@ tfc_df <- readxl::read_excel("Airport_Traffic.xlsx", sheet = "DATA"
   mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
 
 
+atfm_df <- readxl::read_excel("Airport_Arrival_ATFM_Delay.xlsx", sheet = "DATA") %>%
+  mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
+
 
 ## ------------ UTILITY FUNCTIONS -------------------------------------
 
@@ -76,7 +79,8 @@ apts %>%
   purrr::walk(
     .f=~rmarkdown::render(
         input  = "apt_dashboard_02.Rmd"
-      , params = list(apt = ., tfc = filter_df_by_apt(tfc_df, .apt = .) )
+      , params = list(apt = ., tfc = filter_df_by_apt(tfc_df, .apt = .)
+                      , atfm = filter_df_by_apt(atfm_df, .apt = .))
       
       
       #, output_dir = "/boards"
