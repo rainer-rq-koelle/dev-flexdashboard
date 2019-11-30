@@ -72,6 +72,8 @@ asma_df <- readxl::read_excel("ASMA_Additional_Time.xlsx", sheet = "DATA") %>%
          ,AVG_ADD_ASMA_TIME = TIME_ASMA_ADD_2/FLT_ASMA_UNIMP_2
          )
 
+slot_df <- readxl::read_excel("ATFM_Slot_Adherence.xlsx", sheet = "DATA")
+
 
 ## ------------ UTILITY FUNCTIONS -------------------------------------
 
@@ -91,6 +93,7 @@ apts %>%
       , params = list(  apt  = .
                       , tfc  = filter_df_by_apt(tfc_df, .apt = .)
                       , atfm = filter_df_by_apt(atfm_df,.apt = .)
+                      , slot = filter_df_by_apt(slot_df,.apt = .)
                       , asma = filter_df_by_apt(asma_df,.apt = .)
                       )
       

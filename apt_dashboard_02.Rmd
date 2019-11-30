@@ -4,6 +4,7 @@ params:
   date: !r lubridate::today()
   tfc: !r mtcars
   atfm: !r mtcars
+  slot: !r mtcars
   asma: !r mtcars
 title: "`r params$apt`"
 output: 
@@ -148,10 +149,9 @@ Row
 
 2nd row for more fun stuff
 
-# ATFM Delay
+# ATFM Delay {style="position:relative;"}
 
-
-Row
+Row {style="height:100pc;"}
 -----------------------------------------------------------------------
 
 ### Annual Variation of Arrival ATFM Delay {data-width=300}
@@ -257,7 +257,73 @@ p
 
 ### More explanation
 
-To be developed.
+Row
+-----------------------------------------------------------
+
+### Slot Adherence
+
+Slot adherence is measured at the airport (of departure) and refers to the percentage of flights that depart within the ATFM slot window assigned to the departure. ATFM Regulations culminate in a computed take-off time (CTOT) for the respective departure. The slot window comprises the interval [CTOT - 5 min, CTOT + 10 min].
+
+### Monthly ATFM Slot Adherence Trend
+
+```{r}
+tmp <- params$slot %>% 
+  mutate(FLT_DEP_OUT = FLT_DEP_OUT_EARLY_1 + FLT_DEP_OUT_LATE_1) %>% 
+  group_by(YEAR, MONTH_NUM) %>% 
+  summarise(FLT_DEP = sum(FLT_DEP_1), FLT_DEP_REG = sum(FLT_DEP_REG_1)
+            , FLT_DEP_OUT = sum(FLT_DEP_OUT)
+            ) %>% 
+  ungroup() %>% 
+  mutate( SHARE_REG = FLT_DEP_REG / FLT_DEP
+         ,SHARE_OUT = FLT_DEP_OUT / FLT_DEP_REG
+         , DATE = paste(YEAR, "-", sprintf("%02d", MONTH_NUM), sep = "")
+         )
+```
+
+```{r}
+p <- tmp %>%
+  plot_ly(x= ~DATE, y = ~SHARE_REG, type = "bar"
+          ,name = "% Regulated Departures") %>%
+  
+  add_trace(x= ~DATE, y = ~SHARE_OUT, type = "scatter", mode = "lines"
+          ,name = "% Outside ATFM window"
+  ) %>%
+  
+  layout(
+     xaxis = list(title = "", type = "date",tickformat ="%b %Y")
+     ,yaxis= list(title = "share of flights")
+    ,legend= list(orientation = "h", y = -0.1)
+  ) %>% 
+  
+  config(displayModeBar = F)   # deactivate complete ModeBar
+  
+p
+```
+
+### Daily Adherence
+
+```{r}
+tmp <- params$slot 
+```
+
+```{r}
+p <- tmp %>%
+  plot_ly(x = ~FLT_DATE, y = ~FLT_DEP_IN_1, name = "Regulated Inside", type = "bar") %>%
+  add_trace(y = ~FLT_DEP_OUT_EARLY_1, name = "Early") %>%
+  add_trace(y = ~FLT_DEP_OUT_LATE_1, name = "Late") %>%
+  
+  layout(barmode = "stack"
+         ,xaxis = list(title="")
+         ,yaxis = list(title="number of flights")
+         ,legend= list(orientation = "h", y = -0.1)
+         ) %>% 
+  
+  config(displayModeBar = F)   # deactivate complete ModeBar
+
+p
+```
+
+
 
 # Efficiency
 
