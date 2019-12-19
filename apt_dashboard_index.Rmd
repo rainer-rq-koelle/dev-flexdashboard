@@ -1,0 +1,90 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "12/12/2019"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(readr)
+library(dplyr)
+library(leaflet)
+```
+
+```{r}
+apts <- read_csv("airports.dat", col_names = FALSE) %>%
+  rename(ICAO = X6, LAT = X7, LON = X8, TZ = X12) %>%
+  select(ICAO, LAT, LON, TZ) %>%
+  filter(ICAO %in% c("EGLL", "EDDF", "EDDM", "EIDW"))
+```
+
+# Home {data-icon="fa-list"}
+
+Overview 
+-------------------------------------
+
+For more information contact <a href="mailto:pru@eurocontrol.int?subject=Airport Dashboard">PRU Support</a>.
+
+```{r}
+library(plotly)
+library(htmlwidgets) # to use the 'onRender' function
+
+dat <- iris[1:2,]
+urls <- c("http://google.com", "https://stackoverflow.com")
+
+p <- plot_ly(dat, type = "scatter", mode = "markers",
+             x = ~Sepal.Width, y = ~Sepal.Length, 
+             customdata = urls)
+
+js <- "
+function(el, x) {
+  el.on('plotly_click', function(d) {
+    var point = d.points[0];
+    var url = point.data.customdata[point.pointIndex];
+    window.open(url);
+  });
+}"
+
+p %>% onRender(js)
+```
+
+
+Column
+-----------------------------------------------------------------------
+
+### Plot
+
+this is were my cool stuff goes
+
+```{r}
+head(apts)
+```
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+#  fitBounds(-127.44,24.05,-65.30,50.35) %>% 
+  # addProviderTiles("Esri.WorldTopoMap") %>%
+  addCircleMarkers(apts$LON, 
+                   apts$LAT, 
+                   color = "red" #factor(apts$LON), 
+                   ,radius = 6
+                   , fill = TRUE
+                   , fillOpacity = 0.2
+                   , opacity = 0.6
+                   , label = paste("<a href='", apts$ICAO,".html'>", apts$ICAO,"</a>", sep = "")
+                  #, popup='<a href="https://www.r-project.org/">R Project</a>'
+                   ) 
+#%>%
+#  addLegend("bottomleft", 
+#            colors = c("orange","green", "red", "black"),
+#            labels = c("Cleanup in progress.",
+#                       "Cleanup complete.",
+#                       "Status unclear.",
+#                       "No potential for radioactive contamination."), 
+#            opacity = 0.8)
+```
+
