@@ -1,0 +1,143 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "11/03/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(plotly)
+```
+
+How to configure the hover text?
+
+```{r}
+
+fig <- plot_ly(type = 'scatter', mode = 'markers') 
+
+fig <- fig %>%
+  add_trace(
+    x = c(1:5), 
+    y = rnorm(5, mean = 5),
+    text = c("Text A", "Text B", "Text C", "Text D", "Text E"),
+   # hoverinfo = 'text',   # show text variable
+   # hoverinfo = 'y',       # show variable (here value)
+   hovertemplate = paste("<i><i>Price</i>: $%{y:.2f}","<br><b>X</b>: %{x}<br>"),   #show defined template
+    marker = list(color='green'),
+    showlegend = F
+  )
+
+fig
+```
+
+
+## Doughnut Pie
+
+```{r}
+library(dplyr)
+
+# Get Manufacturer
+mtcars$manuf <- sapply(strsplit(rownames(mtcars), " "), "[[", 1)
+
+df <- mtcars
+df <- df %>% group_by(manuf)
+df <- df %>% summarize(count = n())
+fig <- df %>% plot_ly(labels = ~manuf, values = ~count)
+fig <- fig %>% add_pie(hole = 0.6)
+fig <- fig %>% layout(title = "Donut charts using Plotly",  showlegend = F,
+                      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+
+fig
+```
+
+## Sparkline
+
+```{r}
+library(sparkline)
+set.seed(1234)
+x = rnorm(10)
+y = rnorm(10)
+```
+
+
+Inline line graphs `r sparkline(x)`
+
+Bar charts  `r sparkline(abs(x), type = 'bar')`  negative values: `r sparkline(x, type = 'bar')`
+
+| Stock | Sparkline         | Boxplot  
+|-------|-------------------|--------
+| x     | `r sparkline(x)`  | `r sparkline(x, type ='box')`
+| y     | `r sparkline(y)`  | `r sparkline(y, type ='box')`
+
+
+
+## Bullet Chart
+
+```{r}
+fig <- plot_ly(
+  type = "indicator",
+  mode = "number+gauge+delta",
+  value = 220,
+  domain = list(x = c(0, 1), y = c(0, 1)),
+  delta = list(reference = 230, position = "top"
+    # check parameter nesting to find para, then list and overwrite default color
+    # https://plot.ly/r/reference/
+               , increasing= list(color = "#FF4136")
+               , decreasing= list(color = "#3D9970")
+               ),
+  title = list(
+    text = "<b>additional ASMA</b><br><span style='color: gray; font-size:0.8em'>min/arr</span>",
+    font = list(size = 14)),
+  gauge = list(
+    shape = "bullet",
+    axis = list(range = c(NULL, 300)),
+    threshold = list(
+      line = list(color = "red", width = 2, gradient = list(yanchor = "vertical")),
+      thickness = 0.75,
+      value = 270),
+    bgcolor = "white",
+    steps = list(list(range = c(0, 150), color = "cyan")),
+    bar = list(color = "darkblue")),
+  height = 150)
+
+fig
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

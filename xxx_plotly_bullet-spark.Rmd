@@ -1,0 +1,1335 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "11/03/2020"
+output: html_document
+---
+```{r}
+library(plotly)
+trace1 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x1", 
+  yaxis = "y1", 
+  visible = FALSE
+)
+trace2 <- list(
+  type = "bar", 
+  x = c(6.4), 
+  y = c(0), 
+  xaxis = "x2", 
+  yaxis = "y2", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace3 <- list(
+  type = "bar", 
+  x = c(12), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x2", 
+  yaxis = "y2", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace4 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(17), 
+  y = c(0), 
+  xaxis = "x2", 
+  yaxis = "y2", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace5 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(5, 6, 4, 8, 2, 7, 2, 1, 17, 12), 
+  xaxis = "x3", 
+  yaxis = "y3", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace6 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x4", 
+  yaxis = "y4", 
+  visible = FALSE
+)
+trace7 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(5, 6, 4, 8, 2, 7, 2, 1, 17, 12), 
+  xaxis = "x5", 
+  yaxis = "y5", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace8 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(12), 
+  xaxis = "x5", 
+  yaxis = "y5", 
+  marker = list(color = "rgb(0,0,255)")
+)
+trace9 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x6", 
+  yaxis = "y6", 
+  visible = FALSE
+)
+trace10 <- list(
+  type = "bar", 
+  x = c(5.7), 
+  y = c(0), 
+  xaxis = "x7", 
+  yaxis = "y7", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace11 <- list(
+  type = "bar", 
+  x = c(8), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x7", 
+  yaxis = "y7", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace12 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(10), 
+  y = c(0), 
+  xaxis = "x7", 
+  yaxis = "y7", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace13 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(2, 5, 7, 8, 9, 10, 4, 1, 3, 8), 
+  xaxis = "x8", 
+  yaxis = "y8", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace14 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x9", 
+  yaxis = "y9", 
+  visible = FALSE
+)
+trace15 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(2, 5, 7, 8, 9, 10, 4, 1, 3, 8), 
+  xaxis = "x10", 
+  yaxis = "y10", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace16 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(8), 
+  xaxis = "x10", 
+  yaxis = "y10", 
+  marker = list(color = "rgb(0,0,255)")
+)
+trace17 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x11", 
+  yaxis = "y11", 
+  visible = FALSE
+)
+trace18 <- list(
+  type = "bar", 
+  x = c(4.8), 
+  y = c(0), 
+  xaxis = "x12", 
+  yaxis = "y12", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace19 <- list(
+  type = "bar", 
+  x = c(8), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x12", 
+  yaxis = "y12", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace20 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(0), 
+  xaxis = "x12", 
+  yaxis = "y12", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace21 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(9, 4, 6, 3, 5, 1, 5, 2, 5, 8), 
+  xaxis = "x13", 
+  yaxis = "y13", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace22 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x14", 
+  yaxis = "y14", 
+  visible = FALSE
+)
+trace23 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(9, 4, 6, 3, 5, 1, 5, 2, 5, 8), 
+  xaxis = "x15", 
+  yaxis = "y15", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace24 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(8), 
+  xaxis = "x15", 
+  yaxis = "y15", 
+  marker = list(color = "rgb(0,0,255)")
+)
+trace25 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x16", 
+  yaxis = "y16", 
+  visible = FALSE
+)
+trace26 <- list(
+  type = "bar", 
+  x = c(4.3), 
+  y = c(0), 
+  xaxis = "x17", 
+  yaxis = "y17", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace27 <- list(
+  type = "bar", 
+  x = c(6), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x17", 
+  yaxis = "y17", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace28 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(8), 
+  y = c(0), 
+  xaxis = "x17", 
+  yaxis = "y17", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace29 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(6, 5, 7, 3, 1, 4, 8, 2, 1, 6), 
+  xaxis = "x18", 
+  yaxis = "y18", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace30 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x19", 
+  yaxis = "y19", 
+  visible = FALSE
+)
+trace31 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(6, 5, 7, 3, 1, 4, 8, 2, 1, 6), 
+  xaxis = "x20", 
+  yaxis = "y20", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace32 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(6), 
+  xaxis = "x20", 
+  yaxis = "y20", 
+  marker = list(color = "rgb(0,0,255)")
+)
+trace33 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x21", 
+  yaxis = "y21", 
+  visible = FALSE
+)
+trace34 <- list(
+  type = "bar", 
+  x = c(7.0), 
+  y = c(0), 
+  xaxis = "x22", 
+  yaxis = "y22", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace35 <- list(
+  type = "bar", 
+  x = c(4), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x22", 
+  yaxis = "y22", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace36 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(13), 
+  y = c(0), 
+  xaxis = "x22", 
+  yaxis = "y22", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace37 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(2, 1, 6, 3, 11, 7, 13, 12, 11, 4), 
+  xaxis = "x23", 
+  yaxis = "y23", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace38 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x24", 
+  yaxis = "y24", 
+  visible = FALSE
+)
+trace39 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(2, 1, 6, 3, 11, 7, 13, 12, 11, 4), 
+  xaxis = "x25", 
+  yaxis = "y25", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace40 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(4), 
+  xaxis = "x25", 
+  yaxis = "y25", 
+  marker = list(color = "rgb(0,0,255)")
+)
+trace41 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x26", 
+  yaxis = "y26", 
+  visible = FALSE
+)
+trace42 <- list(
+  type = "bar", 
+  x = c(7.7), 
+  y = c(0), 
+  xaxis = "x27", 
+  yaxis = "y27", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace43 <- list(
+  type = "bar", 
+  x = c(14), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x27", 
+  yaxis = "y27", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace44 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(14), 
+  y = c(0), 
+  xaxis = "x27", 
+  yaxis = "y27", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace45 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(3, 4, 5, 2, 12, 8, 14, 5, 10, 14), 
+  xaxis = "x28", 
+  yaxis = "y28", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace46 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x29", 
+  yaxis = "y29", 
+  visible = FALSE
+)
+trace47 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(3, 4, 5, 2, 12, 8, 14, 5, 10, 14), 
+  xaxis = "x30", 
+  yaxis = "y30", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace48 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(14), 
+  xaxis = "x30", 
+  yaxis = "y30", 
+  marker = list(color = "rgb(0,0,255)")
+)
+trace49 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x31", 
+  yaxis = "y31", 
+  visible = FALSE
+)
+trace50 <- list(
+  type = "bar", 
+  x = c(6.7), 
+  y = c(0), 
+  xaxis = "x32", 
+  yaxis = "y32", 
+  marker = list(color = "rgb(0,210,0)"), 
+  orientation = "h"
+)
+trace51 <- list(
+  type = "bar", 
+  x = c(5), 
+  y = c(0), 
+  width = 0.2, 
+  xaxis = "x32", 
+  yaxis = "y32", 
+  marker = list(color = "rgb(0,0,255)"), 
+  offset = -0.1, 
+  orientation = "h"
+)
+trace52 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(12), 
+  y = c(0), 
+  xaxis = "x32", 
+  yaxis = "y32", 
+  marker = list(
+    size = 9, 
+    color = "rgb(0,210,0)", 
+    symbol = "diamond-tall"
+  )
+)
+trace53 <- list(
+  type = "bar", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(4, 6, 8, 8, 10, 12, 2, 7, 5, 5), 
+  xaxis = "x33", 
+  yaxis = "y33", 
+  marker = list(color = c("rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,210,0)", "rgb(0,0,255)"))
+)
+trace54 <- list(
+  type = "bar", 
+  x = c(0), 
+  y = c(0), 
+  xaxis = "x34", 
+  yaxis = "y34", 
+  visible = FALSE
+)
+trace55 <- list(
+  mode = "lines", 
+  type = "scatter", 
+  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), 
+  y = c(4, 6, 8, 8, 10, 12, 2, 7, 5, 5), 
+  xaxis = "x35", 
+  yaxis = "y35", 
+  marker = list(color = "rgb(0,210,0)")
+)
+trace56 <- list(
+  mode = "markers", 
+  type = "scatter", 
+  x = c(9), 
+  y = c(5), 
+  xaxis = "x35", 
+  yaxis = "y35", 
+  marker = list(color = "rgb(0,0,255)")
+)
+data <- list(trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8, trace9, trace10, trace11, trace12, trace13, trace14, trace15, trace16, trace17, trace18, trace19, trace20, trace21, trace22, trace23, trace24, trace25, trace26, trace27, trace28, trace29, trace30, trace31, trace32, trace33, trace34, trace35, trace36, trace37, trace38, trace39, trace40, trace41, trace42, trace43, trace44, trace45, trace46, trace47, trace48, trace49, trace50, trace51, trace52, trace53, trace54, trace55, trace56)
+layout <- list(
+  title = "Sparkline Chart", 
+  xaxis1 = list(
+    range = c(0, 1), 
+    anchor = "y1", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis2 = list(
+    anchor = "y2", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis3 = list(
+    anchor = "y3", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis4 = list(
+    range = c(0, 1), 
+    anchor = "y4", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis5 = list(
+    anchor = "y5", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis6 = list(
+    range = c(0, 1), 
+    anchor = "y6", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis7 = list(
+    anchor = "y7", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis8 = list(
+    anchor = "y8", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis9 = list(
+    range = c(0, 1), 
+    anchor = "y9", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis1 = list(
+    range = c(0, 1), 
+    anchor = "x1", 
+    domain = c(0.857142857142857, 0.9999999999999998), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis2 = list(
+    anchor = "x2", 
+    domain = c(0.857142857142857, 0.9999999999999998), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis3 = list(
+    anchor = "x3", 
+    domain = c(0.857142857142857, 0.9999999999999998), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis4 = list(
+    range = c(0, 1), 
+    anchor = "x4", 
+    domain = c(0.857142857142857, 0.9999999999999998), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis5 = list(
+    anchor = "x5", 
+    domain = c(0.857142857142857, 0.9999999999999998), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis6 = list(
+    range = c(0, 1), 
+    anchor = "x6", 
+    domain = c(0.7142857142857142, 0.857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis7 = list(
+    anchor = "x7", 
+    domain = c(0.7142857142857142, 0.857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis8 = list(
+    anchor = "x8", 
+    domain = c(0.7142857142857142, 0.857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis9 = list(
+    range = c(0, 1), 
+    anchor = "x9", 
+    domain = c(0.7142857142857142, 0.857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis10 = list(
+    anchor = "y10", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis11 = list(
+    range = c(0, 1), 
+    anchor = "y11", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis12 = list(
+    anchor = "y12", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis13 = list(
+    anchor = "y13", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis14 = list(
+    range = c(0, 1), 
+    anchor = "y14", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis15 = list(
+    anchor = "y15", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis16 = list(
+    range = c(0, 1), 
+    anchor = "y16", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis17 = list(
+    anchor = "y17", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis18 = list(
+    anchor = "y18", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis19 = list(
+    range = c(0, 1), 
+    anchor = "y19", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis20 = list(
+    anchor = "y20", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis21 = list(
+    range = c(0, 1), 
+    anchor = "y21", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis22 = list(
+    anchor = "y22", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis23 = list(
+    anchor = "y23", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis24 = list(
+    range = c(0, 1), 
+    anchor = "y24", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis25 = list(
+    anchor = "y25", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis26 = list(
+    range = c(0, 1), 
+    anchor = "y26", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis27 = list(
+    anchor = "y27", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis28 = list(
+    anchor = "y28", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis29 = list(
+    range = c(0, 1), 
+    anchor = "y29", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis30 = list(
+    anchor = "y30", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis31 = list(
+    range = c(0, 1), 
+    anchor = "y31", 
+    domain = c(0.0, 0.09090909090909091), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis32 = list(
+    anchor = "y32", 
+    domain = c(0.09090909090909091, 0.36363636363636365), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis33 = list(
+    anchor = "y33", 
+    domain = c(0.36363636363636365, 0.6363636363636364), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis34 = list(
+    range = c(0, 1), 
+    anchor = "y34", 
+    domain = c(0.6363636363636364, 0.7272727272727273), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  xaxis35 = list(
+    anchor = "y35", 
+    domain = c(0.7272727272727273, 1.0), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis10 = list(
+    anchor = "x10", 
+    domain = c(0.7142857142857142, 0.857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis11 = list(
+    range = c(0, 1), 
+    anchor = "x11", 
+    domain = c(0.5714285714285714, 0.7142857142857142), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis12 = list(
+    anchor = "x12", 
+    domain = c(0.5714285714285714, 0.7142857142857142), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis13 = list(
+    anchor = "x13", 
+    domain = c(0.5714285714285714, 0.7142857142857142), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis14 = list(
+    range = c(0, 1), 
+    anchor = "x14", 
+    domain = c(0.5714285714285714, 0.7142857142857142), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis15 = list(
+    anchor = "x15", 
+    domain = c(0.5714285714285714, 0.7142857142857142), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis16 = list(
+    range = c(0, 1), 
+    anchor = "x16", 
+    domain = c(0.42857142857142855, 0.5714285714285714), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis17 = list(
+    anchor = "x17", 
+    domain = c(0.42857142857142855, 0.5714285714285714), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis18 = list(
+    anchor = "x18", 
+    domain = c(0.42857142857142855, 0.5714285714285714), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis19 = list(
+    range = c(0, 1), 
+    anchor = "x19", 
+    domain = c(0.42857142857142855, 0.5714285714285714), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis20 = list(
+    anchor = "x20", 
+    domain = c(0.42857142857142855, 0.5714285714285714), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis21 = list(
+    range = c(0, 1), 
+    anchor = "x21", 
+    domain = c(0.2857142857142857, 0.42857142857142855), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis22 = list(
+    anchor = "x22", 
+    domain = c(0.2857142857142857, 0.42857142857142855), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis23 = list(
+    anchor = "x23", 
+    domain = c(0.2857142857142857, 0.42857142857142855), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis24 = list(
+    range = c(0, 1), 
+    anchor = "x24", 
+    domain = c(0.2857142857142857, 0.42857142857142855), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis25 = list(
+    anchor = "x25", 
+    domain = c(0.2857142857142857, 0.42857142857142855), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis26 = list(
+    range = c(0, 1), 
+    anchor = "x26", 
+    domain = c(0.14285714285714285, 0.2857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis27 = list(
+    anchor = "x27", 
+    domain = c(0.14285714285714285, 0.2857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis28 = list(
+    anchor = "x28", 
+    domain = c(0.14285714285714285, 0.2857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis29 = list(
+    range = c(0, 1), 
+    anchor = "x29", 
+    domain = c(0.14285714285714285, 0.2857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis30 = list(
+    anchor = "x30", 
+    domain = c(0.14285714285714285, 0.2857142857142857), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis31 = list(
+    range = c(0, 1), 
+    anchor = "x31", 
+    domain = c(0.0, 0.14285714285714285), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis32 = list(
+    anchor = "x32", 
+    domain = c(0.0, 0.14285714285714285), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis33 = list(
+    anchor = "x33", 
+    domain = c(0.0, 0.14285714285714285), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis34 = list(
+    range = c(0, 1), 
+    anchor = "x34", 
+    domain = c(0.0, 0.14285714285714285), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  yaxis35 = list(
+    anchor = "x35", 
+    domain = c(0.0, 0.14285714285714285), 
+    showgrid = FALSE, 
+    zeroline = FALSE, 
+    showticklabels = FALSE
+  ), 
+  showlegend = FALSE, 
+  annotations = list(
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "adam", 
+      xref = "x1", 
+      yref = "y1", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "6.4", 
+      xref = "x4", 
+      yref = "y4", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "andrew", 
+      xref = "x6", 
+      yref = "y6", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "5.7", 
+      xref = "x9", 
+      yref = "y9", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "michael", 
+      xref = "x11", 
+      yref = "y11", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "4.8", 
+      xref = "x14", 
+      yref = "y14", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "chris", 
+      xref = "x16", 
+      yref = "y16", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "4.3", 
+      xref = "x19", 
+      yref = "y19", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "jack", 
+      xref = "x21", 
+      yref = "y21", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "7.0", 
+      xref = "x24", 
+      yref = "y24", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "robin", 
+      xref = "x26", 
+      yref = "y26", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "7.7", 
+      xref = "x29", 
+      yref = "y29", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "alex", 
+      xref = "x31", 
+      yref = "y31", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 1, 
+      y = 0.5, 
+      font = list(size = 15), 
+      text = "6.7", 
+      xref = "x34", 
+      yref = "y34", 
+      xanchor = "right", 
+      showarrow = FALSE
+    ), 
+    list(
+      x = 0.045454545454545456, 
+      y = 1.03, 
+      font = list(
+        size = 13, 
+        color = "#0f0f0f"
+      ), 
+      text = "name", 
+      xref = "paper", 
+      yref = "paper", 
+      xanchor = "center", 
+      yanchor = "middle", 
+      showarrow = FALSE, 
+      textangle = 0
+    ), 
+    list(
+      x = 0.22727272727272727, 
+      y = 1.03, 
+      font = list(
+        size = 13, 
+        color = "#0f0f0f"
+      ), 
+      text = "bullet", 
+      xref = "paper", 
+      yref = "paper", 
+      xanchor = "center", 
+      yanchor = "middle", 
+      showarrow = FALSE, 
+      textangle = 0
+    ), 
+    list(
+      x = 0.5, 
+      y = 1.03, 
+      font = list(
+        size = 13, 
+        color = "#0f0f0f"
+      ), 
+      text = "bar", 
+      xref = "paper", 
+      yref = "paper", 
+      xanchor = "center", 
+      yanchor = "middle", 
+      showarrow = FALSE, 
+      textangle = 0
+    ), 
+    list(
+      x = 0.6818181818181818, 
+      y = 1.03, 
+      font = list(
+        size = 13, 
+        color = "#0f0f0f"
+      ), 
+      text = "avg", 
+      xref = "paper", 
+      yref = "paper", 
+      xanchor = "center", 
+      yanchor = "middle", 
+      showarrow = FALSE, 
+      textangle = 0
+    ), 
+    list(
+      x = 0.8636363636363636, 
+      y = 1.03, 
+      font = list(
+        size = 13, 
+        color = "#0f0f0f"
+      ), 
+      text = "line", 
+      xref = "paper", 
+      yref = "paper", 
+      xanchor = "center", 
+      yanchor = "middle", 
+      showarrow = FALSE, 
+      textangle = 0
+    )
+  )
+)
+
+p <- plot_ly()
+p <- add_trace(p, type=trace1$type, x=trace1$x, y=trace1$y, xaxis=trace1$xaxis, yaxis=trace1$yaxis, visible=trace1$visible)
+p <- add_trace(p, type=trace2$type, x=trace2$x, y=trace2$y, xaxis=trace2$xaxis, yaxis=trace2$yaxis, marker=trace2$marker, orientation=trace2$orientation)
+p <- add_trace(p, type=trace3$type, x=trace3$x, y=trace3$y, width=trace3$width, xaxis=trace3$xaxis, yaxis=trace3$yaxis, marker=trace3$marker, offset=trace3$offset, orientation=trace3$orientation)
+p <- add_trace(p, mode=trace4$mode, type=trace4$type, x=trace4$x, y=trace4$y, xaxis=trace4$xaxis, yaxis=trace4$yaxis, marker=trace4$marker)
+p <- add_trace(p, type=trace5$type, x=trace5$x, y=trace5$y, xaxis=trace5$xaxis, yaxis=trace5$yaxis, marker=trace5$marker)
+p <- add_trace(p, type=trace6$type, x=trace6$x, y=trace6$y, xaxis=trace6$xaxis, yaxis=trace6$yaxis, visible=trace6$visible)
+p <- add_trace(p, mode=trace7$mode, type=trace7$type, x=trace7$x, y=trace7$y, xaxis=trace7$xaxis, yaxis=trace7$yaxis, marker=trace7$marker)
+p <- add_trace(p, mode=trace8$mode, type=trace8$type, x=trace8$x, y=trace8$y, xaxis=trace8$xaxis, yaxis=trace8$yaxis, marker=trace8$marker)
+p <- add_trace(p, type=trace9$type, x=trace9$x, y=trace9$y, xaxis=trace9$xaxis, yaxis=trace9$yaxis, visible=trace9$visible)
+p <- add_trace(p, type=trace10$type, x=trace10$x, y=trace10$y, xaxis=trace10$xaxis, yaxis=trace10$yaxis, marker=trace10$marker, orientation=trace10$orientation)
+p <- add_trace(p, type=trace11$type, x=trace11$x, y=trace11$y, width=trace11$width, xaxis=trace11$xaxis, yaxis=trace11$yaxis, marker=trace11$marker, offset=trace11$offset, orientation=trace11$orientation)
+p <- add_trace(p, mode=trace12$mode, type=trace12$type, x=trace12$x, y=trace12$y, xaxis=trace12$xaxis, yaxis=trace12$yaxis, marker=trace12$marker)
+p <- add_trace(p, type=trace13$type, x=trace13$x, y=trace13$y, xaxis=trace13$xaxis, yaxis=trace13$yaxis, marker=trace13$marker)
+p <- add_trace(p, type=trace14$type, x=trace14$x, y=trace14$y, xaxis=trace14$xaxis, yaxis=trace14$yaxis, visible=trace14$visible)
+p <- add_trace(p, mode=trace15$mode, type=trace15$type, x=trace15$x, y=trace15$y, xaxis=trace15$xaxis, yaxis=trace15$yaxis, marker=trace15$marker)
+p <- add_trace(p, mode=trace16$mode, type=trace16$type, x=trace16$x, y=trace16$y, xaxis=trace16$xaxis, yaxis=trace16$yaxis, marker=trace16$marker)
+p <- add_trace(p, type=trace17$type, x=trace17$x, y=trace17$y, xaxis=trace17$xaxis, yaxis=trace17$yaxis, visible=trace17$visible)
+p <- add_trace(p, type=trace18$type, x=trace18$x, y=trace18$y, xaxis=trace18$xaxis, yaxis=trace18$yaxis, marker=trace18$marker, orientation=trace18$orientation)
+p <- add_trace(p, type=trace19$type, x=trace19$x, y=trace19$y, width=trace19$width, xaxis=trace19$xaxis, yaxis=trace19$yaxis, marker=trace19$marker, offset=trace19$offset, orientation=trace19$orientation)
+p <- add_trace(p, mode=trace20$mode, type=trace20$type, x=trace20$x, y=trace20$y, xaxis=trace20$xaxis, yaxis=trace20$yaxis, marker=trace20$marker)
+p <- add_trace(p, type=trace21$type, x=trace21$x, y=trace21$y, xaxis=trace21$xaxis, yaxis=trace21$yaxis, marker=trace21$marker)
+p <- add_trace(p, type=trace22$type, x=trace22$x, y=trace22$y, xaxis=trace22$xaxis, yaxis=trace22$yaxis, visible=trace22$visible)
+p <- add_trace(p, mode=trace23$mode, type=trace23$type, x=trace23$x, y=trace23$y, xaxis=trace23$xaxis, yaxis=trace23$yaxis, marker=trace23$marker)
+p <- add_trace(p, mode=trace24$mode, type=trace24$type, x=trace24$x, y=trace24$y, xaxis=trace24$xaxis, yaxis=trace24$yaxis, marker=trace24$marker)
+p <- add_trace(p, type=trace25$type, x=trace25$x, y=trace25$y, xaxis=trace25$xaxis, yaxis=trace25$yaxis, visible=trace25$visible)
+p <- add_trace(p, type=trace26$type, x=trace26$x, y=trace26$y, xaxis=trace26$xaxis, yaxis=trace26$yaxis, marker=trace26$marker, orientation=trace26$orientation)
+p <- add_trace(p, type=trace27$type, x=trace27$x, y=trace27$y, width=trace27$width, xaxis=trace27$xaxis, yaxis=trace27$yaxis, marker=trace27$marker, offset=trace27$offset, orientation=trace27$orientation)
+p <- add_trace(p, mode=trace28$mode, type=trace28$type, x=trace28$x, y=trace28$y, xaxis=trace28$xaxis, yaxis=trace28$yaxis, marker=trace28$marker)
+p <- add_trace(p, type=trace29$type, x=trace29$x, y=trace29$y, xaxis=trace29$xaxis, yaxis=trace29$yaxis, marker=trace29$marker)
+p <- add_trace(p, type=trace30$type, x=trace30$x, y=trace30$y, xaxis=trace30$xaxis, yaxis=trace30$yaxis, visible=trace30$visible)
+p <- add_trace(p, mode=trace31$mode, type=trace31$type, x=trace31$x, y=trace31$y, xaxis=trace31$xaxis, yaxis=trace31$yaxis, marker=trace31$marker)
+p <- add_trace(p, mode=trace32$mode, type=trace32$type, x=trace32$x, y=trace32$y, xaxis=trace32$xaxis, yaxis=trace32$yaxis, marker=trace32$marker)
+p <- add_trace(p, type=trace33$type, x=trace33$x, y=trace33$y, xaxis=trace33$xaxis, yaxis=trace33$yaxis, visible=trace33$visible)
+p <- add_trace(p, type=trace34$type, x=trace34$x, y=trace34$y, xaxis=trace34$xaxis, yaxis=trace34$yaxis, marker=trace34$marker, orientation=trace34$orientation)
+p <- add_trace(p, type=trace35$type, x=trace35$x, y=trace35$y, width=trace35$width, xaxis=trace35$xaxis, yaxis=trace35$yaxis, marker=trace35$marker, offset=trace35$offset, orientation=trace35$orientation)
+p <- add_trace(p, mode=trace36$mode, type=trace36$type, x=trace36$x, y=trace36$y, xaxis=trace36$xaxis, yaxis=trace36$yaxis, marker=trace36$marker)
+p <- add_trace(p, type=trace37$type, x=trace37$x, y=trace37$y, xaxis=trace37$xaxis, yaxis=trace37$yaxis, marker=trace37$marker)
+p <- add_trace(p, type=trace38$type, x=trace38$x, y=trace38$y, xaxis=trace38$xaxis, yaxis=trace38$yaxis, visible=trace38$visible)
+p <- add_trace(p, mode=trace39$mode, type=trace39$type, x=trace39$x, y=trace39$y, xaxis=trace39$xaxis, yaxis=trace39$yaxis, marker=trace39$marker)
+p <- add_trace(p, mode=trace40$mode, type=trace40$type, x=trace40$x, y=trace40$y, xaxis=trace40$xaxis, yaxis=trace40$yaxis, marker=trace40$marker)
+p <- add_trace(p, type=trace41$type, x=trace41$x, y=trace41$y, xaxis=trace41$xaxis, yaxis=trace41$yaxis, visible=trace41$visible)
+p <- add_trace(p, type=trace42$type, x=trace42$x, y=trace42$y, xaxis=trace42$xaxis, yaxis=trace42$yaxis, marker=trace42$marker, orientation=trace42$orientation)
+p <- add_trace(p, type=trace43$type, x=trace43$x, y=trace43$y, width=trace43$width, xaxis=trace43$xaxis, yaxis=trace43$yaxis, marker=trace43$marker, offset=trace43$offset, orientation=trace43$orientation)
+p <- add_trace(p, mode=trace44$mode, type=trace44$type, x=trace44$x, y=trace44$y, xaxis=trace44$xaxis, yaxis=trace44$yaxis, marker=trace44$marker)
+p <- add_trace(p, type=trace45$type, x=trace45$x, y=trace45$y, xaxis=trace45$xaxis, yaxis=trace45$yaxis, marker=trace45$marker)
+p <- add_trace(p, type=trace46$type, x=trace46$x, y=trace46$y, xaxis=trace46$xaxis, yaxis=trace46$yaxis, visible=trace46$visible)
+p <- add_trace(p, mode=trace47$mode, type=trace47$type, x=trace47$x, y=trace47$y, xaxis=trace47$xaxis, yaxis=trace47$yaxis, marker=trace47$marker)
+p <- add_trace(p, mode=trace48$mode, type=trace48$type, x=trace48$x, y=trace48$y, xaxis=trace48$xaxis, yaxis=trace48$yaxis, marker=trace48$marker)
+p <- add_trace(p, type=trace49$type, x=trace49$x, y=trace49$y, xaxis=trace49$xaxis, yaxis=trace49$yaxis, visible=trace49$visible)
+p <- add_trace(p, type=trace50$type, x=trace50$x, y=trace50$y, xaxis=trace50$xaxis, yaxis=trace50$yaxis, marker=trace50$marker, orientation=trace50$orientation)
+p <- add_trace(p, type=trace51$type, x=trace51$x, y=trace51$y, width=trace51$width, xaxis=trace51$xaxis, yaxis=trace51$yaxis, marker=trace51$marker, offset=trace51$offset, orientation=trace51$orientation)
+p <- add_trace(p, mode=trace52$mode, type=trace52$type, x=trace52$x, y=trace52$y, xaxis=trace52$xaxis, yaxis=trace52$yaxis, marker=trace52$marker)
+p <- add_trace(p, type=trace53$type, x=trace53$x, y=trace53$y, xaxis=trace53$xaxis, yaxis=trace53$yaxis, marker=trace53$marker)
+p <- add_trace(p, type=trace54$type, x=trace54$x, y=trace54$y, xaxis=trace54$xaxis, yaxis=trace54$yaxis, visible=trace54$visible)
+p <- add_trace(p, mode=trace55$mode, type=trace55$type, x=trace55$x, y=trace55$y, xaxis=trace55$xaxis, yaxis=trace55$yaxis, marker=trace55$marker)
+p <- add_trace(p, mode=trace56$mode, type=trace56$type, x=trace56$x, y=trace56$y, xaxis=trace56$xaxis, yaxis=trace56$yaxis, marker=trace56$marker)
+p <- layout(p, title=layout$title, xaxis1=layout$xaxis1, xaxis2=layout$xaxis2, xaxis3=layout$xaxis3, xaxis4=layout$xaxis4, xaxis5=layout$xaxis5, xaxis6=layout$xaxis6, xaxis7=layout$xaxis7, xaxis8=layout$xaxis8, xaxis9=layout$xaxis9, yaxis1=layout$yaxis1, yaxis2=layout$yaxis2, yaxis3=layout$yaxis3, yaxis4=layout$yaxis4, yaxis5=layout$yaxis5, yaxis6=layout$yaxis6, yaxis7=layout$yaxis7, yaxis8=layout$yaxis8, yaxis9=layout$yaxis9, xaxis10=layout$xaxis10, xaxis11=layout$xaxis11, xaxis12=layout$xaxis12, xaxis13=layout$xaxis13, xaxis14=layout$xaxis14, xaxis15=layout$xaxis15, xaxis16=layout$xaxis16, xaxis17=layout$xaxis17, xaxis18=layout$xaxis18, xaxis19=layout$xaxis19, xaxis20=layout$xaxis20, xaxis21=layout$xaxis21, xaxis22=layout$xaxis22, xaxis23=layout$xaxis23, xaxis24=layout$xaxis24, xaxis25=layout$xaxis25, xaxis26=layout$xaxis26, xaxis27=layout$xaxis27, xaxis28=layout$xaxis28, xaxis29=layout$xaxis29, xaxis30=layout$xaxis30, xaxis31=layout$xaxis31, xaxis32=layout$xaxis32, xaxis33=layout$xaxis33, xaxis34=layout$xaxis34, xaxis35=layout$xaxis35, yaxis10=layout$yaxis10, yaxis11=layout$yaxis11, yaxis12=layout$yaxis12, yaxis13=layout$yaxis13, yaxis14=layout$yaxis14, yaxis15=layout$yaxis15, yaxis16=layout$yaxis16, yaxis17=layout$yaxis17, yaxis18=layout$yaxis18, yaxis19=layout$yaxis19, yaxis20=layout$yaxis20, yaxis21=layout$yaxis21, yaxis22=layout$yaxis22, yaxis23=layout$yaxis23, yaxis24=layout$yaxis24, yaxis25=layout$yaxis25, yaxis26=layout$yaxis26, yaxis27=layout$yaxis27, yaxis28=layout$yaxis28, yaxis29=layout$yaxis29, yaxis30=layout$yaxis30, yaxis31=layout$yaxis31, yaxis32=layout$yaxis32, yaxis33=layout$yaxis33, yaxis34=layout$yaxis34, yaxis35=layout$yaxis35, showlegend=layout$showlegend, annotations=layout$annotations)
+
+p
+```

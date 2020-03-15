@@ -1,0 +1,96 @@
+---
+title: "Test Filters and Highlights"
+author: "RQ"
+date: "14/02/2020"
+output: html_document
+---
+
+https://plotly-r.com/client-side-linking.html
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(tidyverse)
+library(plotly)
+```
+
+## R Markdown
+
+```{r cars}
+# load the `txhousing` dataset
+data(txhousing, package = "ggplot2")
+
+# declare `city` as the SQL 'query by' column
+tx <- highlight_key(txhousing, ~city)
+
+# initiate a plotly object
+base <- plot_ly(tx, color = I("black")) %>% 
+  group_by(city)
+
+# create a time series of median house price
+base2 <- base %>%
+ # group_by(city) %>%
+  add_lines(x = ~date, y = ~median)
+base2
+```
+
+```{r}
+#tx %>% group_by(city) %>%
+  
+highlight(base2,
+  on = "plotly_click", 
+  selectize = TRUE, 
+  dynamic = TRUE, 
+  persistent = TRUE
+)
+```
+
+
+## highlight vs filter
+
+```{r}
+library(crosstalk)
+
+# generally speaking, use a "unique" key for filter, 
+# especially when you have multiple filters!
+tx <- highlight_key(txhousing)
+gg <- ggplot(tx) + geom_line(aes(date, median, group = city))
+filter <- bscols(
+  filter_select("id", "Select a city", tx, ~city),
+  ggplotly(gg, dynamicTicks = TRUE),
+  widths = c(12, 12)
+)
+
+tx2 <- highlight_key(txhousing, ~city, "Select a city")
+gg <- ggplot(tx2) + geom_line(aes(date, median, group = city))
+select <- highlight(
+  ggplotly(gg, tooltip = "city"), 
+  selectize = TRUE, persistent = TRUE
+)
+
+bscols(filter, select)
+```
+
+## multiple Filters
+
+```{r}
+tx <- highlight_key(txhousing)
+widgets <- bscols(
+  widths = c(12, 12, 12),
+  filter_select("city", "Cities", tx, ~city),
+  filter_slider("sales", "Sales", tx, ~sales),
+  filter_checkbox("year", "Years", tx, ~year, inline = TRUE)
+)
+bscols(
+  widths = c(4, 8), widgets, 
+  plot_ly(tx, x = ~date, y = ~median, showlegend = FALSE) %>% 
+    add_lines(color = ~city, colors = "black")
+)
+```
+
+
+
+
+
+
+

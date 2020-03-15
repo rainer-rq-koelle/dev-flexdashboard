@@ -1,0 +1,186 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "14/03/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(readxl)
+library(dplyr)
+library(plotly)
+```
+```{r}
+pre_dep_dly <- readxl::read_excel("./data-test/STAT_AIRPORT_DATA.xlsx", sheet = "DATA") %>%
+  select(APT_ICAO, APT_IATA, YEAR, MONTH_NUM, TOTAL_DLY_89, TOTAL_DLY_999, TOTAL_DLY_ZZZ
+         ,TOTAL_DLY_OTHER, TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY)
+
+egll_pddly <- pre_dep_dly %>% filter(APT_ICAO == "EGLL", YEAR >= 2015)
+```
+
+```{r}
+# plotly xaxis ticks
+tick_yr <- list(dtick = 1
+    ,ticktext = list( "Jan", "Feb", "Mar", "Apr", "May", "Jun"
+                     ,"Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    ,tickvals = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    ,tickmode = "array"
+    ,range = c(0.5,12.5)    # force xaxis to show outer margin of bars
+    )
+```
+
+
+
+```{r}
+# annual bar chart
+pddly_pa <- egll_pddly %>% 
+  select(YEAR, TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
+         , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
+  group_by(YEAR) %>%
+  summarise( TOT_DLY_89        = sum(TOTAL_DLY_89,   na.rm = TRUE)
+            ,TOT_DLY_999       = sum(TOTAL_DLY_999,  na.rm = TRUE)
+            ,TOT_DLY_ZZZ       = sum(TOTAL_DLY_ZZZ,  na.rm = TRUE)
+            ,TOT_DLY_OTHER     = sum(TOTAL_DLY_OTHER,na.rm = TRUE)
+            ,TOT_DLY_UNREPORTED= sum(TOTAL_UN_RPTED_DLY, na.rm = TRUE)
+            ,TOT_DLY_OVREPORTED= sum(TOTAL_OV_RPTED_DLY, na.rm = TRUE)
+  ) %>% ungroup %>%
+  ## grouping for v1 ------------------------------
+## discussion Sara & Rainer: do not show overreported
+  mutate(
+    TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_UNREPORTED 
+  ) %>%
+  select(YEAR, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID)  %>%
+  tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
+
+## order DLY_CAT
+pddly_pa$DLY_CAT <- factor(pddly_pa$DLY_CAT
+                           ,levels=c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
+                           ,labels=c("unidentified", "other", "code 89"))
+
+g1 <- pddly_pa %>%
+  plot_ly(x=~YEAR, y=~DLY_DUR, type="bar", color=~DLY_CAT, legendgroup=~DLY_CAT, showlegend=FALSE) %>%
+  layout(barmode = "stack")
+
+pddly_pm <- egll_pddly %>%
+  select(YEAR, MONTH_NUM, TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
+         , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
+  group_by(YEAR, MONTH_NUM) %>%
+  summarise( TOT_DLY_89        = sum(TOTAL_DLY_89,   na.rm = TRUE)
+            ,TOT_DLY_999       = sum(TOTAL_DLY_999,  na.rm = TRUE)
+            ,TOT_DLY_ZZZ       = sum(TOTAL_DLY_ZZZ,  na.rm = TRUE)
+            ,TOT_DLY_OTHER     = sum(TOTAL_DLY_OTHER,na.rm = TRUE)
+            ,TOT_DLY_UNREPORTED= sum(TOTAL_UN_RPTED_DLY, na.rm = TRUE)
+            ,TOT_DLY_OVREPORTED= sum(TOTAL_OV_RPTED_DLY, na.rm = TRUE)
+  ) %>% ungroup %>%
+  ## grouping for v1 ------------------------
+  mutate(
+    TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_OTHER + TOT_DLY_UNREPORTED
+  ) %>%
+  select(YEAR, MONTH_NUM, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID) %>%
+  tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
+
+pddly_pm$DLY_CAT <- factor(pddly_pm$DLY_CAT, levels=c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
+                           ,labels = c("unidentified", "other", "code 89"))
+
+g2 <- pddly_pm %>% filter(YEAR == max(YEAR)) %>%
+  plot_ly(    x =~MONTH_NUM, y=~DLY_DUR
+          ,type ="bar"
+          ,color=~DLY_CAT
+          ,legendgroup=~DLY_CAT
+          ) %>%
+  layout(barmode="stack"
+         , xaxis=tick_yr)
+```
+
+```{r}
+## COMBINED PLOT ===================================================
+
+subplot(g1, g2, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
+  layout(yaxis = list(title = "reported delay [min/departure]") #, titlefont = list(size = 8))
+                 ,xaxis2 = tick_yr) %>% 
+  config(displayModeBar = FALSE) 
+```
+
+add multi-year transform to yearly trend
+```{r}
+#pddly_pmd <- highlight_key(pddly_pm, key=~YEAR)
+#crosstalk::filter_select("YEAR", "Select a year", pddly_pmd, ~YEAR)
+
+
+# build up transform filters
+filter_years <- pddly_pm %>% pull(YEAR) %>% unique()
+button_list  <- lapply(1:length(filter_years), function(x){
+  list(method = "restyle",
+       args = list("transforms[0].value", filter_years[x]),
+       label = filter_years[x])
+})
+
+type_list <-  list(
+ # type = 'dropdown',
+  type = 'buttons',
+ active = length(filter_years)-1,
+ direction = 'right',
+  xanchor = 'center',
+  yanchor = "top",
+  pad = list('r'= 0, 't'= 10, 'b' = 10),
+  x = 0.5,
+  y = 1.27,
+  buttons = button_list
+)
+
+
+g3 <- plot_ly(pddly_pm, x =~MONTH_NUM, y=~DLY_DUR
+        #https://github.com/ropensci/plotly/issues/1502
+        # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+        , customdata=~YEAR,
+        type = "bar", color=~DLY_CAT
+           ,legendgroup=~DLY_CAT
+          , transforms = list(
+          list(
+            type = 'filter',
+            target = "customdata",
+            operation = '=',
+            value = "2019"
+          ))) %>%
+  layout(barmode="stack"
+         ,xaxis = tick_yr
+         ,updatemenus = list( type_list )
+  )
+
+g3
+```
+
+```{r}
+subplot(g1, g3, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
+  layout(yaxis = list(title = "reported delay [min/departure]") #, titlefont = list(size = 8))
+                 ,xaxis2 = tick_yr) %>% 
+  config(displayModeBar = FALSE) 
+```
+
+
+
+
+```{r}
+library(crosstalk)
+data_shared <- crosstalk::SharedData$new(pddly_pm, key = ~YEAR)
+
+p <- data_shared %>% 
+  plot_ly(x = ~MONTH_NUM, y = ~DLY_DUR, color = ~DLY_CAT) %>% 
+  group_by(YEAR) %>%
+  add_bars() %>%
+  layout(barmode = "stack")
+
+bscols(widths = c(3, NA), 
+        filter_select( id = "myid",
+       #filter_checkbox(id = "myid", 
+                     label = "year", 
+                     sharedData = data_shared, 
+                     group = ~YEAR
+       # filter_select
+       , multiple = FALSE
+                     ), 
+       p)
+```
+

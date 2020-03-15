@@ -1,0 +1,93 @@
+---
+title: "play with plotly"
+author: "RQ"
+date: "25/02/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(crosstalk)
+```
+
+```{r}
+ds <- readxl::read_excel("./data-test/ASMA_Additional_Time.xlsx", sheet = "DATA")
+```
+
+
+```{r}
+ds <- ds %>% mutate(YEARMONTH = paste(YEAR, "-",MONTH_NUM,"-01", sep=""), YEARMONTH = lubridate::ymd(YEARMONTH ))
+dsh <- highlight_key(ds, key=~APT_ICAO)  # highlight key initialises crosstalk:SharedData object
+
+bscols(widths = c(12, 12)
+     ,filter_select(id="filter1",label="filter airport", sharedData=dsh, group=~APT_ICAO)
+     ,filter_checkbox(id="year", label="select years", sharedData=dsh, group=~YEAR, inline = TRUE)
+       ,dsh %>% 
+         plot_ly(x=~APT_ICAO, y=~(TIME_ASMA_ADD_2/FLT_ASMA_UNIMP_2), color=~YEAR, group=~APT_ICAO ) %>%
+         add_bars() %>%
+       layout(dynamicTicks = TRUE)
+)
+```
+
+```{r}
+tmp <- ds %>% group_by(YEAR, APT_ICAO) %>% summarise(FLT_N = sum(FLT_ASMA_UNIMP_2, na.rm = TRUE), ASMA = sum(TIME_ASMA_UNIMP_2, na.rm = TRUE)) %>% ungroup() %>% mutate(AVG_ADD_ASMA = ASMA / FLT_N)
+
+bp <- tmp %>% 
+plot_ly(x=~APT_ICAO, y=~AVG_ADD_ASMA, color=~factor(YEAR), group=~APT_ICAO ) %>%
+  add_bars() %>%
+  layout(barmode = "stack")
+bp
+```
+
+```{r}
+tmpsh <- highlight_key(tmp, key=~APT_ICAO)
+
+ap_filter <- filter_select(id="airport",label="filter airport", sharedData=tmpsh, group=~APT_ICAO)
+
+bscols(widths = c(3,NA)
+       , ap_filter
+       , tmpsh %>% 
+         plot_ly(x=~factor(APT_ICAO), y=~AVG_ADD_ASMA, color=~factor(YEAR)) %>%
+         group_by(APT_ICAO ) %>%
+         add_bars() %>%
+         layout(barmode = "stack", xaxis = list(type = "category"))
+)
+
+```
+
+```{r}
+# create a dummy table with data for year, airport, and oberved value
+yr <- c(2017, 2018, 2019)
+ap <- c("APT_1", "APT_2", "APT_3", "APT_N")
+
+df <- expand.grid(YEAR = yr, APT = ap)
+df$VAL <- c(10, 11, 12, 14, 9, 8, 7, 6, 2, 10, 12, 13)
+df$APT <- as.character(df$APT)
+
+library(plotly)
+# shared data
+df_sh <- highlight_key(df, key=~APT)
+
+# filters
+ap_filter <- filter_select(id="airport",label="filter airport", sharedData=df_sh, group=~APT, allLevels = FALSE)
+
+# stacked bar chart
+bc <- df_sh %>% plot_ly(x=~APT, y=~VAL, color=~factor(YEAR)) %>%
+  group_by(APT) %>%
+  add_bars() %>%
+#  layout(barmode = "stack", xaxis=list(type="category"))
+  layout(xaxis=list(tickmode='array', tickvals=groups))
+
+bcgg <- ggplot(df_sh, mapping = aes(x=APT, y=VAL, fill=factor(YEAR))) + geom_col()
+
+# arrange plot
+bscols(widths = c(3, 9)
+       , ap_filter
+       , ggplotly(bcgg, dynamicTicks = TRUE)
+       )
+```
+

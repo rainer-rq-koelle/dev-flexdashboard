@@ -1,0 +1,489 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "28/02/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(plotly)
+library(dplyr)
+
+nPatients <- 50
+nVisits <- 10
+
+d <- data.frame(
+  perc = rnorm(n = nPatients * nVisits, mean = 50, sd = 10),
+  patient = rep(seq(nPatients), each = nVisits),
+  visit = rep(seq(nVisits), nPatients)
+)
+```
+
+
+
+```{r cars}
+# Define a 'primary key' variable (patient) for interactive queries
+hd <- highlight_key(d, ~patient)
+
+# Create a "repeated measures" plot
+p <- plot_ly(hd, x = ~visit, y = ~perc, color = I("black"),
+             text = ~paste("Patient:", patient)) %>%
+  group_by(patient) %>%
+  add_trace(mode = "markers+lines")
+
+p
+```
+
+```{r}
+# Since the data provided (hd) has a primary key definition of 'patient',
+# **plotly** knows to highlight any lines/markers matching the selected patient(s).
+# Go ahead and *click* on any marker and watch the entire 'patient' be highlighted
+layout(p, title = "Click on a marker to highlight that patient")
+```
+
+```{r}
+# By default, the "on event" is "plotly_click", but we can change that to 
+# "plotly_selected", which corresponds to click and drag mouse events.
+p %>%
+  layout(title = "Click and drag to select patient") %>%
+  highlight("plotly_selected")
+```
+
+```{r}
+# Plotly provides two types of drag modes that will trigger a "plotly_selected"
+# event: "lasso" and "select". You can change the dragmode interactively via 
+# the modebar and/or set the default dragmode via `layout()`.
+p %>%
+  layout(title = "Click and drag to select patient", dragmode = "lasso") %>%
+  highlight("plotly_selected")
+```
+```{r}
+# The first argument of `highlight()`, `on`, sets the interaction type used 
+# trigger a "highlight selection". The second argument, `off`, sets the 
+# interaction required to clear the selection set and return to the original view. 
+# IF you don't provide an `off` event, a sensible one will be choosen based
+# on the value of `on`.
+p %>%
+  highlight(on = "plotly_hover", off = "plotly_doubleclick") %>% 
+  layout(dragmode = "zoom")
+```
+
+```{r}
+# By default, all selections are transient, meaning prior selections are 
+# removed from the selection set before new selections are added. To prevent
+# prior selections from being removed, hold down the shift key while triggering
+# the event
+p %>%
+  layout(title = "Shift the key to accumulate selections") %>%
+  highlight("plotly_hover")
+```
+
+```{r}
+# Sometimes its useful to compare two or more different selection sets. 
+# For example, how do patients with a high response on visit 1 compare to those 
+# with a low response? To make this sort of comparison, we can alter the color
+# in multiple persistent selections. By setting the dynamic argument to `TRUE` 
+# a colourpicker will appear just above the plotly visualization. 
+# At any given time, the value of this widget controls the color of new selection(s).
+p %>% highlight(dynamic = TRUE)
+```
+
+```{r}
+# By default, the colourpicker widget uses colors from the "Set1" 
+# colour brewer palette (@RColorBrewer), but any set of valid R colors can 
+# be supplied to the color argument.
+colors <- RColorBrewer::brewer.pal(4, "Dark2")
+highlight(p, color = colors, dynamic = TRUE)
+```
+
+
+```{r}
+d <- highlight_key(mtcars)
+s <- subplot(
+  qplot(data = d, x = mpg, y = wt),
+  qplot(data = d, x = mpg, y = vs)
+)
+
+highlight(s, "plotly_selected")
+```
+
+```{r}
+# see https://vimeo.com/202647310
+d <- highlight_key(txhousing, ~city, "Select a city")
+p <- ggplot(d, aes(date, median, group = city)) + geom_line()
+ggplotly(p, tooltip = "city") %>%
+  layout(title = "Click on a line to highlight a year") %>%
+  highlight(dynamic = TRUE, selectize = TRUE)
+```
+
+
+```{r}
+# crosstalk keys are automatically added to the group aesthetic...
+# if you want to avoid adding the key to group for a layer,
+# use the original data
+p <- ggplot(d, aes(month, median)) +
+  geom_line(aes(group = city)) + 
+  geom_smooth(data = txhousing, method = "gam") + 
+  facet_wrap(~ year)
+ggplotly(p) %>%
+  layout(title = "Click on a line to highlight a year")
+```
+
+
+```{r}
+# perhaps a more useful example
+sd <- highlight_key(txhousing, ~year)
+p <- ggplot(sd, aes(month, median)) +
+  geom_line(aes(group = year)) + 
+  geom_smooth(data = txhousing, method = "gam") + 
+  facet_wrap(~ city)
+ggplotly(p, height = 800, width = 1600) %>%
+  layout(title = "Click on a line to highlight a year")
+```
+
+```{r}
+sd <- highlight_key(txhousing, ~city, "Select a city")
+
+base <- plot_ly(sd, color = I("black"), height = 400) %>%
+  group_by(city)
+
+p1 <- base %>%
+  summarise(miss = sum(is.na(median))) %>%
+  filter(miss > 0) %>%
+  add_markers(x = ~miss, y = ~forcats::fct_reorder(city, miss), hoverinfo = "x+y") %>%
+  layout(
+    barmode = "overlay",
+    xaxis = list(title = "Number of months missing"),
+    yaxis = list(title = "")
+  ) 
+
+p2 <- base %>%
+  add_lines(x = ~date, y = ~median, alpha = 0.3) %>%
+  layout(xaxis = list(title = ""))
+
+ subplot(p1, p2, titleX = TRUE, widths = c(0.3, 0.7)) %>% 
+  hide_legend() %>%
+  highlight(dynamic = TRUE, selectize = TRUE)
+```
+
+```{r}
+d <- highlight_key(mtcars)
+
+# default scatter plot of mtcars set disp vs mpg
+sp <- plot_ly(d, x = ~mpg, y = ~disp) %>%
+  add_markers(color = I("black"))
+
+# 'statistical trace types'
+hist <- plot_ly(d, x = ~factor(cyl)) %>% 
+  add_histogram(color = I("black"))
+box <- plot_ly(d, y = ~disp, color = I("black")) %>% 
+  add_boxplot(name = " ")
+violin <- plot_ly(d, y = ~disp, color = I("black")) %>%
+  add_trace(type = "violin", name = " ")
+
+subplot(sp, box, violin, shareY = TRUE, titleX = TRUE, titleY = TRUE) %>%
+  subplot(hist, widths = c(.75, .25), titleX = TRUE, titleY = TRUE) %>%
+  layout(
+    barmode = "overlay", 
+    title = "Click and drag scatterplot",
+    showlegend = FALSE
+  ) %>%
+  highlight("plotly_selected")
+```
+
+## more binned selections
+
+```{r}
+tx <- highlight_key(txhousing, ~city)
+
+p1  <- ggplot(tx, aes(date, median, group = city)) + geom_line() + xlab(NULL)
+gg1 <- ggplotly(p1, tooltip = c("city", "date", "median"))
+
+p2 <- plot_ly(tx, x = ~median, color = I("black")) %>% 
+  add_histogram(histnorm = "probability density")
+
+subplot(gg1, p2, titleX = TRUE, titleY = TRUE) %>% 
+  layout(barmode = "overlay") %>%
+  highlight(dynamic = TRUE, selected = attrs_selected(opacity = 0.3))
+```
+
+```{r}
+library(engsoccerdata)
+#library(dplyr)
+library(tidyr)
+# library(plotly)
+
+# shape data into desired format
+dat <- england %>% 
+  gather(location, team, home, visitor) %>% 
+  # focus on tier 1 teams that are still playing in 2015
+  filter(team %in% maketable_eng(england, 2015, 1)[["team"]]) %>%
+  mutate(
+    pts = ifelse(location == "home" & goaldif > 0, 3, 
+                 ifelse(location == "away" & goaldif < 0, 3, 1))
+  ) %>%
+  arrange(Date) %>%
+  group_by(Season, team) %>% 
+  mutate(gameno = row_number(), cumpts = cumsum(pts))
+
+sd <- highlight_key(dat, ~Season, "Select a season")
+
+p <- ggplot(sd, aes(x = gameno, y = cumpts)) + 
+  geom_line(aes(color = Season, group = Season), alpha = 0.5) + 
+  facet_wrap(~ team) + ggtitle("English Premier League Performance (1888-2015)") +
+  xlab("Game in Season") + ylab("Cumulative Points") 
+
+gg <- ggplotly(p, tooltip = "colour")  # throws error: Error: Column `Season` can't be modified because it's a grouping variable
+
+highlight(gg, opacityDim = 0.05, selectize = TRUE)
+```
+
+
+```{r}
+# shape data into desired format
+dat <- england %>% 
+  gather(location, team, home, visitor) %>% 
+  # focus on tier 1 teams that are still playing in 2015
+  filter(team %in% maketable_eng(england, 2015, 1)[["team"]]) %>%
+  mutate(
+    pts = ifelse(location == "home" & goaldif > 0, 3, 
+                 ifelse(location == "away" & goaldif < 0, 3, 1))
+  ) %>%
+  arrange(Date) %>%
+  group_by(Season, team) %>% 
+  mutate(gameno = row_number(), cumpts = cumsum(pts)) %>%
+  ungroup() %>%
+  group_by(gameno) %>%
+  mutate(meanP = mean(cumpts)) %>%
+  filter(Season > 2006)
+
+sd <- highlight_key(dat, ~team, "Select a team")
+
+# a 'wormchart' like fig 8 here http://www.gradaanwr.net/wp-content/uploads/2016/06/dataApr16.pdf
+p <- ggplot(sd, aes(x = gameno, y = cumpts - meanP)) + 
+  geom_line(aes(group = team), alpha = 0.5) + 
+  facet_wrap(~ Season, ncol = 3) + 
+  labs(
+    title = "English Premier League Performance",
+    x = "Game in season",
+    y = "Cumulative points (above/below) average"
+  ) 
+
+gg <- ggplotly(p, tooltip = "team")
+
+highlight(
+  gg, 
+  dynamic = TRUE, 
+  selectize = TRUE,
+  color = RColorBrewer::brewer.pal(12, "Paired")
+)
+```
+
+## filter lines
+
+```{r}
+library(crosstalk)
+library(ggplot2)
+library(gapminder)
+library(plotly)
+
+sd <- highlight_key(gapminder)
+
+g <- ggplot(sd, aes(year, lifeExp, color = country, group = country)) +
+  geom_line()
+
+bscols(widths = c(2, 10),
+  filter_select("country", "Select country/ies:", sd, ~ country),
+  ggplotly(g)
+)
+```
+
+
+```{r}
+m <- gather(mtcars, variable, value, -vs)
+msd <- highlight_key(m, ~variable)
+gg <- ggplot(msd, aes(factor(vs), value)) + 
+  geom_jitter(alpha = 0.3)
+
+bscols(
+  widths = c(11, 6, 6),
+  filter_select("id", "Select a variable", msd, ~variable, multiple = FALSE),
+  ggplotly(gg, dynamicTicks = "y") %>% layout(margin = list(l = 30)),
+  plot_ly(msd, x = ~jitter(vs), y = ~value) %>% add_markers(alpha = 0.3)
+)
+```
+
+
+## plotly and DT
+
+```{r}
+library(DT)
+
+d <- data.frame(x=1:10,y=1:10,f=gl(2,5,labels = letters[1:2]))
+sd <- SharedData$new(d)
+
+# options(persistent = TRUE)
+
+p <- ggplot(sd, aes(x, y)) +
+  geom_text(aes(label=f)) +
+  theme_void() 
+
+bscols(
+  ggplotly(p) %>%
+    highlight(color = "red",on = "plotly_click"),
+  datatable(sd, style="bootstrap", class="compact", width="100%",
+            options=list(deferRender=FALSE, dom='t')))
+```
+
+
+
+```{r}
+abilene <- subset(txhousing, city == "Abilene")
+
+p <- ggplot(abilene, aes(month, sales, group = year)) + 
+  geom_line()
+ggplotly(p, dynamicTicks = "x")
+```
+
+```{r}
+p <- ggplot(abilene, aes(month, sales, frame = year)) + 
+  geom_line()
+ggplotly(p, dynamicTicks = TRUE)
+```
+
+implemented in plotly
+
+```{r}
+p <- plot_ly(abilene, x = ~month, y = ~log(sales), frame = ~year, showlegend = F)
+add_lines(p)
+```
+
+
+check out advanced plotly --> https://plotcon17.cpsievert.me/workshop/day2/
+
+```{r}
+data(gapminder, package = "gapminder")
+gg <- ggplot(gapminder, aes(gdpPercap, lifeExp, color = continent, size = pop)) +
+  geom_point(alpha = 0.1) +
+  geom_point(aes(frame = year, ids = country)) +
+  scale_x_log10()
+ggplotly(gg) %>% animation_opts(1000, redraw = FALSE)
+```
+
+
+
+```{r}
+a <- SharedData$new(abilene, ~month)
+p <- ggplot(a, aes(month, sales, frame = year)) + 
+  geom_line() + geom_point()
+highlight(ggplotly(p), "plotly_selected")
+```
+
+## Some Other cool stuff
+
+```{r}
+p <- iris %>%
+  plot_ly(
+    type = 'scatter', 
+    x = ~Sepal.Length, 
+    y = ~Petal.Length,
+    text = ~Species,
+    hoverinfo = 'text',
+    mode = 'markers', 
+    transforms = list(
+      list(
+        type = 'filter',
+        target = ~Species,
+        operation = '=',
+        value = unique(iris$Species)[1]
+      )
+  )) %>% layout(
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = list(
+          list(method = "restyle",
+               args = list("transforms[0].value", unique(iris$Species)[1]),
+               label = unique(iris$Species)[1]),
+          list(method = "restyle",
+               args = list("transforms[0].value", unique(iris$Species)[2]),
+               label = unique(iris$Species)[2]),
+          list(method = "restyle",
+               args = list("transforms[0].value", unique(iris$Species)[3]),
+               label = unique(iris$Species)[3])
+        )
+      )
+    )
+  )
+p
+```
+
+
+### 
+
+```{r}
+d <- SharedData$new(mtcars)
+sp <- plot_ly(d, x = ~mpg, y = ~disp) %>%
+  add_markers(color = I("black"))
+# hist/box/violin are all 'statistical trace types' meaning
+# they compute aggregations on the fly
+hist <- plot_ly(d, x = ~factor(cyl)) %>% 
+  add_histogram(color = I("black"))
+box <- plot_ly(d, y = ~disp, color = I("black")) %>% 
+  add_boxplot(name = " ")
+violin <- plot_ly(d, y = ~disp, color = I("black")) %>%
+  add_trace(type = "violin", name = " ")
+subplot(sp, box, violin, shareY = TRUE, titleX = TRUE, titleY = TRUE) %>%
+  subplot(hist, widths = c(.75, .25), titleX = TRUE, titleY = TRUE) %>%
+  layout(
+    barmode = "overlay", 
+    title = "Click and drag scatterplot",
+    showlegend = FALSE
+  ) %>%
+  highlight(
+    "plotly_selected",
+    selected = attrs_selected(showlegend = FALSE)
+  )
+```
+
+```{r}
+d <- SharedData$new(mpg)
+dots <- plot_ly(d, color = ~class, x = ~displ, y = ~cyl)
+boxs <- plot_ly(d, color = ~class, x = ~class, y = ~cty) %>% add_boxplot()
+bars <- plot_ly(d, x = ~class, color = ~class)
+subplot(dots, boxs, titleX = TRUE, titleY = TRUE) %>%
+  subplot(bars, nrows = 2, titleX = TRUE, titleY = TRUE) %>%
+  layout(
+    title = "Click and drag on scatterplot",
+    barmode = "overlay",
+    showlegend = FALSE
+  ) %>%
+  highlight("plotly_selected")
+```
+
+##
+
+```{r}
+tx <- SharedData$new(txhousing)
+
+widgets <- bscols(
+  widths = c(12, 12, 12),
+  filter_select("city", "Cities", tx, ~city),
+  filter_slider("sales", "Sales", tx, ~sales),
+  filter_checkbox("year", "Years", tx, ~year, inline = TRUE)
+)
+widgets
+```
+
+```{r}
+bscols(
+  widths = c(4, 8), widgets, 
+  plot_ly(tx, x = ~date, y = ~median, showlegend = FALSE) %>% 
+    add_lines(color = ~city, colors = "black") %>%
+    layout(dynamicTicks = TRUE)
+)
+```
+

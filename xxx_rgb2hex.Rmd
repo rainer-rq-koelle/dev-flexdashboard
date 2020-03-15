@@ -1,0 +1,16 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "09/02/2020"
+output: html_document
+---
+
+rgb2hex <- function(r,g,b) {sprintf('#%s', paste(as.hexmode(c(r,g,b)), collapse = ''))}
+
+ad events - rgb2hex(89,89,89) - "#595959"
+ad disruption - rgb2hex(185,205, 229) - "#b9cde5"
+ad capacity - rgb2hex(230,185,184) - "#e6b9b8"
+ad weather - rgb2hex(155,187,89) - "#9bbb59"
+ad disruption atc - rgb2hex(79,129,189) - "#4f81bd"
+ad staffing atc - rgb2hex(247,150,70) - "#f79646"
+ad capacity atc - rgb2hex(192,80,77) - "#c0504d"

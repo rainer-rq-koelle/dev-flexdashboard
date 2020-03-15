@@ -18,6 +18,7 @@ title: "`r params$icao`"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows # columns
+    #logo: ECTRL-logo.png
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
 ---
 
@@ -34,7 +35,7 @@ tick_yr <- list(dtick = 1
     ,ticktext = list("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
     ,tickvals = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     ,tickmode = "array"
-    ,range = c(1,12))
+    ,range = c(0.5,12.5))
 tick_yr_no_title <- list(
    title = ""
   ,dtick = 1
@@ -43,6 +44,11 @@ tick_yr_no_title <- list(
   ,tickmode = "array"
   ,range = c(1,12))
 ```
+
+<!-- div style="position:absolute;top:0px;right:0px;" -->
+<!-- img src="ECTRL-logo.svg"/ -->
+<!-- img src="logo-test-apple.png"/ -->
+<!-- /div -->
 
 # Home {data-icon="fa-home"}
 
@@ -120,6 +126,8 @@ pbox_group <- tmp %>%
 pbox_group
 ```
 
+## Row -----------------------------------------------------------
+
 ### Monthly Traffic Variation
 
 ```{r}
@@ -138,19 +146,20 @@ mvts_pm %>%
            )                    #layout(autosize = F, width = 300, height = 300)
 ```
 
-## Row -----------------------------------------------------------
-
-Add more cool graphics or traffic stats
-
-### Average Hourly Weekday Throughput
+### Average Hourly Throughput
 
 ```{r}
 thru <- params$thru %>% 
   filter(YEAR == max(YEAR)) %>% filter(MONTH == max(MONTH))
 
+xax = list(title= "", type = 'time', tickformat = "%H:%M")
+yax = list(title= 'average throughput [flights/hour]')
+
 thru %>% 
-  plot_ly(x = ~TIME, y = ~N_BIN_AVG, group = ~SRC_PHASE, colour = ~SRC_PHASE) %>%
-  add_trace(type = 'scatter', mode = 'markers+lines')
+  plot_ly(x = ~TIME, y = ~N_BIN_AVG, color = ~SRC_PHASE) %>%
+  group_by(SRC_PHASE) %>%
+  add_lines(type = 'scatter') %>%    #, mode = 'markers+lines')
+  layout(xaxis = xax, yaxis=yax)
 ```
 
 
@@ -215,6 +224,8 @@ atfm_pm %>%
          ,showlegend = FALSE)
 ```
 
+## Row --------------------------------------------------------------------
+
 ### Average Arrival ATFM Delay
 
 ```{r}
@@ -268,12 +279,6 @@ p
 ```
 
 
-## Row --------------------------------------------------------------------
-
-### Summary
-
-Hier kommen ein paar Zahlen.
-
 ### Year-to-Date Share
 
 ```{r atfm-ytd}
@@ -284,7 +289,9 @@ atfm_pm %>% group_by(REG_REASON) %>%
   mutate(DLY_TOT    = sum(DLY, na.rm = TRUE)
          ,DLY_SHARE = DLY / DLY_TOT ) %>%
   
-  plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE, type = "pie")
+  plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE) %>%
+    add_pie(hole = 0.4) %>%
+    layout(legend = list(orientation = 'h', x = 0, y =-0.1))
 ```
 
 # ASMA
@@ -312,7 +319,7 @@ asma_pa %>%
   add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
   layout(barmode = "stack") %>%
   add_annotations(
-    text = "annual variation"
+    text = "example text in graphic annual variation"
     ,xref = "paper",yref = "paper"
     ,x = 0.1, y = 1.05
     ,xanchor = "middle",yanchor = "top", showarrow = FALSE
@@ -379,7 +386,7 @@ p
 
 ```{r asma-monthly}
 # monthly trend for current year
-asma_pm <- params$asma %>% filter(YEAR == max(YEAR)) %>%
+asma_pm <- params$asma %>%
   select(YEAR, MONTH_NUM, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_ASMA_UNIMP_2 ) %>%
   group_by(YEAR, MONTH_NUM) %>%
   summarise( TOT_ADD_ASMA_TIME = sum(TIME_ASMA_ADD_2,   na.rm = TRUE)
@@ -389,47 +396,36 @@ asma_pm <- params$asma %>% filter(YEAR == max(YEAR)) %>%
   mutate( AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT
          ,AVG_UNIMP_TIME        = TOT_UNIMP_TIME    / TOT_FLT) 
 
-asma_pm %>%
-  plot_ly(x=~MONTH_NUM, y=~AVG_UNIMP_TIME, type = "bar") %>%
-  add_trace(y=~AVG_ADD_ASMA_TIME, type = "bar") %>%
-  layout(barmode = "stack")
-
+asma_pm %>% filter(YEAR == max(YEAR)) %>%
+  plot_ly( x   =~MONTH_NUM, y=~AVG_UNIMP_TIME, type = "bar"
+          ,name="reference ASMA time") %>%
+  add_trace( y   =~AVG_ADD_ASMA_TIME, type = "bar"
+            ,name="additional ASMA time") %>%
+  layout(barmode = "stack", xaxis = tick_yr_no_title)
 ```
-
-
 
 ### next
 
-g2 <-  plotly::plot_ly(
-  data = asma %>% filter(YEAR == 2019)
-    ,x = ~MONTH_NUM, y = ~ADD_ASMA_TIME, color = ~as.factor(YEAR)
-                  ,type = "scatter", mode = "lines"
-                  ,line = list(width = 3)
-                  ) %>%
-  plotly::layout(xaxis = tick_yr)%>% 
-  plotly::add_trace(data = asma %>% filter(YEAR != 2019)
-                   ,x = ~MONTH_NUM, y = ~ADD_ASMA_TIME, color = ~as.factor(YEAR)
-                  ,type = "scatter", mode = "lines"
-                  ,visible = "legendonly"
-                  ,line = list(width = 1)) %>%
-  plotly::add_annotations(
-    text = "monthly variation per year"
-    ,xref = "paper",yref = "paper"
-    ,x = 0.5, y = 1.05
-    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
-    ,font = list(size = 15)) 
+```{r}
+asma_pm_sc <- asma_pm %>% select(YEAR, MONTH_NUM, AVG_ADD_ASMA_TIME) %>%
+  filter(YEAR >= 2016) %>% mutate(YEAR = as.integer(YEAR))
+mvts_pm_sc <- mvts_pm %>% select(YEAR, MONTH_NUM, FLT_TOT) %>% 
+  mutate(MONTH_NUM = as.integer(MONTH_NUM), YEAR = as.integer(YEAR)) %>%
+  filter(YEAR >= 2016)
 
-#%>%
- # layout(xaxis = xxx )
+scatter_df <- left_join(mvts_pm_sc, asma_pm_sc, by=c("YEAR","MONTH_NUM")) %>%
+  mutate(YM = paste0(YEAR,"-", MONTH_NUM))
 
-plotly::subplot(g1,g2, shareY = TRUE
-                ,nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
-  plotly::layout(yaxis = list(title = "average additional ASMA time [min/arrival]")
-                 ,xaxis2 = tick_yr) %>% 
+xax <- list(title = "number of flights")
+yax <- list(title = "average additional ASMA time")
+
+scatter_df %>%
+  plot_ly(x = ~FLT_TOT, y=~AVG_ADD_ASMA_TIME, name=~YEAR, size=3, mode = 'markers') %>%
+  layout(xaxis = xax, yaxis = yax)
+```
+
   
-  plotly::config(displayModeBar = F)   # deactivate complete ModeBar
-  
-# Taxi-Out
+# Taxi-Times
 
 ## Row -----------------------------------------------------------------------
 
@@ -450,6 +446,7 @@ g1 <- txot_pa %>%
   plotly::plot_ly(x=~YEAR, y=~AVG_ADD_TXO_TIME
           , type = "bar"
           , showlegend = FALSE
+          , color=~as.factor(YEAR)
           ) %>%
   plotly::add_annotations(
     text = "annual variation"
@@ -458,12 +455,13 @@ g1 <- txot_pa %>%
     ,xanchor = "middle",yanchor = "top", showarrow = FALSE
     ,font = list(size = 15))
 
-g1
-```
+# shared, c.f. below g1
 
+#```
+#
 ### Monthly Trend
-
-```{r monthly-txot}
+#
+#```{r monthly-txot}
 # monthly trend
 txot_pm <- params$txot %>%
   select(YEAR, MONTH_NUM, TIME_TXO_ADD_2, TIME_TXO_UNIMP_2, FLT_TXO_UNIMP_2 ) %>%
@@ -489,9 +487,17 @@ g2 <-  plot_ly() %>%
             , type="scatter", mode="lines") %>%
   layout(xaxis = tick_yr) 
 
-g2
+# shared, c.f. below  g2
+
+# shared plots
+subplot(g1,g2, shareY = TRUE
+        ,nrows = 1, margin = 0.03, widths = c(0.4, 0.6)) %>%
+  layout(yaxis = list(title = "average additional taxi-out time [min/arrival]")
+                 ,xaxis2 = tick_yr) %>% 
+  config(displayModeBar = F)   # deactivate complete ModeBar
 ```
 
+<!-- 
 ### next next stuff
 
 Looks like something for the header
@@ -503,14 +509,7 @@ Looks like something for the header
     ,xanchor = "middle",yanchor = "top", showarrow = FALSE
     ,font = list(size = 15))
 
-Combining both plots
 
-<!-- combine both plots  -->
-subplot(g1,g2, shareY = TRUE
-        ,nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
-  layout(yaxis = list(title = "average additional taxi-out time [min/arrival]")
-                 ,xaxis2 = tick_yr) %>% 
-  config(displayModeBar = F)   # deactivate complete ModeBar
   
 ## Row --------------------------------------------------------------------
 
@@ -520,6 +519,8 @@ THink about adding something here.
 E.g. most frequently used stands, txot by (most frequent) airspace users
 
 # Taxi-In
+
+---------------------------------    -->
 
 ## Row -------------------------------------------------------------------
 
@@ -584,13 +585,6 @@ g2 <-  plot_ly() %>%
 g2
 ```
 
-### next next stuff
-
-## Row ------------------------------------------------------- 
-
-### I do not know yet
-
-Here comes something cool about taxi-in.
 
 # Pre-Dep \n Delay
 
@@ -631,7 +625,7 @@ g1 <- pddly_pa %>%
 
 # monthly trend for current year =====================================
 
-pddly_pm <- params$pddly %>% filter(YEAR == max(YEAR)) %>%
+pddly_pm <- params$pddly %>%
   select(YEAR, MONTH_NUM, TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
          , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
   group_by(YEAR, MONTH_NUM) %>%
@@ -672,9 +666,15 @@ subplot(g1, g2, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
 
 ## Row -----------------------------------------------------------
 
-### first amendment  box
+### Pre-Departure Delay {data-width=350}
 
-Here you can find some explanatory notes
+```{r, out.width='200pt'}
+knitr::include_graphics("./figures/atc_pre-departure_delay.png")
+```
+
+### More text
+
+some explanatory notes or more text to keep row column in sync.
 
 # Turnaround
 
@@ -694,9 +694,24 @@ turn_pa <- params$turn %>%
   filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
   tidyr::pivot_longer(cols = c("AVG_ATTT", "AVG_STTT"), names_to = "TT_CAT", values_to = "AVG_MIN")
 
-g1 <- turn_pa %>%
-   plot_ly(x=~YEAR, y=~AVG_MIN, color=~AC_CLASS, colors="Paired", type="bar") %>%
-   layout(barmode="dodge")
+g1 <- ggplot(data = turn_pa, mapping = aes(x = YEAR, y = AVG_MIN, fill = AC_CLASS )) +
+  geom_col(position = "dodge", width = 0.8) +
+  scale_fill_brewer(palette = "Paired") +
+  theme_minimal() + 
+  labs(x=NULL, y="average monthly turn times [min]") + 
+  theme(legend.position = "top" # remove legend
+    # control legend key size
+       ,legend.key.size = unit(0.1, "cm")
+    # remove legend title
+      ,legend.title = element_blank()
+    # remove the vertical grid lines
+       ,panel.grid.major.x = element_blank()
+       ,panel.grid.minor.x = element_blank()
+    # set axis font 
+     ,axis.text  = element_text(size = 6)
+    , axis.title = element_text(size = 8)
+    )
+
 
 # monthly trend for current year -----------------------------------------------
 
@@ -729,6 +744,14 @@ g2 <- ggplot(data = turn_pm, mapping = aes(x = MONTH, y = AVG_MIN, colour = AC_C
 
 subplot(g1,g2, nrows=1)
 ```
+
+## Row ---------------------------------------------------------------
+
+### Available Turn-Times
+
+add chart with available turnaround times
+c.f. EIDW discussion
+
 
 # Punctuality
 
@@ -776,7 +799,7 @@ g2 <- ggplot(
   theme_minimal() +
   scale_fill_brewer(palette = "RdYlGn") + 
   scale_x_discrete(limits=c(1,2,3,4,5,6,7,8,9,10,11,12)) +
-  expand_limits(x=c(1,12)) + 
+  expand_limits(x=c(0.5,12.5)) + 
   scale_y_continuous(labels = scales::percent_format()) + 
   labs(x=NULL, y=NULL) +
   theme( legend.position = "top"
@@ -787,8 +810,13 @@ g2 <- ggplot(
        ,panel.grid.major.x = element_blank()
        ,panel.grid.minor.x = element_blank()
        )
-
-subplot(g1, g2, nrows=1)
+# https://stackoverflow.com/questions/39948151/in-r-plotly-subplot-graph-how-to-show-only-one-legend
+subplot( style(g1, showlegend=FALSE)
+            , g2, nrows=1, shareY = TRUE, margin = 0.03, widths = c(0.35, 0.65)) %>%
+  layout( yaxis  = list(title = ""), yaxis2 = list(showlegend = FALSE)
+         ,xaxis2 = tick_yr
+         ,legend = list(orientation = 'h', x = 0, y =-0.1)
+         )
 ```
 
 ### Departure Punctuality
@@ -814,14 +842,15 @@ g1 <- ggplot(
   scale_fill_brewer(palette = "RdYlGn")+
   labs(x=NULL, y=NULL)
 
+
 # monthly trend ----------------------------------
-punc_pm <- params$punc %>% filter(SRC_PHASE == "DEP", YEAR == max(YEAR)) %>% 
+dep_punc_pm <- params$punc %>% filter(SRC_PHASE == "DEP", YEAR == max(YEAR)) %>% 
   group_by(YEAR, MONTH, GROUP) %>% 
   summarise(N_GRP_MN = sum(N_GRP)) %>% ungroup() %>% 
   mutate(SHARE = N_GRP_MN / sum(N_GRP_MN)) 
 
 g2 <- ggplot(
-       data    = punc_pm
+       data    = dep_punc_pm
       ,mapping = aes(x = MONTH, y = round(100 * SHARE, 2), fill = factor(GROUP, levels = punc_lvls))) + 
   geom_col(width = 0.8, position = position_fill(reverse = TRUE)) + 
   theme_minimal() + 
@@ -839,4 +868,60 @@ g2 <- ggplot(
        ,panel.grid.minor.x = element_blank()
        )
 
-subplot(g1, g2, nrows=1)
+subplot(  style(g1,showlegend = FALSE) 
+        , g2, nrows=1, shareY = TRUE, margin = 0.03, widths = c(0.35, 0.65)) %>%
+  layout( yaxis  = list(title = ""), yaxis2 = list(showlegend = FALSE)
+         ,xaxis2 = tick_yr
+         ,legend = list(orientation = 'h', x = 0, y =-0.1)
+         )
+```
+
+## Row ---------------------------------------------------------------
+
+### New Content
+
+### Year-to-date Share of Flights 
+
+```{}
+tmp <- dep_punc_pm %>% 
+  mutate(
+    SUBGROUP = case_when(
+      GROUP == "EARLY 0-5"   ~ "WI5"
+      ,GROUP == "EARLY 5-15"  ~ "WI15"
+      ,GROUP == "EARLY 15-30" ~ "EARLY"
+      ,GROUP == "EARLY 30+"   ~ "EARLY"
+      ,GROUP == "LATE 0-5"    ~ "WI5"
+      ,GROUP == "LATE 5-15"   ~ "WI15"
+      ,GROUP == "LATE 15-30"  ~ "LATE"
+      ,GROUP == "LATE 30-60"  ~ "LATE"
+      ,GROUP == "LATE 60+"    ~ "LATE"
+, TRUE ~ "NA"
+)) %>% group_by(SUBGROUP, GROUP) %>%
+  summarise(N = sum(N_GRP)) %>% ungroup()
+
+  
+plot_ly(labels=~SUBGROUP, values=~N) %>%
+    add_pie(hole = 0.4)
+```
+
+
+# About
+
+## Row ------------------------------------------------------------------
+
+### About this Dashboard
+
+This data is published by the EUROCONTROL Performance Review Unit (PRU) in the interest of the exchange of information. 
+It may be copied in whole or in part providing that this copyright notice © and disclaimer are included. 
+The information may not be modified without prior written permission from the EUROCONTROL Performance Review Unit.
+The information does not necessarily reflect the official views or policy of EUROCONTROL, which makes no warranty, either implied or expressed, for the information contained in this document, including its accuracy, completeness or usefulness.
+Every effort has been made to ensure that the information and analysis contained on this website are as accurate and complete as possible. Despite these precautions, should you find any errors or inconsistencies or if you have any questions then please contact us at: Performance Review Unit (PRU-Support@eurocontrol.int).
+
+### About Performance Review Unit
+
+The PRU is responsible for monitoring and reviewing the performance of the Pan-European ANS system across a number of key performance areas.
+As part of the EUROCONTROL Agency, the PRU supports the independent Performance Review Commission (PRC) in running the EUROCONTROL Performance Review System and executing the associated PRC work programme with the appropriate level of independence.
+The PRU also provides support to the European Commission (EC) on the SES Performance and Charging Schemes.
+In performing its tasks, the PRU maintains transparent working arrangements with service providers, airspace user organisations and the industry.
+Although the PRU is independent, it is administratively reporting to the Directorate European Civil-Military Aviation (DECMA).
+For feedback or questions please contact us at: Performance Review Unit (PRU-Support@eurocontrol.int).

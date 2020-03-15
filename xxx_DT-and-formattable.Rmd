@@ -1,0 +1,193 @@
+---
+title: "Data- and Formattable"
+author: "RQ"
+date: "15/03/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(DT)
+library(formattable)
+```
+
+```{r}
+YEAR <- c(2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2020,2020)
+MONTH<- c(3   ,4   ,5   ,6   ,7   ,8   ,9   ,10  ,11  ,12  ,1   ,2   )
+ASMA <- c(3   ,3.2 ,3.4 ,3.3 ,4   ,4.2 ,3.8 ,3.2 ,2.9 ,2.5 ,2.8 ,3   )
+
+ds <- tibble(YEAR = YEAR, MONTH_NUM = MONTH, ASMA=ASMA)
+```
+
+## Walk before you run - basics
+
+```{r}
+# default datatable
+datatable(ds)
+
+# cut down data table to pure table
+# use options to defined DOM elements shown/used
+datatable(ds, options = list(dom = 't'))
+
+# constrain page length
+datatable(ds, options = list(
+   dom        = 't' # show only table
+  ,pageLength = 5   # number of rows shown
+))
+```
+
+## Do some calcs and present them
+
+```{r}
+tfc  <- readxl::read_excel("./data-test/Airport_Traffic.xlsx", sheet = "DATA")
+asma <- readxl::read_excel("./data-test/ASMA_Additional_Time.xlsx", sheet = "DATA")
+```
+
+
+```{r}
+# utility function to extract last 12 month for overview table
+extract_last_12month <- function(
+   df
+  ,now_year = lubridate::year( Sys.Date()) 
+  ,now_month= lubridate::month(Sys.Date()) -2
+  ){
+  df <- df %>% 
+    filter(MOF <= paste0(now_year, "-", now_month)) %>% 
+    arrange(desc(MOF)) %>%
+  ## force 2019 ... not sure why pip not yet updated
+    filter(YEAR %in% c(2019,2018)) %>%
+    head(24)
+  if(!is.integer(df$YEAR))     {df$YEAR      <- as.integer(df$YEAR)}
+  if(!is.integer(df$MONTH_NUM)){df$MONTH_NUM <- as.integer(df$MONTH_NUM)}
+  return(df)
+}
+
+tfc2 <- tfc %>% filter(APT_ICAO == "EGLL") %>%
+  select(YEAR, MONTH_NUM, FLT_DEP_IFR_2, FLT_ARR_IFR_2, FLT_TOT_IFR_2) %>% 
+  group_by(YEAR, MONTH_NUM) %>% 
+  summarise(FLT_TOT = sum(FLT_TOT_IFR_2, na.rm = TRUE)) %>% 
+  mutate(MOF = paste0(YEAR,"-", sprintf("%02s", MONTH_NUM) )) %>%
+  extract_last_12month()
+  
+
+asma2<- asma %>% filter(APT_ICAO == "EGLL") %>% 
+  select(APT_ICAO, YEAR, MONTH_NUM, ADD_ASMA = TIME_ASMA_ADD_2, N_ASMA = FLT_ASMA_UNIMP_2) %>%
+  mutate( MOF = paste0(YEAR,"-", sprintf("%02d", MONTH_NUM)) ) %>%
+  extract_last_12month()
+```
+
+```{r}
+message(paste0("Results for ", now_month, "-", now_year))
+perf <- tfc2 %>% left_join(asma2, by=c("MOF","YEAR","MONTH_NUM")) %>% ungroup
+
+calc_current_month <- function(.perf){
+  df <- .perf %>% 
+    mutate(
+      DIFF_FLT      = FLT_TOT - lead(FLT_TOT)
+      ,DIFF_FLT_P   = DIFF_FLT / lead(FLT_TOT)
+      ,AVG_ADD_ASMA = ADD_ASMA / N_ASMA
+      ,DIFF_ASMA    = AVG_ADD_ASMA - lead(AVG_ADD_ASMA)
+      ,DIFF_ASMA_P  = DIFF_ASMA / lead(AVG_ADD_ASMA)
+      ) %>%
+    select(YEAR, MONTH_NUM, MOF
+           , FLT_TOT, DIFF_FLT, DIFF_FLT_P
+           , AVG_ADD_ASMA, DIFF_ASMA, DIFF_ASMA_P
+           )
+  
+  df$CHECK <- NA
+  df$CHECK[1] <- "NOW"
+  df$CHECK[13]<- "AGO"
+  return(df)
+}
+
+perf2 <- perf %>% calc_current_month()
+
+#tfc_spark <- sparkline::sparkline(perf2$FLT_TOT[1:13])
+tfc_spk   <- sparkline::spk_chr(perf2$FLT_TOT[1:13])
+asma_spk  <- sparkline::spk_chr(perf2$FLT_TOT[1:13], type="bar")
+
+spark_tbl <- tibble(
+   IND = c("TFC"  ,"ASMA")
+  ,SPK = c(tfc_spk, asma_spk)
+)
+
+r_tfc <- perf2 %>% filter(CHECK == "NOW") %>% mutate(IND = "TFC") %>%
+  select(IND, CURRENT = FLT_TOT, CHANGE_M2M_P = DIFF_FLT_P)
+
+r_asma<- perf2 %>% filter(CHECK == "NOW") %>% mutate(IND = "ASMA") %>%
+  select(IND, CURRENT = AVG_ADD_ASMA, CHANGE_M2M_P = DIFF_ASMA_P)
+
+out <- bind_rows(r_tfc, r_asma)
+out <- out %>% left_join(spark_tbl, by="IND")
+```
+
+
+pump into datatable
+
+```{r}
+out %>% 
+  datatable(
+      options = list(
+          dom             = "t"        # show only table
+          ,pageLength     = nrow(out)  # number of rows shown
+          # widget callback for sparkline
+          ,fnDrawCallback = htmlwidgets::JS('function(){
+                                  HTMLWidgets.staticRender();  }' )
+          ) #end options
+      ,escape = FALSE      # set escape to FALSE for htmlwidget/sparkline
+      ,colnames   = c("Indicator","Actual Month", "% Change Previous"
+                      ,"12-month Trend")
+      ) %>% 
+  spk_add_deps() %>%       # add sparkline dependencies
+  formatPercentage(
+    3, 2    # format 3rd column as % and 2 digits
+    )
+```
+
+
+```{r}
+# https://stackoverflow.com/questions/43251214/composited-sparkline-in-r-with-dt-and-shiny
+dfO <- data.frame(Type = c("A", "B", "C"),
+                   Value_1 = c("1,1,2,2", "2,2,3,3", "3,3,4,4"), 
+                   Value_2 = c("0,1,2,3", "2,3,4,5", "4,5,6,7"))
+library(tidyr)
+library(dplyr)
+library(sparkline)
+library(DT)
+
+df <- dfO %>% 
+    separate_rows(Value_1, Value_2) %>% 
+    mutate_at(vars(starts_with('Value')) ,funs(as.integer))
+
+
+df %>% 
+    group_by(Type) %>% 
+    summarize(l1 = spk_chr(Value_1,
+                           lineColor = 'black', 
+                           fillColor = '#ccc',
+                           chartRangeMin = 0,
+                           chartRangeMax = 8,
+                           width = 80,
+                           height = 60,
+                           highlightLineColor = 'orange', 
+                           highlightSpotColor = 'orange'),
+              l2 = spk_chr(Value_2,
+                           lineColor = 'black', 
+                           fillColor = '#ccc',
+                           chartRangeMin = 0,
+                           chartRangeMax = 8,
+                           width = 80,
+                           height = 60,
+                           highlightLineColor = 'orange', 
+                           highlightSpotColor = 'orange')) %>% 
+    datatable(escape = F,
+              rownames = F,
+              options = list(fnDrawCallback = htmlwidgets::JS('function(){
+                                                              HTMLWidgets.staticRender();
+                                                              }'))
+    ) %>% 
+    spk_add_deps()
+```
+
+

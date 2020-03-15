@@ -1,0 +1,513 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "12/03/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+grp <- c("A","B","C","D")
+xval <- as.factor(c("x","y","x","y"))
+frame <- merge(grp, xval, all=T)
+yval <- as.factor(c('low', 'low-medium', 'medim-high', 'high'))
+df <- tbl_df(cbind(frame, yval))
+colnames(df) <- c("category", "Type", "Range")
+
+p <- df %>% 
+  group_by(category) %>% 
+  arrange(Type) %>%
+  plot_ly(
+    x = ~Type, 
+    y = ~Range, 
+    color= ~category,
+    colors = 'Reds',
+    type = 'bar',
+    legendgroup = "A")
+
+pp <- df %>% 
+  group_by(category) %>% 
+  arrange(Type) %>%
+  plot_ly(
+    x = ~Type, 
+    y = ~Range, 
+    color= ~category,
+    colors = 'Reds',
+    type = 'bar',
+    legendgroup = "A",
+    showlegend=F)
+
+
+subplot(p,pp,shareY = T) %>% layout(barmode = 'stack')
+```
+
+
+
+```{r}
+df = data.frame(
+year = c(2014,2014,2014,2015,2015,2015,2016,2016,2016),
+pet = c("dog","cat","bird","dog","cat","bird","dog","cat","bird"),
+wt_before = c(56, 25, 26, 10, 19, 41, 16, 17, 13),
+wt_after = c(49, 18, 19,  3, 12, 34,  9, 10,  6)
+)
+
+
+xaxis_length <- length(unique(df$year))
+animal_no <- length(unique(df$pet))
+
+i <- 0
+for (animal in unique(df$pet)) {
+  x <- seq(0, 
+           animal_no  * xaxis_length + xaxis_length, 
+           by = xaxis_length + 1) + i
+  i <- i + 1
+}
+```
+
+
+```{r}
+for (animal in unique(df$pet)) {
+  x <- seq(0, 
+           animal_no  * xaxis_length + xaxis_length, 
+           by = xaxis_length + 1) + i
+  i <- i + 1
+  p <- add_trace(p,
+                 data=df[df$pet == animal, ], 
+                 x = x, 
+                 y = ~wt_after, 
+                 type = 'bar'
+                 )
+
+  p <- add_trace(p, 
+                 data=df[df$pet == animal, ], 
+                 x = x,
+                 y = df[df$pet == animal, ]$wt_before - df[df$pet == animal, ]$wt_after, 
+                 type = 'bar'                 
+  )
+}
+p
+```
+
+```{r}
+df = data.frame(
+  year = c(2014, 2014, 2014, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017),
+  pet = c("dog", "cat", "bird", "dog", "cat", "bird", "dog", "cat", "bird", "dog", "cat", "bird"),
+  wt_before = c(56, 25, 26, 10, 19, 41, 16, 17, 13, 20, 25, 30),
+  wt_after = c(49, 18, 19,  3, 12, 34,  9, 10,  6, 15, 20, 22)
+)
+
+colors <- c('rgba(97,156,255,', 
+            'rgba(0,186,56,', 
+            'rgba(248,118,109,')
+
+xaxis_length <- length(unique(df$year))
+animal_no <- length(unique(df$pet))
+
+names(colors) <- unique(df$pet)
+
+p <- plot_ly() %>% layout(barmode = 'stack') %>% 
+  layout(barmode = 'stack', 
+         xaxis=list(ticktext = unique(df$year),
+                    tickvals = seq(1, 
+                                   xaxis_length * animal_no +  xaxis_length, 
+                                   by = xaxis_length + 1)
+                    ),
+         bargap=0)
+
+i <- 0
+for (animal in unique(df$pet)) {
+
+  x <- seq(0, 
+           animal_no  * xaxis_length + xaxis_length, 
+           by = xaxis_length + 1) + i
+  i <- i + 1
+  p <- add_trace(p,
+               data=df[df$pet == animal, ], 
+               x = x, 
+               y = ~wt_after, 
+               type = 'bar', 
+               name = animal,
+               marker = list(color = paste(colors[[animal]], 
+                                           ",1)", 
+                                           sep = "")
+                           ),
+               legendgroup = animal,
+               text = ~wt_after,
+               hoverinfo = 'text'
+               )
+
+  p <- add_trace(p, 
+                 data=df[df$pet == animal, ], 
+                 x = x,
+                 y = df[df$pet == animal, ]$wt_before - df[df$pet == animal, ]$wt_after, 
+                 type = 'bar', 
+                 name = animal,
+                 marker=list(color = paste(colors[[animal]], 
+                                           ",0.5)", 
+                                           sep = "")
+                             ),
+                 legendgroup = animal,
+                 showlegend = FALSE,
+                 text = ~wt_before,
+                 hoverinfo = 'text'
+
+  )
+}
+p
+```
+
+
+
+```{r}
+library(ggplot2)
+
+df <- punc_df %>% filter(APT_ICAO=="EGLL", SRC_PHASE == "DEP", YEAR == max(YEAR)) %>% 
+  group_by(YEAR, MONTH, GROUP) %>% 
+  summarise(N_GRP_MN = sum(N_GRP)) %>% ungroup() %>% 
+  mutate(SHARE = N_GRP_MN / sum(N_GRP_MN)) 
+
+g2 <- ggplot( data    = df
+             ,mapping = aes(x = MONTH, y = round(100 * SHARE, 2), fill = GROUP)) +
+  geom_col(width = 0.8, position = position_fill(reverse = TRUE)) + 
+  theme_minimal()
+
+g3 <- g2 %>% hide_legend()            
+
+subplot(style(g3, showlegend = FALSE),g2, shareY = TRUE, nrows = 1, widths = c(0.3,0.7)) %>%
+  layout(legend = list(orientation = 'h', x = 0, y =-0.1))
+```
+
+
+```{r}
+gt <- ggplot(mtcars, aes(x=wt, y=cyl, fill = factor(cyl))) + geom_col()
+gt %>% hide_legend()
+```
+```{r}
+fig <- plot_ly(
+  labels = c("Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"),
+  parents = c("", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"),
+  values = c(10, 14, 12, 10, 2, 6, 6, 4, 4),
+  type = 'sunburst'
+)
+
+fig
+```
+
+```{r}
+df2 <- df %>% mutate(
+  SUBGROUP = case_when(
+     GROUP == "EARLY 0-5"   ~ "WI5"
+    ,GROUP == "EARLY 5-15"  ~ "WI15"
+    ,GROUP == "EARLY 15-30" ~ "EARLY"
+    ,GROUP == "EARLY 30+"   ~ "EARLY"
+    ,GROUP == "LATE 0-5"    ~ "WI5"
+    ,GROUP == "LATE 5-15"   ~ "WI15"
+    ,GROUP == "LATE 15-30"  ~ "LATE"
+    ,GROUP == "LATE 30-60"  ~ "LATE"
+    ,GROUP == "LATE 60+"    ~ "LATE"
+    , TRUE ~ "NA"
+  ))
+
+fig <- plot_ly(
+  labels = df2$SUBGROUP,
+  parents = df2$GROUP,
+  values = df2$SHARE,
+  type = 'sunburst'
+)
+
+fig
+```
+
+```{r}
+pd <- data.frame(
+    ids = c(
+    "North America", "Europe", "Australia", "North America - Football", "Soccer",
+    "North America - Rugby", "Europe - Football", "Rugby",
+    "Europe - American Football","Australia - Football", "Association",
+    "Australian Rules", "Autstralia - American Football", "Australia - Rugby",
+    "Rugby League", "Rugby Union"
+  ),
+  labels = c(
+    "North<br>America", "Europe", "Australia", "Football", "Soccer", "Rugby",
+    "Football", "Rugby", "American<br>Football", "Football", "Association",
+    "Australian<br>Rules", "American<br>Football", "Rugby", "Rugby<br>League",
+    "Rugby<br>Union"
+  ),
+  parents = c(
+    "", "", "", "North America", "North America", "North America", "Europe",
+    "Europe", "Europe","Australia", "Australia - Football", "Australia - Football",
+    "Australia - Football", "Australia - Football", "Australia - Rugby",
+    "Australia - Rugby"
+  ),
+  stringsAsFactors = FALSE
+)
+
+```
+
+```{r}
+#library(htmltools)
+library(sunburstR)
+library(d3r)
+
+df22 <- df2 %>% group_by(SUBGROUP, GROUP) %>% 
+  summarise(N = sum(N_GRP_MN)) %>%
+  select(level1 = SUBGROUP, level2=GROUP, size = N)
+ 
+dat <- data.frame(
+  level1 = rep(c("a", "b"), each=3),
+  level2 = paste0(rep(c("a", "b"), each=3), 1:3),
+  size = c(10,5,2,3,8,6),
+  stringsAsFactors = FALSE
+)
+#df22 <- dat
+
+tree <- d3_nest(df22, value_cols = "size")
+
+sb1 <- sunburst(tree, width="100%", height=400)
+sb1
+sb2 <- sunburst(
+  tree,
+  legend = FALSE,
+  width = "100%",
+  height = 400
+)
+sb2
+
+sb3 <- sund2b(tree, width="100%")
+sb3
+```
+
+
+
+
+
+
+
+
+atfm_pm %>% group_by(REG_REASON) %>%
+  summarise( FLT_ARR_TOT = sum(FLT_ARR_TOT, na.rm = TRUE)
+            ,DLY =         sum(DLY, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(DLY_TOT    = sum(DLY, na.rm = TRUE)
+         ,DLY_SHARE = DLY / DLY_TOT ) %>%
+  
+  plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE) %>%
+    add_pie(hole = 0.4)
+
+
+```{r}
+rq <- punc_df %>% filter(APT_ICAO=="EGLL", YEAR==2019, SRC_PHASE=="DEP") %>%
+mutate(
+    SUBGROUP = case_when(
+      GROUP == "EARLY 0-5"   ~ "WI5"
+      ,GROUP == "EARLY 5-15"  ~ "WI15"
+      ,GROUP == "EARLY 15-30" ~ "EARLY"
+      ,GROUP == "EARLY 30+"   ~ "EARLY"
+      ,GROUP == "LATE 0-5"    ~ "WI5"
+      ,GROUP == "LATE 5-15"   ~ "WI15"
+      ,GROUP == "LATE 15-30"  ~ "LATE"
+      ,GROUP == "LATE 30-60"  ~ "LATE"
+      ,GROUP == "LATE 60+"    ~ "LATE"
+, TRUE ~ "NA"
+)) %>% group_by(SUBGROUP, GROUP) %>%
+  summarise(N = sum(N_GRP)) %>% ungroup()
+
+tot <- tibble(GROUP = "TOTAL", N = sum(rq$N), SUBGROUP = "")
+
+rq2 <- tot %>% bind_rows(rq)
+
+plot_ly(
+   labels = rq2$GROUP
+  ,parents= rq2$SUBGROUP
+  ,values = rq2$N
+  ,type   = "sunburst"
+)
+```
+
+GROUP            N SUBGROUP
+   <chr>        <dbl> <chr>   
+ 1 TOTAL       200218 NA      
+ 2 EARLY 15-30  23010 EARLY   
+ 3 EARLY 30+    22903 EARLY   
+ 4 LATE 15-30    1024 LATE    
+ 5 LATE 30-60      12 LATE    
+ 6 LATE 60+         7 LATE    
+ 7 EARLY 5-15   42362 WI15    
+ 8 LATE 5-15    29121 WI15    
+ 9 EARLY 0-5    41161 WI5     
+10 LATE 0-5     40618 WI5  
+
+mylbl <- c("Punctuality","Within 15 min")
+> mypar <- c("","Punctuality")
+> myvals<- c(200218, 42362)
+> rq <- tibble(labels = mylbl, parents = mypar, values = myvals)
+> rq
+# A tibble: 2 x 3
+  labels        parents       values
+  <chr>         <chr>          <dbl>
+1 Punctuality   ""            200218
+2 Within 15 min "Punctuality"  42362
+> tot <- tibble(GROUP = "TOTAL", N = sum(rq$N), SUBGROUP = "")
+Unknown or uninitialised column: 'N'.
+> 
+> rq2 <- tot %>% bind_rows(rq)
+> 
+> plot_ly(
++    labels = rq2$GROUP
++   ,parents= rq2$SUBGROUP
++   ,values = rq2$N
++   ,type   = "sunburst"
++ )
+> plot_ly(labels = rq$labels, parents = rq$parents, values=rq$values, type = "sunburst")
+
+
+```{r}
+library(data.table)
+library(plotly)
+
+DF <- data.table(ownership=c(rep("private", 3), rep("public",3),rep("mixed", 3)),
+                  landuse=c(rep(c("residential", "recreation", "commercial"),3)),
+                  acres=c(108, 143, 102, 300, 320, 500, 37, 58, 90))
+
+as.sunburstDF <- function(DF, valueCol = NULL){
+  require(data.table)
+
+  DT <- data.table(DF, stringsAsFactors = FALSE)
+  DT[, root := "total"]
+  setcolorder(DT, c("root", names(DF)))
+
+  hierarchyList <- list()
+  if(!is.null(valueCol)){setnames(DT, valueCol, "values", skip_absent=TRUE)}
+  hierarchyCols <- setdiff(names(DT), "values")
+
+  for(i in seq_along(hierarchyCols)){
+    currentCols <- names(DT)[1:i]
+    if(is.null(valueCol)){
+      currentDT <- unique(DT[, ..currentCols][, values := .N, by = currentCols], by = currentCols)
+    } else {
+      currentDT <- DT[, lapply(.SD, sum, na.rm = TRUE), by=currentCols, .SDcols = "values"]
+    }
+    setnames(currentDT, length(currentCols), "labels")
+    hierarchyList[[i]] <- currentDT
+  }
+
+  hierarchyDT <- rbindlist(hierarchyList, use.names = TRUE, fill = TRUE)
+
+  parentCols <- setdiff(names(hierarchyDT), c("labels", "values", valueCol))
+  hierarchyDT[, parents := apply(.SD, 1, function(x){fifelse(all(is.na(x)), yes = NA_character_, no = paste(x[!is.na(x)], sep = ":", collapse = " - "))}), .SDcols = parentCols]
+  hierarchyDT[, ids := apply(.SD, 1, function(x){paste(x[!is.na(x)], collapse = " - ")}), .SDcols = c("parents", "labels")]
+  hierarchyDT[, c(parentCols) := NULL]
+  return(hierarchyDT)
+}
+
+sunburstDF <- as.sunburstDF(DF, valueCol = "acres")
+
+plot_ly(data = sunburstDF, ids = ~ids, labels= ~labels, parents = ~parents, values= ~values, type='sunburst') #, branchvalues = 'total')
+```
+
+```{r}
+asma <- asma_df %>% filter(APT_ICAO == "EGLL")
+
+max_yr <- asma$YEAR %>% max() %>% unique
+max_mn <- asma %>% 
+  filter(YEAR == max(YEAR)) %>% 
+  filter(MONTH_NUM == sum(!is.na(FLT_ASMA_UNIMP_2))) %>%
+  pull(MONTH_NUM) %>% unique()
+
+asma_ytd <- asma  %>% 
+  filter(YEAR == max(YEAR)) %>% 
+  mutate(AVG_ADD_ASMA = TIME_ASMA_ADD_2 / FLT_ASMA_UNIMP_2)
+asma_ytd <- asma_ytd[1:max_mn,] %>% select(MONTH_NUM, AVG_ADD_ASMA)
+
+rq <- sparkline(asma_ytd$AVG_ADD_ASMA, type="line")
+rq
+sparkline(asma_ytd$AVG_ADD_ASMA, type="bar")
+sparkline(asma_ytd$AVG_ADD_ASMA, type="bullet")
+```
+
+```{r}
+library(formattable)
+library(sparkline)
+
+formattable(
+  data.frame(Large = LETTERS[1:4], small = letters[4:1], Rank = NA),
+  list(
+    "Rank"=function(z) {
+      sapply(
+        paste0(text='`r htmltools::tagList(sparkline(sample(5)))`')
+        ,function(md) knitr::knit(text=md, quiet=T)
+      )
+    }
+  )
+)
+```
+
+```{r}
+library(sparkline)
+library(htmltools)
+library(htmlwidgets)
+library(dplyr)
+
+mtcars %>%
+  group_by(cyl) %>%
+  summarise(
+    hp = as.character(
+      as.tags(
+        sparkline(hp, type="box", chartRangeMin=0, chartRangeMax=400)
+      )
+    ),
+    mpg = as.character(
+      as.tags(
+        sparkline(mpg, type="box", chartRangeMin=0, chartRangeMax=50)
+      )
+    )
+  ) %>%
+  formattable() %>%
+  formattable::as.htmlwidget() %>%
+  modifyList(
+    list(dependencies = c(
+      htmlwidgets:::getDependency("sparkline")
+    ))
+  )
+```
+
+```{r}
+mtcars %>%
+  group_by(cyl) %>%
+  summarise(
+    hp = as.character(
+      as.tags(
+        sparkline(hp, type="box", chartRangeMin=0, chartRangeMax=400)
+      )
+    ),
+    mpg = as.character(
+      as.tags(
+        sparkline(
+          round(density(mpg,from=0,to=tail(pretty(mtcars$mpg),1))$y,2),
+          type="line"
+        )
+      )
+    )
+  ) %>%
+  formattable() %>%
+  formattable::as.htmlwidget() %>%
+  modifyList(
+    list(dependencies = c(
+      htmlwidgets:::getDependency("sparkline")
+    ))
+  )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
