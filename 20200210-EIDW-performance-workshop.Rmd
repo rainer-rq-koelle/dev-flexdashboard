@@ -1,0 +1,323 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "10/02/2020"
+output: html_document
+---
+
+## welcome and round table
+
+## opening address (Billy Hann)
+
+CEO level discussions and irritation
+need to agree and consolidate measures
+
+
+## objectives of workshop
+
+* do the metrics currently used measure "accurately" the performance at the airport
+* many metrics being used are affected by European network
+* are all stakeholders analysing these metrics in the same way
+* who owns performance measures and who is responsible for improvements
+* set targets around these measures
+* set up collaborative senior and operational management groups
+
+Dublin - comparable airports in Europe - compairing metrics "not so bad"
+Dublin now 5th "transatlantic hub" in Europe
+(recent vote) environment gaining higher momentum (incldg. Ryanair most green per pax); how about to move towards promoting Dublin as a "green airport"
+
+common metrics (also for C-level reporting)
+aim of workshop: action plan
+
+Bob introducing work at Amsterdam, facilitated discussion between airporta and KLM
+one of the key issues: gaming and reducing buffers
+in general: local ripple effects transmitting into the network, particularly painful if on days of stress (i.e. strike)
+
+## DAA - Airport Performance (Kevin)
+
+airport view of journey: arrival (SIBT/STA), flight plan activated, enroute, approach, landing, ruwnay/ROT, taxi-in time/taxi-holding, apron, and AIBT
+turnaroudn SOBT, CDM/TOBT, TSAT, CTOT/ATFM restrictions, start up request/approval, AOBT
+departure: pushback, taxi approval, taxi-out, runway line-up, take-off clearance, pilot reaction, dep. ROT, airborne
+
+x and oks showing which timestamps are collected
+
+key performance areas
+
+* schedule
+* runway throughput
+* taxi times
+* stand utilisation (10 min window)
+* turnaround (schedule of actors typically based on schedule planned!)
+* OTP
+
+performance reporting
+many reports, weekly/monthly
+
+struggle ACDM vs punctuality
+
+performance monitoring PDCA - plan and do ok, room for action: review and act
+
+expectations: agreed focus, aligned metrics, joint objectives, (joint) data sources, data-driven decision-making
+
+key metrics - going to executive level
+
+* departign OTP first wave - not less than 88% within 16min
+* departing taxi time first wave: 80 less than 20 min
+* ruwnay throughput first wave: target throughput per hour not less 90% of time (what is the target throughput)
+
+Ryanair
+simplified metrics, OTP 15 min to OBT, 
+
+Dublin currently using SITA reported delay codes, next day changes not (yet) included
+DAA challenging airport codes if trend; observation: when challenging a change is in observed in the reporting for a certain time
+
+issue with code 89 vs ACDM delays
+delay clearing
+
+## Aer Lingus (Louise)
+
+overview of aer lingus operations, ~260 flights/day
+coops with ASL and Strobart
+Aer Lingus transforming from point-to-point to transatlantic, last 6 years trippled US destinations
+
+process cirlce between flights
+
+* point merge vs holding - extra fuel
+* ACDM high focus/effort with the expectation to improve OTP, however found that it does not
+* aircraft being held on stand - marginal
+* missed slots
+* stand availability (infrastructure limitations) - Aer Lingus also responsible for early arrivals
+* turnaround - stand variations
+* cul-de-sac issue with taxi, towing
+* ACDM does not consider towing
+
+* prevent excessive dealy propagation, e.g. EGLL take-ou of flights
+* introduction of aerodrome capacity regulations
+* prevent stackholding (<-- regulation)
+* approach spacing
+* summer 2020 - impact assessment on 34/16
+* development of new stand (potential for "grand stand operator")
+* CDO/CCO
+* stats on runway operations throughput --> out of 28/10 when 34/16 out of service
+
+reporting
+primarily OTP (including first wave), network performance, operatoinal practices influencing fuel burn
+
+observation with other airlines - fleet renewal causing typically lower punctuality primarily due to non-change of schedules
+issue at Dublin: increasing block times due to local procesdures (holding and taxi)
+
+discussion on aerodrome layout and "pushing" more flights into the "central area"
+every towing operation is a  bussing operation lost --> alleviating cul-de-sac operations
+
+> interesting answer on question by Bob: summer 2020 plan
+> DAA analysis (no extensive simulation): if 0600-0800hr only 28/10 available ... 2 min of additional taxi-time
+
+Billy - issue with "targets" rippling down into specific behaviour
+i.e. regulations for a good reason --> risk of not meeting (reference value) target
+
+> bad day reporting - weather storm this weekend!
+> disruption group
+
+## IAA (Paul)
+
+context - traffic growth - dual runway ops, point merge R28, pm R10, HIRO
+
+HIRO Gatwick ~54 movements, EIDW ~ 48; does Dublin always deliver to this target, not all the time, but team working on this
+
+parallel runway = capacity increase; however 2020/2021 to get there!
+issue with landing more aircraft
+
+however big question on OTP
+
+what do we get measured on (SES2)
+
+* CCO/CDO
+* departure compliance
+* taxi-out time
+* ATC pre-depature delay (IATA 89)
+* (not yet measured) runway throughput (<- from an ATC and airport perspective this is the key measure )
+* ASMA
+
+IAA performance monitoring
+
+* traffic summary
+* runway usage
+* dual OPS
+* taxi-0out
+* taxi-in
+* hourly throughput
+* A-D-A spacing
+* air holding
+* ATFM delays, slot adherence
+
+ATFM - EIDW very-very low
+
+Chart showing EIDW next to other airports re ATFM delay
+
+runway usage chart/table; hourly breakdown; good day ~ max 50 movements an hour
+
+bad day --> holding next to point merge --> difficult to get out of holding once started; real bad day: 700 minutes of air holding
+--> "playbook"     
+example bad day: 9. Sept 2019
+
+PRC monitoring
+
+CCO/CDO issue with 200NM vs area of responsibility / control    
+provide alignment with ASMA on 40NM (??)    
+side-discussion: prior information on holding/speed control    
+
+expectations of the day, accountability for certain indicators
+
+discussion: point merge was primarily a capacity measure; work on throughput; do we react to the fact that we add more flights vs being a green / environmental procedure
+
+"green deal" (check this) 10% reduction of environmental impact
+
+> AMAN/XMAN, XMAN mignt not fly as many legs into EIDW are "short" (i.e. inside in horizon)    
+> Dublin apparently in top of most volatile and unpredictable airspaces in Europe
+
+## Performance Monitoring
+
+overview of airport performance measures   
+timeline - allocation of responsibilities - overall timeline
+
+timeline on indicators for EIDW    
+scatterplot on arrival ATFM delay vs additioanl ASMA time    
+scatterplot on taxi-out time and code 89 (issue with Heathrow)
+
+performance analyses of arrival flow, annual composition, monthly break-down   
+VFE    
+
+analysis of indicators per runway configuration
+
+> some surprise re ASMA into R10
+> 
+
+discussion about gate utilisation and stand plan
+
+at peaks there is not enough capacity - meter capacity vs gate availability   
+
+
+## ATFM delay, all causes, OTP (Yves)
+
+kick-off: ATC = ICAO & UTC, queuing aircraft; airports/airlines: IATA and local time, delay & queuing at security    
+airline - business is moving people and ensuring connectivity    
+
+> speak to Yves on data from slot coordinator and Innovata data for schdules
+
+introductory sales pitch for MIRROR
+
+stepping through ATFM delay, analysis of throughput
+
+ATFM all causes & punctuality; i.e. in Europe schedules are in 5min steps
+
+ATFM airport = 83 & 89    
+89-O oscar environmental factors (e.g. reduce taxi-time)
+
+> increase in code 89 in 2019 ... related to ACDM (more gate holding)
+> Yves: code 89 driven by hour of the day
+
+punctuality: early 15+, 5-15, ...   
+EAPN using a subset of flights: IFR, cargo, ...
+early arrival
+
+> check share of internatonal flights as part of early flights vs intra-European
+> comment: picture is worse, aircraft sitting on ground/no gate or long taxi-in
+> early arrivals (about 15%)
+> side discussion on factors build in (elongation) of block times
+
+"real-time" dashboard on punctuality monitoring     
+airports   airlines    
+overview on (all) airlines
+
+> speak to Yves on "unmatched flights" ~~ cancellations
+
+scheduling quality indicator    
+
+* block time overshoot (actual block time larger than scheduled)
+* delay indicator
+
+Yves suggesting to monitor "available ground time" which is a good indicator for things going wrong     
+available actual arrival vs scheduled of next flight
+
+
+# Day 2
+
+## welcome
+
+introduction, agenda
+
+## what was heard yesterday
+
+* goal - performance management process 
+* common picture/journey
+* issues to be prioritised by Dublin ATM strategic management group
+
+discussion on common metrics to be defined
+
+* on-time-performance
+* runway throughput
+* taxi-time
+* arrival management (e.g. ASMA)
+* turnaround
+
+side-discussion
+
+> traffic evolution, traffic going more and more transatlantic, i.e. going into Pier 4 and making Aer Lingus experience more difficult
+> need to get first wave right otherwise it will not be possible to catch up again throughout the day
+
+OTP --> customer satisfaction, EU641    
+what problem are we going to solve
+
+60% of first wave subject to ATFM    
+OTP as a single measure is a complex thing
+
+ATFM 3Ws when where who
+
+wrap up after discusssion
+
+PREDICTING AND ACHIEVING THE DAILY SCHEDULE
+
+goal: achieve a predictable schedule   
+goal: first wave in the morning works
+- ATFM    
+- getting off-block    
+- taxi-out    
+- runway throughput    
+
+arriving traffic    
+- ATFM (arrival and enroute)     
+- ASMA
+- runway throughput
+- taxi-in     
+- inblock punctuality
+
+turnaround
+
+metrics definitions (by end of this week)    
+daily schedule delivery (first wave out, last wave in)     
+
+
+
+## Major Points
+
+reduced set of c-suite metrics; first wave
+trust - cooperation
+data - data sharing - data-driven decision-making
+
+KPA - 1-2 for the start
+
+some detailed tactical discussions
+
+ACTION: DEVELOP STRAWMAN - COORDINATE FOLLOW-UP MEETING
+
+WHO   
+- operational expert knowing the data
+
+WHEN   
+- agenda
+
+24. February
+
+
+
+
