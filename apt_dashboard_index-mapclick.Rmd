@@ -88,6 +88,6 @@ mp <- leaflet() %>%
 #            opacity = 0.8)
 
 
-mp %>% onRender(js)
+mp
 ```
 

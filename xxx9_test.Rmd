@@ -1,0 +1,107 @@
+---
+title: "Dashing diamonds"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+ #   css: bootswatch-3.3.5-4/flatly/bootstrap.css
+ #   logo: STATWORX_2.jpg
+#runtime: shiny
+---
+
+```{r}
+library(flexdashboard)
+```
+
+
+Exploratory plots 
+=======================================================================
+
+Column {data-width=50} #.sidebar
+-----------------------------------------------------------------------
+
+### About
+
+```{ home, out.width='150px'}
+valueBox("value", "subtitle", icon = NULL, color = "aqua" , # width = "20%",
+  href = NULL)
+```
+
+valueBox("Housing market dashboard", icon = "fa-question",href="#info", color="success"
+         , width = NULL # check documentation for ValueBox in Cols and width!
+         )
+
+### Interactive mortgage rate chart
+
+```{}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#mortgage-rates"
+        # , width = NULL # check documentation for ValueBox in Cols and width!
+         )
+```
+
+### my col
+
+**Exploratory plots**
+
+**Scatterplots**
+
+
+**Density plot**
+
+
+
+
+**Summary statistics**
+
+
+
+Row {.tabset}
+-----------------------------------------------------------------------
+
+### Scatterplot of selected variables
+
+tdcfygvuhbijnomk
+
+### Density plot for selected variable
+
+4xecr5tv6y7unmio
+
+Row 
+-----------------------------------------------------------------------
+
+### Maximum carats {data-width=50}
+
+### Most expensive color {data-width=50}
+
+### Maximal price {data-width=50}
+
+Row {data-height=500}
+-----------------------------------------------------------------------
+
+### Summary statistics {data-width=500}
+
+Model comparison
+=======================================================================
+
+Sidebar {.sidebar data-width=700}
+-----------------------------------------------------------------------
+
+**Model comparison**
+
+
+
+
+Row{.tabset}
+-----------------------------------------------------------------------
+
+ **Comparison of Predictions and Target**
+
+### Linear Model
+
+### Ridge Regression 
+
+Row
+-----------------------------------------------------------------------
+
+### Densities of predictions vs. target 
+The sidebars were added by specifying the attribute {.sidebar} after the name, followed by a page or row header. Page headers (========) create global sidebars, whereas local sidebars are made using row headers (---------). If you choose a global sidebar, it appears on all pages whereas a local sidebar only appears on the page it is put on. In general, it’s a good idea to add the sidebar after the beginning of the page and before the first row of the page. 

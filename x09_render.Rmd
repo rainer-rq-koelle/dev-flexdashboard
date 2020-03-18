@@ -130,7 +130,7 @@ pick_apt_iata <- function(.df, .apt){
 apts %>% 
   purrr::walk(
     .f=~rmarkdown::render(
-        input  = "apt_dashboard_03.Rmd"
+        input  = "apt_dashboard_04.Rmd"
       , params = list( #------ start params -------------------------
            icao = .
           ,iata = pick_apt_iata( pddly_df,  .apt = .)   # merge iata code with other source 
@@ -148,7 +148,7 @@ apts %>%
           ,punc = filter_df_by_apt(punc_df, .apt = .)
           ) #----------------- end params ---------------------------
     #  , output_dir = "./boards"   # brittle as reported in stackoverflow
-      , output_file = paste0("./boards/", .,"-03.html")
+      , output_file = paste0("./boards/", .,"-04.html")
       )
     )
 ```

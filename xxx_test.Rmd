@@ -1,0 +1,206 @@
+---
+params:
+  apt: "EGLL"
+title: "`r params$apt`"
+output: flexdashboard::flex_dashboard
+---
+
+```{r setup}
+library(flexdashboard)
+```
+
+Info
+=====================================
+
+Column {data-width=150}
+-------------------------------------
+
+### Info
+
+```{r}
+valueBox("Info", icon = "fa-question", href="#info", color="success")
+```
+
+### Traffic
+
+```{r}
+valueBox("Traffic", icon = "fa-question", href="#traffic", color="success")
+```
+
+### Arrival
+
+```{r}
+valueBox("Arrival", icon = "fa-line-chart",href="#arrival")
+```
+
+### Departure
+
+```{r}
+valueBox("Departure", icon = "fa-line-chart",href="#departure")
+```
+
+### Turnaround
+
+```{r}
+valueBox("Turn", icon = "fa-line-chart",href="#turnaround")
+```
+
+
+
+Column
+-------------------------------------
+
+### Aerodrome Layout
+
+Here comes the layout
+
+### Basic Information
+
+basic info
+
+
+Traffic
+=====================================  
+
+Column {data-width=150}
+-------------------------------------
+
+### Info
+
+```{r}
+valueBox("Info", icon = "fa-question", href="#info", color="success")
+```
+
+### Traffic
+
+```{r}
+valueBox("Traffic", icon = "fa-question", href="#traffic", color="success")
+```
+
+### Arrival
+
+```{r}
+valueBox("Arrival", icon = "fa-line-chart",href="#arrival")
+```
+
+### Departure
+
+```{r}
+valueBox("Departure", icon = "fa-line-chart",href="#departure")
+```
+    
+Column {data-width=600}
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+```
+   
+Column {data-width=400}
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+```   
+ 
+### Chart 3
+    
+```{r}
+```
+
+Page 2 {data-orientation=rows}
+=====================================     
+
+Column {data-width=150}
+-------------------------------------
+
+### Info
+
+```{r}
+valueBox("Info", icon = "fa-question", href="#info", color="success")
+```
+
+### Traffic
+
+```{r}
+valueBox("Traffic", icon = "fa-question", href="#traffic", color="success")
+```
+
+### Arrival
+
+```{r}
+valueBox("Arrival", icon = "fa-line-chart",href="#arrival")
+```
+
+### Departure
+
+```{r}
+valueBox("Departure", icon = "fa-line-chart",href="#departure")
+```
+   
+Row {data-height=600}
+-------------------------------------
+
+### Now in row orientation
+
+```{r}
+```
+
+Row {data-height=400}
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+```   
+    
+### Chart 3
+
+```{r}
+```
+
+
+Turnaround
+====================================
+
+Column {data-width=150}
+-------------------------------------
+
+### Info
+
+```{r}
+valueBox("Info", icon = "fa-question", href="#info", color="success")
+```
+
+### Traffic
+
+```{r}
+valueBox("Traffic", icon = "fa-question", href="#traffic", color="success")
+```
+
+### Arrival
+
+```{r}
+valueBox("Arrival", icon = "fa-line-chart",href="#arrival")
+```
+
+### Departure
+
+```{r}
+valueBox("Departure", icon = "fa-line-chart",href="#departure")
+```
+
+### Turnaround
+
+```{r}
+valueBox("Turn", icon = "fa-line-chart",href="#turnaround")
+```
+
+Column
+------------------------------------
+
+### Awesome Turnaround
+
+Here comes some cool turnaround stuff

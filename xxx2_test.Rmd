@@ -1,0 +1,414 @@
+---
+title: "Housing market dashboard by @lenkiefer"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    social: menu
+    source_code: embed
+    theme: cerulean
+
+---
+
+```{r setup, include=T}
+library(flexdashboard)
+library(tidyverse,quietly=T)
+library(data.table,quietly=T)
+library(htmltools)
+library(htmlTable,quietly=T)
+library(viridis,quietly=T)
+library(DT,quietly=T)
+library(plotly,quietly=T)
+library(scales,quietly=T)
+library(readxl)
+library(crosstalk)
+library(bsplus)
+```
+
+
+Info
+===================================== 
+
+Column {data-width=75}
+-----------------------------------------------------------------------
+
+### About
+
+```{r}
+valueBox("Housing market dashboard", icon = "fa-question",href="#info",color="success")
+```
+
+### Interactive mortgage rate chart
+
+```{r}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#mortgage-rates")
+```
+
+
+### Interactive house price chart
+    
+```{r}
+valueBox("House Prices", icon = "fa-bar-chart",href="#house-prices")
+```
+   
+### Interactive data tables
+
+```{r}
+valueBox("Tables", icon = "fa-table",href="#data-tables")
+```
+
+### Linked chart and table
+
+```{r}
+valueBox("Linked", icon = "fa-link",href="#linked-chart-with-table")
+```
+   
+Column #{data-width=1000}
+-----------------------------------------------------------------------
+
+### All about this page
+
+If you have been [following me](https://twitter.com/lenkiefer), then you know I like to share all sorts of data visualizations and post some code for creating those charts on [my webpage lenkiefer.com](http://lenkiefer.com/).
+
+In this flexdashboard I've collected some of my favorite data visualizations.  It's got:
+
+* Interactive mortgage rate visualizations
+* Interactive house price visualizations
+* Data tables for mortgage rates and house prices
+
+This simple dashboard was built in R using [crosstalk]( http://rstudio.github.io/crosstalk/), [plotly]( https://plot.ly/r/), and [data tables]( https://rstudio.github.io/DT/).  By using [htmlwidgets]( http://www.htmlwidgets.org/) we can create an interactive dashboard in a static webpage.
+In this version I created a few line charts and data tables. Then I created a linked view using crosstalk to enable you to filter the table and chart simultaneously.
+
+You can get the source code by clicking on the top right.
+
+If you have not been following me, then maybe you want to?  Check out my timeline below for a preview of what you'll get from me.
+
+```{r, echo=FALSE}
+#htmltools::includeHTML("lentweet.html")
+```
+
+Mortgage Rates
+===================================== 
+
+Column {data-width=75}
+-------------------------------------
+
+### About
+
+```{r}
+valueBox("Housing market dashboard", icon = "fa-question",href="#info")
+```
+
+### Interactive mortgage rate chart
+
+```{r}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#mortgage-rates",color="success")
+```
+
+
+### Interactive house price chart
+    
+```{r}
+valueBox("House Prices", icon = "fa-bar-chart",href="#house-prices")
+```
+   
+### Interactive data tables
+
+```{r}
+valueBox("Tables", icon = "fa-table",href="#data-tables")
+```
+
+### Linked chart and table
+
+```{r}
+valueBox("Linked", icon = "fa-link",href="#linked-chart-with-table")
+```
+
+
+Column {data-width=1000 .tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### 30-year fixed mortgage rates
+
+```{r}
+x = 1:20
+y = (x*x*x) + (x -5)
+tmp <- data.frame(X=x, Y=y)
+
+g<-ggplot(data=tmp, aes(x = X, y=Y))+geom_line(color=viridis(10)[8])+
+  theme_minimal()+
+  labs(x="",y="",title="30-year fixed mortgage rates (%)",
+       caption="@lenkiefer Source: Freddie Mac Primary Mortgage Market Survey")+
+  theme(plot.caption=element_text(hjust=0),
+        plot.title=element_text(face="bold",size=10))
+
+ggplotly(g)
+```
+
+### 15-year fixed mortgage rates
+
+```{r}
+
+ggplotly(g)
+
+```
+
+
+### 5/1 Hybrid Adjustable Rate Mortgage Rates
+
+```{r}
+
+
+ggplotly(g)
+
+```
+
+House Prices
+===================================== 
+
+Column {data-width=75}
+-----------------------------------------------------------------------
+
+### About
+
+```{r}
+valueBox("Housing market dashboard", icon = "fa-question",href="#info")
+```
+
+### Interactive mortgage rate chart
+
+```{r}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#mortgage-rates")
+```
+
+
+### Interactive house price chart
+    
+```{r}
+valueBox("House Prices", icon = "fa-bar-chart",href="#house-prices",color="success")
+```
+   
+### Interactive data tables
+
+```{r}
+valueBox("Tables", icon = "fa-table",href="#data-tables")
+```
+
+### Linked chart and table
+
+```{r}
+valueBox("Linked", icon = "fa-link",href="#linked-chart-with-table")
+```
+
+Column { .tabset .tabset-fade} #data-width=1000
+-----------------------------------------------------------------------
+
+### National Price Trends
+
+```{r}
+
+ggplotly(g)
+```
+
+### National Annual Appreciation Trends
+
+```{r}
+ggplotly(g)
+```
+
+
+### State Price Trends
+
+Each line represents a state. Use the filter box to highlight an individual state.
+
+```{}
+bscols(widths=c(2,NA),
+  list(filter_select("state", "Select state to highlight for plot", d3, ~state,multiple=F)),
+  plot_ly(data=d3,x = ~date, y = ~hpa12, text=~mytext2,height=750) %>% 
+    add_lines(name="Selected state States",colors="red",alpha=0.7, hoverinfo = "text") %>% 
+    add_lines(name="All State",data=d3a,x=~date,y=~hpa12,
+              colors="black",color=~state,alpha=0.1,showlegend=F,hoverinfo="none") %>%
+     layout(title = "Annual Percent Change in House Prices",xaxis = list(title="Date"), yaxis = list(title="Annual % Change in House Prices by State"))
+  )
+```
+
+Data Tables
+===================================== 
+
+Column {data-width=75}
+-----------------------------------------------------------------------
+
+### About
+
+```{r}
+valueBox("Housing market dashboard", icon = "fa-question",href="#info")
+```
+
+### Interactive mortgage rate chart
+
+```{r}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#mortgage-rates")
+```
+
+
+### Interactive house price chart
+    
+```{r}
+valueBox("House Prices", icon = "fa-bar-chart",href="#house-prices")
+```
+   
+### Interactive data tables
+
+```{r}
+valueBox("Tables", icon = "fa-table",href="#data-tables",color="success")
+```
+
+### Linked chart and table
+
+```{r}
+valueBox("Linked", icon = "fa-link",href="#linked-chart-with-table")
+```
+
+Column {.tabset .tabset-fade}   #data-width=1000
+-----------------------------------------------------------------------
+
+### Rates table
+
+```{}
+dt<- read_excel('data/rates.xlsx',sheet= 'rates')
+dt$date<-as.Date(dt$date, format="%m/%d/%Y")
+dt<-data.table(dt) 
+dt<-as.data.frame(dt[order(-date),])  #sort, data tables make this easier
+datatable(dt[,1:4],filter = 'top',options=list(pageLength=25,searching=F),
+          colnames=c("Date","30-year Fixed Rate Mortgage (%)","15-year Fixed Rate Mortgage (%)","5/1 Adjustable Rate Mortgage (%)"),
+          caption=htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::strong('Weekly Average Mortgage Rates in the US'), 
+                               htmltools::br(),htmltools::em("Source: Freddie Mac Primary Mortgage Market Survey through Jan. 12, 2017" )))
+```
+
+### House Price Table
+
+```{}
+#create state data for use
+df$hpa.peak<-round(100*(df$hpi/df$hpi.max08 -1),1)
+df$hpa.trough<-round(100*(df$hpi/df$hpi.min08 -1),1)
+df$hpa100<-round(100*df$hpa12,1)
+df$hpi.round<-round(df$hpi,1)
+sdt<-df[date>="2000-01-01",c(2,1,4,5,18,17,15,16),with=F]
+
+datatable(sdt, 
+  caption =  htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::strong('State house price trends, Jan 2000 to September 2016: '), 'year-over-year percent change in house prices', 
+    htmltools::br(),htmltools::em("Source: Freddie Mac House Price Index, use search boxes and arrows to filter/sort data." )),
+   colnames = c( "State"='state' ,
+                 "Date"="date",
+                 "Year"="year",
+                 "Month"="month",
+                 "House Price Index (Dec 2000=100)"="hpi.round",
+                 "Annual percent change in house prices"="hpa100",
+                "Percent Above/Below Pre-2008 Peak"="hpa.peak",
+                "Percent Above post-2008 Trough"="hpa.trough"
+                ),
+  filter = 'top',
+  class="display compact",
+  options = list(  pageLength = 50,
+            width=800,
+            columnDefs = list(
+     
+  )))
+```
+
+Linked Chart with Table
+===================================== 
+
+Column {data-width=75}
+-----------------------------------------------------------------------
+
+### About
+
+```{r}
+valueBox("Housing market dashboard", icon = "fa-question",href="#info")
+```
+
+### Interactive mortgage rate chart
+
+```{r}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#mortgage-rates")
+```
+
+
+### Interactive house price chart
+    
+```{r}
+valueBox("House Prices", icon = "fa-bar-chart",href="#house-prices")
+```
+   
+### Interactive data tables
+
+```{r}
+valueBox("Tables", icon = "fa-table",href="#data-tables")
+```
+
+### Linked chart and table
+
+```{r}
+valueBox("Linked", icon = "fa-link",href="#linked-chart-with-table",color="success")
+```
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Use the filter box to focus on particular state(S)
+
+```{}
+df$hpa.peak<-round(100*(df$hpi/df$hpi.max08 -1),1)
+df$hpa.trough<-round(100*(df$hpi/df$hpi.min08 -1),1)
+df$hpa100<-round(100*df$hpa12,1)
+df$hpi.round<-round(df$hpi,1)
+sdt<-df[date>="2000-01-01",c(2,1,18,17),with=F]
+sdt<-group_by(sdt,state)
+sdt2 <- SharedData$new(sdt, ~state)
+
+### Set up colors using Viridis Color Scheme ###
+pal <- viridis(52)
+pal <- setNames(pal, unique(sdt$state))
+################################################
+
+bscols(widths=c(2,NA),
+  list(
+  filter_select("state", "Select state to highlight for plot", sdt2, ~state,multiple=T)),
+  plot_ly(data=sdt2,x = ~date, y = ~hpa100, height=750,text=~state) %>% 
+    add_lines(name="Selected state States",alpha=0.7, showlegend = FALSE) %>%
+     layout(title = "Annual Percent Change in House Prices",xaxis = list(title="Date"), yaxis = list(title="Annual % Change in House Prices by State"))
+)
+  
+
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### You can also filter by clicking on the data table
+
+```{}
+  datatable(sdt2,height=750, caption =  htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::strong('State house price trends, Jan 2000 to September 2016: '),
+    'year-over-year percent change in house prices', 
+    htmltools::br(),
+    htmltools::em("Source: Freddie Mac House Price Index, use search boxes and arrows to filter/sort data." )),
+    colnames = c( "State"='state' ,
+                 "Date"="date",
+                 "House Price Index (Dec 2000=100)"="hpi.round",
+                 "Annual percent change in house prices"="hpa100"
+                ),
+    #filter = 'top',
+    class="display compact",
+    options = list(  pageLength = 10)
+  )
+  
+
+```

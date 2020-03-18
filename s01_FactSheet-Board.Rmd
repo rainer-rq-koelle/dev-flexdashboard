@@ -1,0 +1,333 @@
+---
+params:
+  apt: "EGLL"
+title: "AIRPORT FACTSHEET `r params$apt`"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns  # rows
+    vertical_layout: fill # forces filled page (not good for multiple charts) # scroll # 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+```{r, echo=FALSE, message=FALSE}
+library(flexdashboard)
+library(readr)
+library(readxl)
+library(dplyr)
+library(lubridate)
+library(kableExtra)
+library(ggplot2)
+library(gridExtra)
+library(plotly)
+```
+
+```{r}
+apt <- params$apt
+ds  <- readxl::read_excel("STAT_AIRPORT_DATA.xlsx", sheet = "DATA"
+  # readxl style to force all chr # , col_types = "text" #
+)
+
+ds <- ds %>% filter(AIRPORT == apt)
+
+atfm <- readxl::read_excel("Airport_Arrival_ATFM_Delay.xlsx", sheet = "DATA") %>%
+  mutate(FLT_DATE = lubridate::date(FLT_DATE)) %>%
+  filter(APT_ICAO == apt)
+```
+
+# Home { .sidebar}
+
+
+### About
+
+```{r}
+valueBox("Overview", icon = "fa-question", href="#home", color="success")
+```
+
+### Interactive mortgage rate chart
+
+```{r}
+valueBox("Mortgage rates", icon = "fa-line-chart",href="#traffic")
+```
+
+### PLaceholder
+
+more cool stuff
+
+
+# Home2 
+
+Column
+----------------------
+
+### Airport Diagram
+
+add diagram here
+
+### Basic Info
+
+```{r}
+basic_info <- tribble(
+  ~colA, ~colB,
+  "Name", unique(ds$APT_NAME)[1],
+  "ICAO", unique(ds$APT_ICAO)[1],
+  "IATA", unique(ds$APT_IATA)
+)
+
+#knitr::kable(basic_info)
+basic_info %>%
+  kable(col.names = NULL) %>%
+  kable_styling(
+     bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    ,full_width = FALSE
+    ,position   = "float_right"
+    ,font_size  = 20 
+    ) %>%
+  column_spec(2, bold = TRUE)
+```
+
+# Traffic
+
+Row
+-----------------------------------------------------------------------
+
+
+### Traffic Evolution
+
+```{r}
+tick_yr <- list(dtick = 1
+    ,ticktext = list("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    ,tickvals = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    ,tickmode = "array"
+    ,range = c(1,12))
+
+tfc_pa <- ds %>% select(YEAR, NM_FLT_TOT)
+
+g1  <- plot_ly(data = tfc_pa, x = ~YEAR, y = ~NM_FLT_TOT
+              , type = "bar"
+              , showlegend = FALSE) %>%
+  layout( xaxis = list(title = "")
+         ,yaxis = list(title = "total number of flights")) %>%
+  plotly::add_annotations(
+    text = "annual traffic"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.2, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15)) 
+
+
+tfc_pm <- ds %>% select(YEAR, MONTH_NUM, NM_FLT_TOT)
+
+g2 <- tfc_pm %>%
+  plot_ly(x = ~MONTH_NUM, y = ~NM_FLT_TOT, color = ~as.factor(YEAR)
+          , type = "scatter" , mode = "lines") %>%
+  plotly::add_annotations(
+    text = "monthly traffic"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.5, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15)) 
+
+subplot( g1, g2
+        ,nrows = 1, margin = 0.03, widths = c(0.25, 0.75)
+        ) %>%
+  layout(xaxis2 = tick_yr) %>%
+  config(displayModeBar = F)   # deactivate complete ModeBar
+```
+
+
+### Hourly Throughput 
+
+check for data and plot here
+
+
+# Arrival ATFM Delay
+
+### Average Arrival ATFM Delay
+
+```{r}
+tmp <- atfm %>% group_by(FLT_DATE) %>%
+  summarise( ARRS         = sum(FLT_ARR_1, na.rm = TRUE)
+            ,TOT_ARR_ATFM = sum(DLY_APT_ARR_1, na.rm = TRUE)
+            ,DLYD_ARRS    = sum(FLT_ARR_1_DLY, na.rm = TRUE)
+            ,DLYS_ARRS_15 = sum(FLT_ARR_1_DLY_15, na.rm = TRUE)
+            )
+
+p <- tmp %>%
+  plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM
+          , type = 'scatter', mode = 'lines'
+          , line = list(shape = "hvh", width = 1)
+          ) %>%
+  layout(#title = "Daily Total Arrival ATFM Delay"
+         #, margin = list(t = 75)  # increase margin to deconflict titel and buttons
+         #, 
+         xaxis = list(title = ""
+         , rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "1 yr",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                        )
+         , yaxis = list(title = "Arrival ATFM Delay [min]")
+         ) %>% 
+  
+  config(displayModeBar = F)   # deactivate complete ModeBar
+p
+```
+
+### ATFM Slot Adherence
+
+
+
+
+
+# Arrival
+
+
+### ASMA
+
+```{r}
+asma <- ds %>% select(YEAR, MONTH_NUM, ADD_ASMA_TIME, APT_FLT_ARR) %>%
+  mutate(ASMA = ADD_ASMA_TIME * APT_FLT_ARR)
+
+asma_pa <- asma %>%
+  group_by(YEAR) %>%
+  summarise(ARR_N = sum(APT_FLT_ARR, na.rm = TRUE)
+            , TOT_ASMA = sum(ASMA, na.rm = TRUE)
+            ) %>%
+  ungroup() %>%
+  mutate(AVG_ADD_ASMA = TOT_ASMA / ARR_N)
+
+g1 <- asma_pa %>%
+  plotly::plot_ly(x=~YEAR, y=~AVG_ADD_ASMA
+          , type = "bar"
+          , showlegend = FALSE
+          ) %>%
+  plotly::add_annotations(
+    text = "annual variation"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.1, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15))
+#asma_pm <- asma %>% 
+#  mutate(YEAR_MONTH = sprintf("%d-%02d", YEAR, MONTH_NUM))
+
+g2 <-  plotly::plot_ly(
+  data = asma %>% filter(YEAR == 2019)
+    ,x = ~MONTH_NUM, y = ~ADD_ASMA_TIME, color = ~as.factor(YEAR)
+                  ,type = "scatter", mode = "lines"
+                  ,line = list(width = 3)
+                  ) %>%
+  plotly::layout(xaxis = tick_yr)%>% 
+  plotly::add_trace(data = asma %>% filter(YEAR != 2019)
+                   ,x = ~MONTH_NUM, y = ~ADD_ASMA_TIME, color = ~as.factor(YEAR)
+                  ,type = "scatter", mode = "lines"
+                  ,visible = "legendonly"
+                  ,line = list(width = 1)) %>%
+  plotly::add_annotations(
+    text = "monthly variation per year"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.5, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15)) 
+
+#%>%
+ # layout(xaxis = xxx )
+
+plotly::subplot(g1,g2, shareY = TRUE
+                ,nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
+  plotly::layout(yaxis = list(title = "average additional ASMA time [min/arrival]")
+                 ,xaxis2 = tick_yr) %>% 
+  
+  plotly::config(displayModeBar = F)   # deactivate complete ModeBar
+```
+
+
+# Departure
+
+
+### Avergage Taxi-Out Time
+
+
+```{r}
+txot <- ds %>% select(YEAR, MONTH_NUM, ADD_TAXI_OUT_TIME, APT_FLT_DEP) %>%
+  mutate(TAXI_OUT = ADD_TAXI_OUT_TIME * APT_FLT_DEP)
+
+txot_pa <- txot %>%
+  group_by(YEAR) %>%
+  summarise(DEP_N = sum(APT_FLT_DEP, na.rm = TRUE)
+            , TOT_TXOT = sum(TAXI_OUT, na.rm = TRUE)
+            ) %>%
+  ungroup() %>%
+  mutate(AVG_ADD_TXOT = TOT_TXOT / DEP_N)
+
+g1 <- txot_pa %>%
+  plotly::plot_ly(x=~YEAR, y=~AVG_ADD_TXOT
+          , type = "bar"
+          , showlegend = FALSE
+          ) %>%
+  plotly::add_annotations(
+    text = "annual variation"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.1, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15))
+
+
+g2 <-  plotly::plot_ly(
+  data = txot %>% filter(YEAR == 2019)
+    ,x = ~MONTH_NUM, y = ~ADD_TAXI_OUT_TIME, color = ~as.factor(YEAR)
+                  ,type = "scatter", mode = "lines"
+                  ,line = list(width = 3)
+                  ) %>%
+  plotly::layout(xaxis = tick_yr)%>% 
+  plotly::add_trace(data = txot %>% filter(YEAR != 2019)
+                   ,x = ~MONTH_NUM, y = ~ADD_TAXI_OUT_TIME, color = ~as.factor(YEAR)
+                  ,type = "scatter", mode = "lines"
+                  ,visible = "legendonly"
+                  ,line = list(width = 1)) %>%
+  plotly::add_annotations(
+    text = "monthly variation per year"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.5, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15)) 
+
+plotly::subplot(g1,g2, shareY = TRUE
+                ,nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
+  plotly::layout(yaxis = list(title = "average additional taxi-out time [min/arrival]")
+                 ,xaxis2 = tick_yr) %>% 
+  
+  plotly::config(displayModeBar = F)   # deactivate complete ModeBar
+```
+
+# Turnaround
+
+### To Be Developed
+
+More cool stuff to come!
+
+### To Be Developed 2
+
+Even more cool stuff to come soon!

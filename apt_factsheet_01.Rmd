@@ -1,0 +1,65 @@
+---
+params:
+  icao: "XXXX"
+  iata: "YYY"
+  name: "airport name"
+  state: "state name"
+#  rotate_chart: no
+#  tfc: !r mtcars
+#  atfm: !r mtcars
+#  slot: !r mtcars
+#  asma: !r mtcars
+#  txot: !r mtcars
+#  #txit: !r mtcars
+#  pddly: !r mtcars
+geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=1.5cm"
+output: pdf_document
+# https://stackoverflow.com/questions/46027246/in-r-markdown-create-header-footer-on-every-page-regardless-of-output-type-pdf
+header-includes:
+  - \usepackage{fancyhdr}         # add \thispagestyle{fancy} after YAML to force layout from 1st page!
+  - \pagestyle{fancy}
+  - \fancyhead[L]{AIRPORT PERFORMANCE FACTSHEET}
+  - \fancyhead[R]{`r params$name` (`r params$icao`)}
+  - \fancyfoot[LE,RO]{{\textcopyright}  EUROCONTROL/PRU}
+## See: https://stackoverflow.com/questions/25849814/rstudio-rmarkdown-both-portrait-and-landscape-layout-in-a-single-pdf/27334272#27334272
+  - \usepackage{multicol}
+  - \newcommand{\btwocol}{\begin{multicols}{2}}
+  - \newcommand{\etwocol}{\end{multicols}}
+---
+
+\thispagestyle{fancy}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = T) # suppress printing of chunks
+options(tinytex.verbose = TRUE)
+library(dplyr)
+library(ggplot2)
+library(scales)   # to manage ggplot scale / non-scientific notation
+library(egg)
+library(kableExtra)
+```
+```{r}
+month_lbls <- c(  "Jan", "Feb", "Mar", "Apr", "May", "Jun"
+                , "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+```
+
+## Overview
+
+\btwocol
+
+
+```{r, out.width="100%" }
+ad_chart <- paste("data-ad-charts/", params$icao, ".png", sep="")
+knitr::include_graphics(ad_chart)
+```
+
+\columnbreak
+
+airport: `r params$icao`   
+iata: `r params$iata`    
+name: `r params$name`    
+state: `r params$state`    
+
+\etwocol
+
+## IFR Traffic Evolution

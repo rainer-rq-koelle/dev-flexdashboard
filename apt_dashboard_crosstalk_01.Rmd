@@ -1,10 +1,14 @@
 ---
-title: "Untitled"
-author: "RQ"
-date: "12/12/2019"
+title: "Pan-European Performance Dashboard"
+author: "PRU"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
+    theme: paper
+    #favicon: data-test/euctrl-logo-noname.png
+    logo: data-test/euctrl-logo-noname-hgt48.png
+    source_code: embed
 ---
 
 ```{r setup, include=FALSE}
@@ -12,44 +16,56 @@ library(flexdashboard)
 library(readr)
 library(dplyr)
 library(leaflet)
+library(DT)         # interactive tables
+library(crosstalk)  # inter-widget interactivity
 ```
 
 ```{r}
 apts <- read_csv("./data-test/airports.dat", col_names = FALSE) %>%
   rename(ICAO = X6, LAT = X7, LON = X8, TZ = X12) %>%
   select(ICAO, LAT, LON, TZ) %>%
-  filter(ICAO %in% c("EGLL", "EDDF", "EDDM", "EIDW"))
+  filter(ICAO %in% c("EGLL","EGKK","EDDF","EDDM","EIDW","EHAM","LSZH","LFPG","LEMD"))
+
+#develop without crosstalk: ds <- apts
+ds <- SharedData$new(apts)
 ```
 
 # Home {data-icon="fa-list"}
 
-Overview 
+Column 
 -------------------------------------
+
+### Overview
 
 For more information contact <a href="mailto:pru@eurocontrol.int?subject=Airport Dashboard">PRU Support</a>.
 
-```{r}
-library(plotly)
-library(htmlwidgets) # to use the 'onRender' function
+### Filters
 
-dat <- iris[1:2,]
-urls <- c("http://google.com", "https://stackoverflow.com")
-
-p <- plot_ly(dat, type = "scatter", mode = "markers",
-             x = ~Sepal.Width, y = ~Sepal.Length, 
-             customdata = urls)
-
-js <- "
-function(el, x) {
-  el.on('plotly_click', function(d) {
-    var point = d.points[0];
-    var url = point.data.customdata[point.pointIndex];
-    window.open(url);
-  });
-}"
-
-p %>% onRender(js)
+```{r filters}
+filter_select(
+  id = "ICAO",
+  label = "myICAO",
+  sharedData = ds,
+  group = ~ICAO
+)
 ```
+
+
+### Cool Datatable
+
+```{r}
+DT::datatable(
+  ds,
+  filter = "top",
+  extensions = "Scroller",
+  rownames = FALSE,
+  style = "bootstrap",
+  class = "compact",
+  width = "100%" #,
+  #options = list(deferRender = TRUE, scrollY = 300, scroller = TRUE)
+  )
+```
+
 
 
 Column
@@ -68,15 +84,18 @@ mp <- leaflet() %>%
   addTiles() %>% 
 #  fitBounds(-127.44,24.05,-65.30,50.35) %>% 
   # addProviderTiles("Esri.WorldTopoMap") %>%
-  addCircleMarkers(apts$LON, 
+  #throws error with crosstalk: addCircleMarkers(
+  addMarkers(apts$LON, 
                    apts$LAT, 
-                   color = "red" #factor(apts$LON), 
-                   ,radius = 6
-                   , fill = TRUE
-                   , fillOpacity = 0.2
-                   , opacity = 0.6
+          #circle-marker         color = "red" #factor(apts$LON), 
+          #circle-marker         ,radius = 6
+          #circle-marker         , fill = TRUE
+          #circle-marker         , fillOpacity = 0.2
+          #circle-marker         , opacity = 0.6
                    , label = paste("<a href='", apts$ICAO,".html'>", apts$ICAO,"</a>", sep = "")
                   #, popup='<a href="https://www.r-project.org/">R Project</a>'
+                  
+                  ,clusterOptions = markerClusterOptions()
                    ) 
 #%>%
 #  addLegend("bottomleft", 
@@ -88,6 +107,6 @@ mp <- leaflet() %>%
 #            opacity = 0.8)
 
 
-mp %>% onRender(js)
+mp
 ```
 
