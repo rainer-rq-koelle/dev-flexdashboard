@@ -1,0 +1,39 @@
+---
+title: "Untitled"
+author: "RQ"
+date: "19/04/2020"
+output: html_document
+---
+
+## More Plotly Crosstalks
+
+```{r, message=FALSE}
+library(crosstalk)
+library(plotly)
+
+shared_data <- SharedData$new(data.frame(x=1:10,y=rnorm(10),z=sample(1:4,10,replace = TRUE)),key = ~z)
+
+p1 <- plot_ly(shared_data,x=~x,y=~y,text=~z,type='bar')%>%highlight('plotly_click',color='red')
+p2 <- plot_ly(shared_data,x=~x,y=~abs(y),text=~z,type='bar')%>%highlight('plotly_click',color='red')
+p3 <- plot_ly(shared_data,x=~x,y=~y,text=~z,type='scatter',mode='markers')%>%highlight('plotly_selected',color='red')
+
+```
+```{r}
+bscols(p1, p2, p3, widths = c(12, 6, 6))
+```
+
+
+
+
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
