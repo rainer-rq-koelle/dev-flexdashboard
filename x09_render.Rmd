@@ -5,6 +5,8 @@ date: "05/11/2019"
 output: html_document
 ---
 
+# THE MAINTENANCE OF THIS RMD IS DISCONTINUED WITH STARTING TO DEPLOY
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library("dplyr")
