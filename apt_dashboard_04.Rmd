@@ -83,7 +83,7 @@ For more details refer to the pointers in the **About** section.
 ```{r front-page-table}
 source("./R/prepare_frontpage_DT.R")
 
-out <- prepare_front_page_DT(params$tfc, params$asma, params$txot, params$atfm)
+out <- prepare_front_page_DT(params$icao, params$tfc, params$asma, params$txot, params$atfm)
 
 out %>% 
   datatable(

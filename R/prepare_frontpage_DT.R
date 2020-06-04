@@ -1,12 +1,13 @@
 #' utility function to preprocess the data for the front page DT
 #' ##############################################################
 
-prepare_front_page_DT <- function(.tfc, .asma, .txot, .atfm){
+prepare_front_page_DT <- function(.icao, .tfc, .asma, .txot, .atfm){
   library(tidyverse)
   library(DT)
   library(formattable)
   library(sparkline)
-  
+ 
+  icao <- .icao 
   tfc  <- .tfc
   asma <- .asma
   txot <- .txot
@@ -22,32 +23,31 @@ prepare_front_page_DT <- function(.tfc, .asma, .txot, .atfm){
     df <- df %>% 
       filter(MOF <= paste0(now_year, "-", now_month)) %>% 
       arrange(desc(MOF)) %>%
-      ## force 2019 ... not sure why pip not yet updated
-      filter(YEAR %in% c(2019,2018)) %>%
       head(n_months)
+    
     if(!is.integer(df$YEAR))     {df$YEAR      <- as.integer(df$YEAR)}
     if(!is.integer(df$MONTH_NUM)){df$MONTH_NUM <- as.integer(df$MONTH_NUM)}
     return(df)
   }
   
-  tfc2 <- tfc %>% filter(APT_ICAO == "EGLL") %>%
+  tfc2 <- tfc %>% filter(APT_ICAO == icao) %>%
     select(YEAR, MONTH_NUM, FLT_DEP_IFR_2, FLT_ARR_IFR_2, FLT_TOT_IFR_2) %>% 
     group_by(YEAR, MONTH_NUM) %>% 
     summarise(FLT_TOT = sum(FLT_TOT_IFR_2, na.rm = TRUE)) %>% 
     mutate(MOF = paste0(YEAR,"-", sprintf("%02s", MONTH_NUM) )) %>%
     extract_last_months()
   
-  asma2<- asma %>% filter(APT_ICAO == "EGLL") %>% 
+  asma2<- asma %>% filter(APT_ICAO == icao) %>% 
     select(YEAR, MONTH_NUM, ADD_ASMA = TIME_ASMA_ADD_2, N_ASMA = FLT_ASMA_UNIMP_2) %>%
     mutate( MOF = paste0(YEAR,"-", sprintf("%02d", MONTH_NUM)) ) %>%
     extract_last_months()
   
-  txot2<- txot %>% filter(APT_ICAO == "EGLL") %>%
+  txot2<- txot %>% filter(APT_ICAO == icao) %>%
     select(YEAR, MONTH_NUM, ADD_TXOT = TIME_TXO_ADD_2, N_TXOT = FLT_TXO_UNIMP_2) %>%
     mutate( MOF = paste0(YEAR,"-", sprintf("%02d", MONTH_NUM)) ) %>%
     extract_last_months()
   
-  atfm2<- atfm %>% filter(APT_ICAO == "EGLL") %>%
+  atfm2<- atfm %>% filter(APT_ICAO == icao) %>%
     select(YEAR, MONTH_NUM, ATFM_ADLY = DLY_APT_ARR_1, N_ATFM_A = FLT_ARR_1) %>%
     group_by(YEAR, MONTH_NUM) %>%
     summarise(ATFM_ADLY = sum(ATFM_ADLY, na.rm = TRUE), N_ATFM_A = sum(N_ATFM_A, na.rm = TRUE)) %>%
