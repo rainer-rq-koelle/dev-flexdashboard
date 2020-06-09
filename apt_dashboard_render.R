@@ -1,5 +1,5 @@
 # AIRPORT FLEXDASHBOARD RENDER SCRIPT
-# This scrips reads in the data files (i.e. monthly files currently stored on 
+# This scrips reads in the data files (i.e. monthly files currently stored on
 # ansperformance.eu) and additional data summaries. These input files are
 # currently saved to the project folder for the script to read.
 
@@ -18,6 +18,9 @@ library("lubridate")
 library("purrr")
 library("readxl")
 
+library(formattable)
+library(sparkline)
+
 # REMOVE WHEN DEPLOYED -------------------------------------------------
 # TO LIMIT TEST LOAD SUBSET FOR "TEST" AIRPORTS
 # To-Do: deployed version should use airport list, etc or be derived from ids
@@ -25,8 +28,8 @@ library("readxl")
 apts   <- c("EGLL", "EDDF", "EIDW")
 # version - counter increased to 05 (including Sara's comments) & discussion with
 # Enrico
-version<- "05"  
-## ------------------------------------------------ REMOVE WHEN DEPLOYED 
+version<- "05"
+## ------------------------------------------------ REMOVE WHEN DEPLOYED
 
 
 ## ------------ READ IN DATA TABLES FROM DOWNLOAD POINT ------------------
@@ -35,7 +38,7 @@ version<- "05"
 tfc_df <- readxl::read_excel("./data/Airport_Traffic.xlsx", sheet = "DATA"
                              # readxl style to force all chr # , col_types = "text" #
 ) %>%
-  mutate(FLT_DATE = lubridate::date(FLT_DATE)) 
+  mutate(FLT_DATE = lubridate::date(FLT_DATE))
 
 ids_df <- tfc_df %>% select(apt = APT_ICAO, name = APT_NAME, state = STATE_NAME)
 
@@ -44,7 +47,7 @@ thru_df <- readr::read_csv("./data-test/STAT_AIRPORT_DATA_THRU.csv") %>% rename(
 atfm_df <- readxl::read_excel("./data/Airport_Arrival_ATFM_Delay.xlsx", sheet = "DATA") %>%
   mutate(FLT_DATE = lubridate::date(FLT_DATE)) %>%
   mutate_at(vars(starts_with("DLY_APT_ARR_")), tidyr::replace_na, 0) %>%
-  mutate( AD_DISRUPTION = DLY_APT_ARR_A_1 + DLY_APT_ARR_E_1 + DLY_APT_ARR_N_1 + 
+  mutate( AD_DISRUPTION = DLY_APT_ARR_A_1 + DLY_APT_ARR_E_1 + DLY_APT_ARR_N_1 +
             DLY_APT_ARR_O_1 + DLY_APT_ARR_NA_1
           ,AD_CAPACITY   = DLY_APT_ARR_G_1 + DLY_APT_ARR_M_1 + DLY_APT_ARR_R_1 +
             DLY_APT_ARR_V_1
@@ -58,7 +61,7 @@ atfm_df <- readxl::read_excel("./data/Airport_Arrival_ATFM_Delay.xlsx", sheet = 
 # idea was to read out the meta data to map causes to groups
 #atfm_reg <- readxl::read_excel("./data-test/Airport_Arrival_ATFM_Delay.xlsx", sheet = "META"
 #                               , skip = 8  # skip first rows
-#                               ) %>% 
+#                               ) %>%
 #  select(1, 4) %>%
 #  filter(!is.na(`Reason Group`))
 
@@ -103,13 +106,13 @@ pick_apt_iata <- function(.df, .apt){
 ## ------------ RENDER DASHBOARDS -------------------------------------
 
 
-apts %>% 
+apts %>%
   purrr::walk(
     .f=~rmarkdown::render(
       input  = "apt_dashboard_04.Rmd"   # master flexdashboard Rmd
       , params = list( #------ start params -------------------------
                        icao = .
-                       ,iata = pick_apt_iata( pddly_df,  .apt = .)   # merge iata code with other source 
+                       ,iata = pick_apt_iata( pddly_df,  .apt = .)   # merge iata code with other source
                        ,name = pick_apt_name(   tfc_df,  .apt = .)
                        ,state= pick_state_name( tfc_df,  .apt = .)
                        ,tfc  = filter_df_by_apt(tfc_df,  .apt = .)
@@ -125,7 +128,7 @@ apts %>%
       ) #----------------- end params ---------------------------
       # output_dir DEACTIVATED and included in output_file name
       # brittle as reported in stackoverflow
-      #  , output_dir = "./boards"   
+      #  , output_dir = "./boards"
       , output_file = paste0("./boards/", .,"-", version,".html")
     )
   )
