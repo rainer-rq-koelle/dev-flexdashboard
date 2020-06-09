@@ -101,7 +101,9 @@ prepare_front_page_DT <- function(.icao, .tfc, .asma, .txot, .atfm){
   tfc_spk   <- sparkline::spk_chr(rev(perf2$FLT_TOT[1:13]))
   asma_spk  <- sparkline::spk_chr(rev(perf2$AVG_ADD_ASMA[1:13]), type="bar")
   txot_spk  <- sparkline::spk_chr(rev(perf2$AVG_ADD_TXOT[1:13]), type="bar")
-  atfm_spk  <- sparkline::spk_chr(rev(perf2$AVG_ATFM_ADLY[1:13]), type="line")
+  #atfm_spk  <- sparkline::spk_chr(rev(perf2$AVG_ATFM_ADLY[1:13]), type="line")
+  #per Sara request make atfm sparkline also barchart
+  atfm_spk  <- sparkline::spk_chr(rev(perf2$AVG_ATFM_ADLY[1:13]), type="bar")
   
   spark_tbl <- tibble(
     IND = c("TFC"  ,"ASMA"   ,"TXOT"   ,"ATFM_A")

@@ -50,7 +50,7 @@ tick_yr_no_title <- list(
 <!-- img src="logo-test-apple.png"/ -->
 <!-- /div -->
 
-# Home {data-icon="fa-home"}
+# Overview {data-icon="fa-home"}
 
 ## Column ----------------------------------------------------------
 
@@ -66,13 +66,15 @@ if(params$icao %in% c("EHAM", "LEMD", "LSZH")){
 ad_chart %>% image_trim()
 ```
 
-### Overview
+### General
 
-airport: `r params$icao`   
-iata: `r params$iata`    
-name: `r params$name`    
-state: `r params$state`    
+Airport: `r params$name`    
+ICAO/IATA Code: `r params$icao`/`r params$iata`    
+State: `r params$state`    
+Annual traffic:  NEED DATA 4 last full year
+Active runways: NEED DATA 4 active runway
 
+</br>
 The information on this dashboard is provided for information purposes.
 For more details refer to the pointers in the **About** section.
 
@@ -117,7 +119,7 @@ knitr::include_graphics("./figures/ECTRL-logo.svg")
 
 ## Row ----------------------------------------------------------
 
-### Annual Traffic Variation
+### Annual Traffic
 
 ```{r}
 # annual bar chart
@@ -125,19 +127,31 @@ mvts_pa <- params$tfc %>% select(YEAR, FLT_TOT_1 ) %>%
   group_by(YEAR) %>%
   summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE)) %>% ungroup()
 
-font <- list(family = "Courier New, monospace", size = 18, color = "#7f7f7f")
+# annotation
+mvts_thisyear = params$tfc %>% filter(YEAR == max(YEAR))
+mvts_jan = mvts_thisyear %>% filter(MONTH_NUM == "01") %>% 
+  summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE))
+
+key_msg <- list(x = unique(mvts_thisyear$YEAR), y = 300000
+                ,text = mvts_jan$FLT_TOT)
+
+# experiment with other font
+# deactivated 
+# font <- list(family = "Courier New, monospace", size = 18, color = "#7f7f7f")
 xax <- list(title="")
-yax <- list(title="number of flights", titlefont = font)
+# yax <- list(title="Number of flights", titlefont = font)
+yax <- list(title="Number of flights")
 
 mvts_pa %>%
   plot_ly(x = ~YEAR, y = ~FLT_TOT) %>%
-  add_trace(type = "bar"
+  add_trace(type = "bar", name = "Traffic"
             ,hoverinfo = "text"
             ,hovertemplate = paste(
                "Year: %{x}"
               ,"<br>Flights: %{y}" 
             )) %>% 
   layout(xaxis = xax, yaxis = yax
+         ,annotations = key_msg
     )                    #layout(autosize = F, width = 300, height = 300)
 ```
 
@@ -151,7 +165,7 @@ tmp <- params$tfc %>%
   separate(PHASE, into = c(NA, "PHASE", NA), sep = "_")
 
 xax <- list(title = "")
-yax <- list(title = "movements per day")
+yax <- list(title = "Movements per day")
 
 pbox_group <- tmp %>%
   plot_ly(x = ~YEAR, y = ~MVTS, color = ~PHASE, type = "box") %>%
@@ -171,7 +185,7 @@ mvts_pm <- params$tfc %>% select(YEAR, MONTH_NUM, FLT_TOT_1) %>%
   summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE)) %>% ungroup()
 
 xax <- tick_yr_no_title
-yax <- list(title="number of flights")
+yax <- list(title="Number of flights")
 
 mvts_pm %>%
   plot_ly(x = ~MONTH_NUM, y = ~FLT_TOT, group = ~YEAR, color = ~YEAR) %>%
@@ -188,7 +202,7 @@ thru <- params$thru %>%
   filter(YEAR == max(YEAR)) %>% filter(MONTH == max(MONTH))
 
 xax = list(title= "", type = 'time', tickformat = "%H:%M")
-yax = list(title= 'average throughput [flights/hour]')
+yax = list(title= 'Average throughput [flights/hour]')
 
 thru %>% 
   plot_ly(x = ~TIME, y = ~N_BIN_AVG, color = ~SRC_PHASE) %>%
@@ -228,7 +242,7 @@ atfm_pa <- params$atfm %>%
 atfm_pa %>% 
   plot_ly(x = ~YEAR, y = ~AVG_ARR_ATFM_REG, color = ~REG_REASON, type = "bar") %>%
   layout(barmode = "stack", xaxis = list(title = "")
-         , yaxis=list(title="average arrival ATFM delay [min/arr]")) %>% 
+         , yaxis=list(title="Average arrival ATFM delay [min/arr]")) %>% 
 config(displayModeBar = FALSE)
 ```
 
@@ -296,7 +310,7 @@ atfm_pm %>%
         ) %>%
   layout( barmode = "stack"
          ,xaxis = tick_yr_no_title
-         ,yaxis=list(title="average arrival ATFM delay [min/arr]")
+         ,yaxis=list(title="Average arrival ATFM delay [min/arr]")
          ,showlegend = FALSE
          ,updatemenus = list( type_list )
          ) %>% 
@@ -451,7 +465,7 @@ p <- tmp %>%
 
       rangeslider = list(type = "date")
                         )
-         , yaxis = list(title = "additional ASMA time [min/arr]")
+         , yaxis = list(title = "Additional ASMA time [min/arr]")
          ) %>% 
   
   config(displayModeBar = F)   # deactivate complete ModeBar
@@ -495,8 +509,8 @@ mvts_pm_sc <- mvts_pm %>% select(YEAR, MONTH_NUM, FLT_TOT) %>%
 scatter_df <- left_join(mvts_pm_sc, asma_pm_sc, by=c("YEAR","MONTH_NUM")) %>%
   mutate(YM = paste0(YEAR,"-", MONTH_NUM))
 
-xax <- list(title = "number of flights")
-yax <- list(title = "average additional ASMA time")
+xax <- list(title = "Number of flights")
+yax <- list(title = "Average additional ASMA time")
 
 scatter_df %>%
   plot_ly(x = ~FLT_TOT, y=~AVG_ADD_ASMA_TIME, name=~YEAR, size=3, mode = 'markers') %>%
@@ -571,7 +585,7 @@ g2 <-  plot_ly() %>%
 # shared plots
 subplot(g1,g2, shareY = TRUE
         ,nrows = 1, margin = 0.03, widths = c(0.4, 0.6)) %>%
-  layout(yaxis = list(title = "average additional taxi-out time [min/arrival]")
+  layout(yaxis = list(title = "Average additional taxi-out time [min/arrival]")
                  ,xaxis2 = tick_yr) %>% 
   config(displayModeBar = F)   # deactivate complete ModeBar
 ```
@@ -737,7 +751,7 @@ g2 <- pddly_pm %>% filter(YEAR == max(YEAR)) %>%
 ## COMBINED PLOT ===================================================
 
 subplot(g1, g2, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
-  layout(yaxis = list(title = "reported delay [min/departure]") #, titlefont = list(size = 8))
+  layout(yaxis = list(title = "Reported delay [min/departure]") #, titlefont = list(size = 8))
                  ,xaxis2 = tick_yr) %>% 
   config(displayModeBar = FALSE) 
 ```
@@ -968,7 +982,7 @@ otp_vs_wi %>%
     add_trace(x=~OTP_P, type="bar", name="OTP", orientation = 'h') %>%
     add_trace(x=~WI15_P, type="bar", name="WI15", orientation = 'h') %>%
     add_trace(x=~WI5_P, type="bar", name="WI5", orientation = 'h') %>%
-  layout(yaxis=list(title=""), xaxis=list(title="share of flights [%]")) %>%
+  layout(yaxis=list(title=""), xaxis=list(title="Share of flights [%]")) %>%
   # deactivate modebar
   config(displayModeBar = FALSE)
 ```
