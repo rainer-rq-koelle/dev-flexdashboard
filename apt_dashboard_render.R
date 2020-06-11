@@ -6,7 +6,7 @@
 
 # To-Do
 # 1. processing pipeline read/extract data from PRISME to remove by hand download
-# 1a. download data from blog portal repo: 
+# 1a. download data from blog portal repo:
 #    https://github.com/euctrl-pru/portal/tree/master/static/download/xls
 # 2. reduce data load by cleaning the input data tables
 #    note: as the dashboard is under development this will be a clean-up task
@@ -29,8 +29,7 @@ library(sparkline)
 # the list is used as an iterator for the render loop below
 apts   <- c("EGLL", "EDDF", "EIDW")
 # version - counter increased to 05 (including Sara's comments) & discussion with
-# Enrico
-version<- "05"
+# Enrico --> deactivated as we move towards deployment. version<- "05"
 ## ------------------------------------------------ REMOVE WHEN DEPLOYED
 
 
@@ -131,6 +130,6 @@ apts %>%
       # output_dir DEACTIVATED and included in output_file name
       # brittle as reported in stackoverflow
       #  , output_dir = "./boards"
-      , output_file = paste0("./boards/", .,"-", version,".html")
+      , output_file = paste0("./boards/", ., ".html")
     )
   )
