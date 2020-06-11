@@ -127,13 +127,23 @@ mvts_pa <- params$tfc %>% select(YEAR, FLT_TOT_1 ) %>%
   group_by(YEAR) %>%
   summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE)) %>% ungroup()
 
-# annotation
+# annotation - ytd
 mvts_thisyear = params$tfc %>% filter(YEAR == max(YEAR))
 mvts_jan = mvts_thisyear %>% filter(MONTH_NUM == "01") %>% 
   summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE))
+max_mth  <- max(mvts_thisyear$MONTH_NUM)
+mvts_last<- mvts_thisyear %>% filter(MONTH_NUM == max_mth) %>%
+  summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE))
+mvts_ytd <- (mvts_last - mvts_jan) / mvts_jan
 
-key_msg <- list(x = unique(mvts_thisyear$YEAR), y = 300000
-                ,text = mvts_jan$FLT_TOT)
+msg     <- paste0("<b>YTD: ", round(mvts_ytd, 2),"% </b>")
+msg_y   <- mvts_pa %>% 
+  filter(YEAR == as.integer(max(YEAR)) - 1) %>% 
+  mutate(FLT_TOT = 0.7 * FLT_TOT) %>% pull(FLT_TOT)
+key_msg <- list(x = unique(mvts_thisyear$YEAR), y = msg_y
+                ,text = msg
+                ,size = 14
+                ,showarrow = FALSE)
 
 # experiment with other font
 # deactivated 
@@ -176,7 +186,7 @@ pbox_group
 
 ## Row -----------------------------------------------------------
 
-### Monthly Traffic Variation
+### Monthly Traffic
 
 ```{r}
 # monthly trend
@@ -184,18 +194,37 @@ mvts_pm <- params$tfc %>% select(YEAR, MONTH_NUM, FLT_TOT_1) %>%
   group_by(YEAR, MONTH_NUM) %>%
   summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE)) %>% ungroup()
 
+# annotation - highlight highest monthly traffic in the last years
+mvts_pm_max <- mvts_pm %>% filter(FLT_TOT == max(FLT_TOT))
+
+msg         <- paste0( "<b>Busiest month <br>(last 5 years): <br>"
+                      ,mvts_pm_max$MONTH_NUM, "-", mvts_pm_max$YEAR
+                      ,"<br>", mvts_pm_max$FLT_TOT, "</b>")
+
+# replaced with add_annotations - c.f. below
+#key_msg     <- list( text = msg
+#                    , x   = mvts_pm_max$MONTH_NUM
+#                    , y   = mvts_pm_max$FLT_TOT 
+#                    , showarrow = TRUE)
+
+# plot
 xax <- tick_yr_no_title
-yax <- list(title="Number of flights")
+yax <- list(title="Number of flights", rangemode = "tozero")
 
 mvts_pm %>%
   plot_ly(x = ~MONTH_NUM, y = ~FLT_TOT, group = ~YEAR, color = ~YEAR) %>%
   add_trace( type = 'scatter', mode = 'markers+lines') %>%
-  layout(xaxis = xax, yaxis=yax
-           )  %>%               #layout(autosize = F, width = 300, height = 300)
+  add_annotations( text = msg
+                  , x = mvts_pm_max$MONTH_NUM
+                  , y = mvts_pm_max$FLT_TOT
+                  , showarrow = TRUE, ax = 50, ay = 100) %>%
+  layout( xaxis = xax, yaxis=yax
+        # ,annotations = key_msg
+           )  %>%       #layout(autosize = F, width = 300, height = 300)
   config(displayModeBar = FALSE)
 ```
 
-### Average Hourly Throughput
+### Hourly Throughput
 
 ```{r}
 thru <- params$thru %>% 
