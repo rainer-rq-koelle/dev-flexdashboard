@@ -228,16 +228,39 @@ mvts_pm %>%
 
 ```{r}
 thru <- params$thru %>% 
+  select(APT_ICAO, YEAR, MONTH, TIME, SRC_PHASE, N_BIN_AVG) %>%
   filter(YEAR == max(YEAR)) %>% filter(MONTH == max(MONTH))
 
-xax = list(title= "", type = 'time', tickformat = "%H:%M")
+thru_tot <- thru %>% 
+  group_by(APT_ICAO, YEAR, MONTH, TIME) %>% 
+  summarise(N_BIN_AVG = sum(N_BIN_AVG, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(SRC_PHASE = "TOT")
+
+thru <- thru %>% bind_rows(thru_tot) %>% arrange(TIME) %>%
+  mutate(TIME = strtrim(TIME, 5))
+#  mutate(TIME = lubridate::hm(TIME))
+# TIME seems to be turned to string!!!!, i.e. time formatting does not work!!!
+
+#xax = list(title= "", type = 'time', tickformat = "%H%M") # 
+xax = list(title="", type = "category" ,range = c(-2,72)) #
 yax = list(title= 'Average throughput [flights/hour]')
+
+mth <- unique(thru$MONTH)
+msg = paste0("<b>Average 15-min rolling hour <br>throughput-weekdays Month ", mth,"</b>")
 
 thru %>% 
   plot_ly(x = ~TIME, y = ~N_BIN_AVG, color = ~SRC_PHASE) %>%
   group_by(SRC_PHASE) %>%
-  add_lines(type = 'scatter') %>%    #, mode = 'markers+lines')
-  layout(xaxis = xax, yaxis=yax) %>%
+  add_lines(type = 'scatter') %>%    
+  add_annotations(text = msg
+                 , x = "12:00:00"
+                 , y = 0.1 * max(thru$N_BIN_AVG) 
+                 , showarrow = FALSE, ax = 0, ay = 0  # no arrow, no offset
+                 , align = "center"
+                 ) %>%
+  layout( xaxis = xax, yaxis=yax
+         ,hovermode = "x unified") %>%
   config(displayModeBar = FALSE)
 ```
 
@@ -275,7 +298,7 @@ atfm_pa %>%
 config(displayModeBar = FALSE)
 ```
 
-### Monthly Trend
+### Monthly Arrival ATFM Delay
 
 ```{r}
 # monthly trend
@@ -308,14 +331,15 @@ button_list  <- lapply(1:length(filter_years), function(x){
        label = filter_years[x])
 })
 
-type_list <-  list(
+button_type_list <-  list(
  # type = 'dropdown',
   type = 'buttons',
+  bgcolor = '#c3c1e8',
  active = length(filter_years)-1,
  direction = 'right',
   xanchor = 'center',
   yanchor = "top",
-  pad = list('r'= 0, 't'= 10, 'b' = 10),
+#  pad = list('r'= 0, 't'= 10, 'b' = 10),   # without padding buttons stay fixed
   x = 0.5,
   y = 1.2,
   buttons = button_list
@@ -330,25 +354,26 @@ atfm_pm %>%
           , color = ~REG_REASON
           , type = "bar"
           , transforms = list(
-          list(
-            type = 'filter',
-            target = "customdata",
-            operation = '=',
-            value = "2019"
-          ))
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list
         ) %>%
   layout( barmode = "stack"
          ,xaxis = tick_yr_no_title
          ,yaxis=list(title="Average arrival ATFM delay [min/arr]")
          ,showlegend = FALSE
-         ,updatemenus = list( type_list )
+         ,updatemenus = list( button_type_list )
          ) %>% 
 config(displayModeBar = FALSE)
 ```
 
 ## Row --------------------------------------------------------------------
 
-### Average Arrival ATFM Delay
+### Daily Arrival ATFM Delay
 
 ```{r}
 tmp <- params$atfm %>% group_by(FLT_DATE) %>%
@@ -358,11 +383,27 @@ tmp <- params$atfm %>% group_by(FLT_DATE) %>%
             ,DLYS_ARRS_15 = sum(FLT_ARR_1_DLY_15, na.rm = TRUE)
             )
 
+worst_day_last_year <- tmp %>%
+  top_n(365, FLT_DATE) %>%
+  filter(TOT_ARR_ATFM == max(TOT_ARR_ATFM, na.rm = TRUE))
+worst_day_date <- worst_day_last_year$FLT_DATE
+worst_day_dly  <- worst_day_last_year$TOT_ARR_ATFM
+worst_day_avgATFMdly <- worst_day_last_year$TOT_ARR_ATFM / worst_day_last_year$ARRS
+
+key_msg <- paste0( "<b>Worst day in last 12 months: ", worst_day_date
+                  ,"<br>with total Arrival ATFM Delay: ", worst_day_dly
+                  ,"<br>(avg. Arrival ATFM Delay: ", worst_day_avgATFMdly, "</b>")
+
 p <- tmp %>%
   plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM
           , type = 'scatter', mode = 'lines'
           , line = list(shape = "hvh", width = 1)
           ) %>%
+  add_annotations(text = key_msg
+                  , x = worst_day_date, y = worst_day_dly
+                  , showarrow = TRUE, ax = -50, ay = -50
+                  , align = "right"
+                  ) %>%
   layout(#title = "Daily Total Arrival ATFM Delay"
          #, margin = list(t = 75)  # increase margin to deconflict titel and buttons
          #, 
@@ -401,7 +442,7 @@ p
 ```
 
 
-### Year-to-Date Share
+### Share
 
 ```{r atfm-ytd}
 atfm_pm %>% group_by(REG_REASON) %>%
@@ -412,8 +453,9 @@ atfm_pm %>% group_by(REG_REASON) %>%
          ,DLY_SHARE = DLY / DLY_TOT ) %>%
   
   plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE) %>%
-    add_pie(hole = 0.4) %>%
-    layout(legend = list(orientation = 'h', x = 0, y =-0.1))
+    add_pie(hole = 0.4) 
+# default legend on right-hand side = no specs
+#%>% layout(legend = list(orientation = 'h', x = 0, y =-0.1))
 ```
 
 # ASMA
