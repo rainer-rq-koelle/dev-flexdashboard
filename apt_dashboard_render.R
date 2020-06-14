@@ -23,6 +23,8 @@ library("readxl")
 library(formattable)
 library(sparkline)
 
+min_year <- 2016 # by definition 5 years, i.e. 2016-2020
+
 # REMOVE WHEN DEPLOYED -------------------------------------------------
 # TO LIMIT TEST LOAD SUBSET FOR "TEST" AIRPORTS
 # To-Do: deployed version should use airport list, etc or be derived from ids
@@ -86,7 +88,8 @@ punc_df <-  readr::read_csv("./data-test/STAT_AIRPORT_DATA_PUNC.csv") %>% rename
 ## ------------ UTILITY FUNCTIONS -------------------------------------
 
 filter_df_by_apt <- function(.df, .apt){
-  df <- .df %>% filter(APT_ICAO == .apt)
+  df <- .df %>% filter(APT_ICAO == .apt) %>%
+    filter(YEAR >= min_year)  # ensure only 5 years of data
 }
 
 pick_apt_name <- function(.df, .apt){

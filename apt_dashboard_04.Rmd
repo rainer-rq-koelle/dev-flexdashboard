@@ -462,9 +462,9 @@ atfm_pm %>% group_by(REG_REASON) %>%
 
 ## Row ------------------------------------------------------------------
 
-### ASMA
+### Annual ASMA
 
-```{r}
+```{r ASMA-annual}
 # annual bar chart
 asma_pa <- params$asma %>% select(YEAR, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_ASMA_UNIMP_2 ) %>%
   group_by(YEAR) %>%
@@ -476,23 +476,93 @@ asma_pa <- params$asma %>% select(YEAR, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_
          ,AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT) 
 
 asma_pa %>%
-  plot_ly(x=~YEAR, y=~AVG_UNIMP_TIME
+  plot_ly(x=~YEAR, y=~AVG_ADD_ASMA_TIME
           , type = "bar"
           , showlegend = FALSE
+          , name = "average add. ASMA"
           ) %>%
-  add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
-  layout(barmode = "stack") %>%
-  add_annotations(
-    text = "example text in graphic annual variation"
-    ,xref = "paper",yref = "paper"
-    ,x = 0.1, y = 1.05
-    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
-    ,font = list(size = 15))
+  #add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
+  layout(barmode = "stack"
+         ,xaxis = list(title = "")
+         ,yaxis = list(title = "Average Additional ASMA Time [min/arr]")
+         ) 
+
+#%>%
+#  add_annotations(
+#    text = "example text in graphic annual variation"
+#    ,xref = "paper",yref = "paper"
+#    ,x = 0.1, y = 1.05
+#    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+#    ,font = list(size = 15))
 #asma_pm <- asma %>% 
 #  mutate(YEAR_MONTH = sprintf("%d-%02d", YEAR, MONTH_NUM))
 ```
 
-### Monthly Additional ASMA Time Trend
+### Monthly ASMA
+
+```{r ASMA-monthly}
+asma_pm <- params$asma %>%
+  select(YEAR, MONTH_NUM, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_ASMA_UNIMP_2 ) %>%
+  group_by(YEAR, MONTH_NUM) %>%
+  summarise( TOT_ADD_ASMA_TIME = sum(TIME_ASMA_ADD_2,   na.rm = TRUE)
+            ,TOT_UNIMP_TIME    = sum(TIME_ASMA_UNIMP_2, na.rm = TRUE)
+            ,TOT_FLT           = sum(FLT_ASMA_UNIMP_2,  na.rm = TRUE)
+  ) %>% ungroup %>%
+  mutate( AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT
+         ,AVG_UNIMP_TIME        = TOT_UNIMP_TIME    / TOT_FLT) 
+
+#############
+filter_years <- asma_pm %>% pull(YEAR) %>% unique()
+button_list  <- lapply(1:length(filter_years), function(x){
+  list(method = "restyle",
+       args = list("transforms[0].value", filter_years[x]),
+       label = filter_years[x])
+})
+
+button_type_list <-  list(
+ # type = 'dropdown',
+  type = 'buttons',
+  bgcolor = '#c3c1e8',
+ active = length(filter_years)-1,
+ direction = 'right',
+  xanchor = 'center',
+  yanchor = "top",
+#  pad = list('r'= 0, 't'= 10, 'b' = 10),   # without padding buttons stay fixed
+  x = 0.5,
+  y = 1.2,
+  buttons = button_list
+)
+##########################
+ 
+asma_pm %>%
+  plot_ly(x = ~MONTH_NUM, y = ~AVG_ADD_ASMA_TIME 
+          #https://github.com/ropensci/plotly/issues/1502
+        # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+        , customdata=~YEAR
+         # , color = ~REG_REASON
+          , type = "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list
+        ) %>%
+  layout( barmode = "stack"
+         ,xaxis = tick_yr_no_title
+         ,yaxis=list(title="Average ASMA Time [min/arr]")
+         ,showlegend = FALSE
+         ,updatemenus = list( button_type_list )
+         ) %>% 
+config(displayModeBar = FALSE)
+```
+
+## Row --------------------------------------------------------------
+
+### Monthly ASMA Trend (current Year)
+
 
 ```{r asma-trend}
 tmp <- params$asma %>% 
@@ -543,12 +613,9 @@ p <- tmp %>%
 p
 ```
 
+### ASMA variation per year and number of arrivals
 
-## Row --------------------------------------------------------------
-
-### Monthly ASMA Trend (current Year)
-
-```{r asma-monthly}
+```{r}
 # monthly trend for current year
 asma_pm <- params$asma %>%
   select(YEAR, MONTH_NUM, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_ASMA_UNIMP_2 ) %>%
@@ -560,17 +627,6 @@ asma_pm <- params$asma %>%
   mutate( AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT
          ,AVG_UNIMP_TIME        = TOT_UNIMP_TIME    / TOT_FLT) 
 
-asma_pm %>% filter(YEAR == max(YEAR)) %>%
-  plot_ly( x   =~MONTH_NUM, y=~AVG_UNIMP_TIME, type = "bar"
-          ,name="reference ASMA time") %>%
-  add_trace( y   =~AVG_ADD_ASMA_TIME, type = "bar"
-            ,name="additional ASMA time") %>%
-  layout(barmode = "stack", xaxis = tick_yr_no_title)
-```
-
-### ASMA variation per year and number of arrivals
-
-```{r}
 asma_pm_sc <- asma_pm %>% select(YEAR, MONTH_NUM, AVG_ADD_ASMA_TIME) %>%
   filter(YEAR >= 2016) %>% mutate(YEAR = as.integer(YEAR))
 mvts_pm_sc <- mvts_pm %>% select(YEAR, MONTH_NUM, FLT_TOT) %>% 
