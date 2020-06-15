@@ -1,0 +1,84 @@
+## COMBINED PRE-DEPARTURE DELAY PLOT
+
+```{r pre-dep-dly-pa}
+# annual bar chart
+pddly_pa <- params$pddly %>% 
+  select(YEAR, TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
+         , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
+  group_by(YEAR) %>%
+  summarise( TOT_DLY_89        = sum(TOTAL_DLY_89,   na.rm = TRUE)
+            ,TOT_DLY_999       = sum(TOTAL_DLY_999,  na.rm = TRUE)
+            ,TOT_DLY_ZZZ       = sum(TOTAL_DLY_ZZZ,  na.rm = TRUE)
+            ,TOT_DLY_OTHER     = sum(TOTAL_DLY_OTHER,na.rm = TRUE)
+            ,TOT_DLY_UNREPORTED= sum(TOTAL_UN_RPTED_DLY, na.rm = TRUE)
+            ,TOT_DLY_OVREPORTED= sum(TOTAL_OV_RPTED_DLY, na.rm = TRUE)
+  ) %>% ungroup %>%
+  ## grouping for v1 ------------------------------
+## discussion Sara & Rainer: do not show overreported
+  mutate(
+    TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_UNREPORTED 
+  ) %>%
+  select(YEAR, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID)  %>%
+  tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
+
+## order DLY_CAT
+pddly_pa$DLY_CAT <- factor(pddly_pa$DLY_CAT
+                           ,levels=c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
+                           ,labels=c("unidentified", "other", "code 89"))
+
+g1 <- pddly_pa %>%
+  plot_ly(x=~YEAR, y=~DLY_DUR, type="bar", color=~DLY_CAT, legendgroup=~DLY_CAT, showlegend=FALSE) %>%
+  layout(barmode = "stack")
+
+
+# monthly trend for current year =====================================
+
+pddly_pm <- params$pddly %>%
+  select(YEAR, MONTH_NUM, TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
+         , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
+  group_by(YEAR, MONTH_NUM) %>%
+  summarise( TOT_DLY_89        = sum(TOTAL_DLY_89,   na.rm = TRUE)
+            ,TOT_DLY_999       = sum(TOTAL_DLY_999,  na.rm = TRUE)
+            ,TOT_DLY_ZZZ       = sum(TOTAL_DLY_ZZZ,  na.rm = TRUE)
+            ,TOT_DLY_OTHER     = sum(TOTAL_DLY_OTHER,na.rm = TRUE)
+            ,TOT_DLY_UNREPORTED= sum(TOTAL_UN_RPTED_DLY, na.rm = TRUE)
+            ,TOT_DLY_OVREPORTED= sum(TOTAL_OV_RPTED_DLY, na.rm = TRUE)
+  ) %>% ungroup %>%
+  ## grouping for v1 ------------------------
+  mutate(
+    TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_OTHER + TOT_DLY_UNREPORTED
+  ) %>%
+  select(YEAR, MONTH_NUM, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID) %>%
+  tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
+
+pddly_pm$DLY_CAT <- factor(pddly_pm$DLY_CAT, levels=c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
+                           ,labels = c("unidentified", "other", "code 89"))
+
+g2 <- pddly_pm %>% filter(YEAR == max(YEAR)) %>%
+  plot_ly(    x =~MONTH_NUM, y=~DLY_DUR
+          ,type ="bar"
+          ,color=~DLY_CAT
+          ,legendgroup=~DLY_CAT
+          ) %>%
+  layout(barmode="stack"
+         , xaxis=tick_yr)
+
+## COMBINED PLOT ===================================================
+
+subplot(g1, g2, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
+  layout(yaxis = list(title = "Reported delay [min/departure]") #, titlefont = list(size = 8))
+                 ,xaxis2 = tick_yr) %>% 
+  config(displayModeBar = FALSE) 
+```
+
+
+g2 <- pddly_pm %>% filter(YEAR == max(YEAR)) %>%
+  plot_ly(    x =~MONTH_NUM, y=~DLY_DUR
+          ,type ="bar"
+          ,color=~DLY_CAT
+          ,legendgroup=~DLY_CAT
+          ) %>%
+  layout(barmode="stack"
+         , xaxis=tick_yr)
+
+g2
