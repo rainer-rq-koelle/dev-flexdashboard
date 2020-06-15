@@ -293,8 +293,9 @@ atfm_pa <- params$atfm %>%
 
 atfm_pa %>% 
   plot_ly(x = ~YEAR, y = ~AVG_ARR_ATFM_REG, color = ~REG_REASON, type = "bar") %>%
-  layout(barmode = "stack", xaxis = list(title = "")
-         , yaxis=list(title="Average arrival ATFM delay [min/arr]")) %>% 
+  layout(barmode = "stack"
+         , xaxis = list(title = "")
+         , yaxis = list(title="Average arrival ATFM delay [min/arr]")) %>% 
 config(displayModeBar = FALSE)
 ```
 
@@ -331,17 +332,16 @@ button_list  <- lapply(1:length(filter_years), function(x){
        label = filter_years[x])
 })
 
+
 button_type_list <-  list(
- # type = 'dropdown',
-  type = 'buttons',
+  type = 'dropdown',
+ # type = 'buttons',
   bgcolor = '#c3c1e8',
  active = length(filter_years)-1,
- direction = 'right',
-  xanchor = 'center',
-  yanchor = "top",
-#  pad = list('r'= 0, 't'= 10, 'b' = 10),   # without padding buttons stay fixed
-  x = 0.5,
-  y = 1.2,
+ direction = 'right'
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom",
+#  pad = list('r'= 0, 't'= 10, 'b' = 10),   # adding xref, yref & without padding buttons stay fixed
   buttons = button_list
 )
 ##########################
@@ -483,7 +483,7 @@ asma_pa %>%
           ) %>%
   #add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
   layout(barmode = "stack"
-         ,xaxis = list(title = "")
+         ,xaxis = list(title = "", type = "category")
          ,yaxis = list(title = "Average Additional ASMA Time [min/arr]")
          ) 
 
@@ -524,12 +524,10 @@ button_type_list <-  list(
   type = 'buttons',
   bgcolor = '#c3c1e8',
  active = length(filter_years)-1,
- direction = 'right',
-  xanchor = 'center',
-  yanchor = "top",
+ direction = 'right'
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom",
 #  pad = list('r'= 0, 't'= 10, 'b' = 10),   # without padding buttons stay fixed
-  x = 0.5,
-  y = 1.2,
   buttons = button_list
 )
 ##########################
@@ -662,26 +660,34 @@ txot_pa <- params$txot %>% select(YEAR, TIME_TXO_ADD_2, TIME_TXO_UNIMP_2, FLT_TX
   mutate( AVG_ADD_TXO_TIME     = TOT_ADD_TXO_TIME / TOT_FLT
          ,AVG_UNIMP_TIME       = TOT_UNIMP_TIME   / TOT_FLT)
 
+txot_pa <- txot_pa %>% 
+  tidyr::pivot_longer(cols = c("AVG_ADD_TXO_TIME","AVG_UNIMP_TIME")
+                      ,names_to = "TYPE", values_to = "TIME" ) %>%
+  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXO_TIME"
+                           , "avg. additional time", "avg. refernce time"))
+
 g1 <- txot_pa %>%
-  plotly::plot_ly(x=~YEAR, y=~AVG_ADD_TXO_TIME
+  plotly::plot_ly(x=~YEAR, y=~TIME
           , type = "bar"
-          , showlegend = FALSE
-          , color=~as.factor(YEAR)
+          , showlegend = TRUE
+          , color=~COL_LBL
           ) %>%
   plotly::add_annotations(
     text = "annual variation"
     ,xref = "paper",yref = "paper"
     ,x = 0.1, y = 1.05
     ,xanchor = "middle",yanchor = "top", showarrow = FALSE
-    ,font = list(size = 15))
+    ,font = list(size = 15)) %>%
+  layout(barmode = "stack"
+         , xaxis = list(title="")
+         , yaxis = list(title="average taxi-out time [min/dep]"))
 
-# shared, c.f. below g1
+g1
+```
 
-#```
-#
-### Monthly Trend
-#
-#```{r monthly-txot}
+### Monthly Average Additional Taxi-Out Time
+
+```{r monthly-txot}
 # monthly trend
 txot_pm <- params$txot %>%
   select(YEAR, MONTH_NUM, TIME_TXO_ADD_2, TIME_TXO_UNIMP_2, FLT_TXO_UNIMP_2 ) %>%
@@ -697,7 +703,7 @@ txot_pm <- params$txot %>%
 
 
 g2 <-  plot_ly() %>%
-  add_trace(data = txot_pm %>% filter(YEAR == max(YEAR))
+  add_trace(data = txot_pm %>% filter(YEAR == max(YEAR))   # current year
             , x=~MONTH_NUM, y=~AVG_ADD_TXO_TIME
             , color=~as.factor(YEAR),line = list(width = 3)
             , type="scatter", mode="lines") %>%
@@ -705,16 +711,11 @@ g2 <-  plot_ly() %>%
             , x=~MONTH_NUM, y=~AVG_ADD_TXO_TIME
             , color=~as.factor(YEAR),line = list(width = 1)
             , type="scatter", mode="lines") %>%
-  layout(xaxis = tick_yr) 
+  layout( xaxis = tick_yr_no_title
+         ,yaxis = list(title = "Avg. additional taxi-out time [min/dep]")
+         ) 
 
-# shared, c.f. below  g2
-
-# shared plots
-subplot(g1,g2, shareY = TRUE
-        ,nrows = 1, margin = 0.03, widths = c(0.4, 0.6)) %>%
-  layout(yaxis = list(title = "Average additional taxi-out time [min/arrival]")
-                 ,xaxis2 = tick_yr) %>% 
-  config(displayModeBar = F)   # deactivate complete ModeBar
+g2
 ```
 
 <!-- 
@@ -759,17 +760,27 @@ txit_pa <- params$txit %>%
          ,AVG_REF      = TOT_REF      / TOT_N
          ,AVG_ADD_TXIT = TOT_ADD_TXIT / TOT_N)
 
+txit_pa <- txit_pa %>%
+  tidyr::pivot_longer( cols = c("AVG_ADD_TXIT","AVG_REF")
+                      ,names_to = "TYPE", values_to = "TIME" ) %>%
+  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXIT"
+                           , "avg. additional time", "avg. reference time"))
+
 g1 <- txit_pa %>%
-  plotly::plot_ly(x=~YEAR, y=~AVG_ADD_TXIT
+  plotly::plot_ly(x=~YEAR, y=~TIME
           , type = "bar"
-          , showlegend = FALSE
+          , showlegend = TRUE
+          , color=~COL_LBL
           ) %>%
   plotly::add_annotations(
     text = "annual variation"
     ,xref = "paper",yref = "paper"
     ,x = 0.1, y = 1.05
     ,xanchor = "middle",yanchor = "top", showarrow = FALSE
-    ,font = list(size = 15))
+    ,font = list(size = 15)) %>%
+  layout(barmode = "stack"
+         , xaxis = list(title="")
+         , yaxis = list(title="average taxi-in time [min/arr]"))
 
 g1
 ```
@@ -778,29 +789,31 @@ g1
 
 ```{r monthly-txit}
 # monthly trend
-txot_pm <- params$txot %>%
-  select(YEAR, MONTH_NUM, TIME_TXO_ADD_2, TIME_TXO_UNIMP_2, FLT_TXO_UNIMP_2 ) %>%
-  group_by(YEAR, MONTH_NUM) %>%
-  summarise( TOT_ADD_TXO_TIME  = sum(TIME_TXO_ADD_2,   na.rm = TRUE)
-            ,TOT_UNIMP_TIME    = sum(TIME_TXO_UNIMP_2, na.rm = TRUE)
-            ,TOT_FLT           = sum(FLT_TXO_UNIMP_2,  na.rm = TRUE)
-            ,TOT_TOT           = TOT_ADD_TXO_TIME + TOT_UNIMP_TIME
-  ) %>% ungroup %>%
-  mutate( AVG_ADD_TXO_TIME     = TOT_ADD_TXO_TIME / TOT_FLT
-         ,AVG_UNIMP_TIME       = TOT_UNIMP_TIME   / TOT_FLT
-         )
+txit_pm <- params$txit %>%
+  rename(MONTH_NUM = MONTH) %>%
+  select(YEAR, MONTH_NUM, TOT_A_TXIT, TOT_REF, TOT_ADD_TXIT, N_SMPL) %>%
+  group_by(YEAR, MONTH_NUM) %>% 
+  summarise( TOT_A_TXIT   = sum(TOT_A_TXIT)
+            ,TOT_REF      = sum(TOT_REF)
+            ,TOT_ADD_TXIT = sum(TOT_ADD_TXIT)
+            ,TOT_N        = sum(N_SMPL)) %>% 
+  ungroup() %>% 
+  mutate( AVG_A_TXIT   = TOT_A_TXIT   / TOT_N
+         ,AVG_REF      = TOT_REF      / TOT_N
+         ,AVG_ADD_TXIT = TOT_ADD_TXIT / TOT_N)
 
 
 g2 <-  plot_ly() %>%
-  add_trace(data = txot_pm %>% filter(YEAR == max(YEAR))
-            , x=~MONTH_NUM, y=~AVG_ADD_TXO_TIME
+  add_trace(data = txit_pm %>% filter(YEAR == max(YEAR))
+            , x=~MONTH_NUM, y=~AVG_ADD_TXIT
             , color=~as.factor(YEAR),line = list(width = 3)
             , type="scatter", mode="lines") %>%
-  add_trace(data = txot_pm %>% filter(YEAR != max(YEAR))
-            , x=~MONTH_NUM, y=~AVG_ADD_TXO_TIME
+  add_trace(data = txit_pm %>% filter(YEAR != max(YEAR))
+            , x=~MONTH_NUM, y=~AVG_ADD_TXIT
             , color=~as.factor(YEAR),line = list(width = 1)
             , type="scatter", mode="lines") %>%
-  layout(xaxis = tick_yr) 
+  layout( xaxis = tick_yr_no_title
+         ,yaxis = list(title="Avg. additional taxi-in time [min/arr]")) 
 
 g2
 ```
@@ -810,7 +823,7 @@ g2
 
 ## Row -------------------------------------------------------
 
-### Reported Pre-Departure Delay
+### Annual Pre-Departure Delay (as reported by airports)
 
 ```{r pre-dep-dly-pa}
 # annual bar chart
@@ -825,7 +838,8 @@ pddly_pa <- params$pddly %>%
             ,TOT_DLY_UNREPORTED= sum(TOTAL_UN_RPTED_DLY, na.rm = TRUE)
             ,TOT_DLY_OVREPORTED= sum(TOTAL_OV_RPTED_DLY, na.rm = TRUE)
   ) %>% ungroup %>%
-  ## grouping for v1 ------------------------------
+
+## grouping for v1 ------------------------------
 ## discussion Sara & Rainer: do not show overreported
   mutate(
     TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_UNREPORTED 
@@ -833,18 +847,23 @@ pddly_pa <- params$pddly %>%
   select(YEAR, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID)  %>%
   tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
 
-## order DLY_CAT
+## order DLY_CAT and ensure label naming for legend
 pddly_pa$DLY_CAT <- factor(pddly_pa$DLY_CAT
                            ,levels=c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
-                           ,labels=c("unidentified", "other", "code 89"))
+                           ,labels=c("unidentified", "other reasons", "ATC pre-departure <br>delay (code 89)"))
 
 g1 <- pddly_pa %>%
-  plot_ly(x=~YEAR, y=~DLY_DUR, type="bar", color=~DLY_CAT, legendgroup=~DLY_CAT, showlegend=FALSE) %>%
-  layout(barmode = "stack")
+  plot_ly(x=~YEAR, y=~DLY_DUR, type="bar", color=~DLY_CAT, legendgroup=~DLY_CAT) %>%
+  layout(barmode = "stack"
+         ,yaxis = list(title = "Pre-departure delay [min]")
+         )
 
+g1
+```
 
-# monthly trend for current year =====================================
+### Monthly Pre-departure Delay (as reported by airports)
 
+```{r}
 pddly_pm <- params$pddly %>%
   select(YEAR, MONTH_NUM, TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
          , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
@@ -863,28 +882,107 @@ pddly_pm <- params$pddly %>%
   select(YEAR, MONTH_NUM, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID) %>%
   tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
 
-pddly_pm$DLY_CAT <- factor(pddly_pm$DLY_CAT, levels=c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
-                           ,labels = c("unidentified", "other", "code 89"))
+## order DLY_CAT and ensure label naming for legend
+pddly_pm$DLY_CAT <- factor(pddly_pm$DLY_CAT
+                           ,levels = c("TOT_DLY_UNID", "TOT_DLY_OTHER", "TOT_DLY_89")
+                           ,labels = c("unidentified", "other reasons", "ATC pre-departure <br> delay (code 89)"))
 
-g2 <- pddly_pm %>% filter(YEAR == max(YEAR)) %>%
-  plot_ly(    x =~MONTH_NUM, y=~DLY_DUR
-          ,type ="bar"
-          ,color=~DLY_CAT
-          ,legendgroup=~DLY_CAT
-          ) %>%
-  layout(barmode="stack"
-         , xaxis=tick_yr)
-
-## COMBINED PLOT ===================================================
-
-subplot(g1, g2, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
-  layout(yaxis = list(title = "Reported delay [min/departure]") #, titlefont = list(size = 8))
-                 ,xaxis2 = tick_yr) %>% 
-  config(displayModeBar = FALSE) 
+button_type_list <-  list(
+  buttons = button_list
+  ,type = 'dropdown'
+ # type = 'buttons',
+ , bgcolor = '#c3c1e8'
+ , active = length(filter_years)-1
+ , direction = 'right'
+ # position of button list
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom"
+ 
+)
+##########################
+ 
+pddly_pm %>%
+  plot_ly(x = ~MONTH_NUM, y = ~DLY_DUR
+          #https://github.com/ropensci/plotly/issues/1502
+        # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+        , customdata=~YEAR
+          , color = ~DLY_CAT
+          , type = "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list
+        ) %>%
+  layout( barmode = "stack"
+         ,xaxis = tick_yr_no_title
+         ,yaxis=list(title="Pre-departure delay [min]")
+         ,showlegend = TRUE
+         ,updatemenus = list( button_type_list )
+         ) %>% 
+config(displayModeBar = FALSE)
 ```
 
 
 ## Row -----------------------------------------------------------
+
+### Monthly Pre-Departure Delay Trend
+
+```{r}
+tmp <- pddly_pm %>%
+  mutate( DATE_YM = paste0(YEAR,"-",MONTH_NUM)
+         ,DATE_YM = lubridate::parse_date_time(DATE_YM, "ym")  # coerce date
+        # ,AVG_ADD_ASMA = TIME_ASMA_ADD_2 / FLT_ASMA_UNIMP_2
+         )
+  
+  
+p <- tmp %>%
+  plot_ly() %>%
+  add_bars(x = ~DATE_YM, y = ~DLY_DUR
+          #, type = 'scatter', mode = 'lines'
+          #, line = list(shape = "hvh", width = 1)
+          , color = ~DLY_CAT
+          ) %>%
+  layout(barmode = "stack"
+         # xaxis and rangeselector
+         ,xaxis = list(title = ""
+         , rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "1 yr",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                        )
+         , yaxis = list(title = "Pre-departure delay [min]")
+         ) %>% 
+  
+  config(displayModeBar = F)   # deactivate complete ModeBar
+p
+```
+
+<!-- DEACTIVATED
 
 ### Pre-Departure Delay {data-width=350}
 
@@ -892,9 +990,76 @@ subplot(g1, g2, nrows = 1, margin = 0.03, widths = c(0.25, 0.75)) %>%
 knitr::include_graphics("./figures/atc_pre-departure_delay.png")
 ```
 
-### More text
+### Pre-Departure Delay reporting
 
-some explanatory notes or more text to keep row column in sync.
+Airports report pre-departue delay on a flight by flight basis. 
+To address incomplete or inconsistent delay codes reported  by airspace user to the airport operator, the airport operator may default to so-called ambiguity-codes.
+Ambiguity codes and other codes are summed to **unidentified delay**.
+
+--> 
+
+### Average Pre-Departure Delay
+
+```{r pre-dep-indicator}
+predepdly_pm <- params$pddly %>%
+  select(YEAR, MONTH_NUM, APT_FLT_DEP
+         , TOTAL_DLY_89, TOTAL_DLY_999 , TOTAL_DLY_ZZZ, TOTAL_DLY_OTHER
+         , TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY) %>%
+  group_by(YEAR, MONTH_NUM) %>%
+  summarise( TOT_FLT_DEP       = sum(APT_FLT_DEP,    na.rm = TRUE)
+            ,TOT_DLY_89        = sum(TOTAL_DLY_89,   na.rm = TRUE)
+            ,TOT_DLY_999       = sum(TOTAL_DLY_999,  na.rm = TRUE)
+            ,TOT_DLY_ZZZ       = sum(TOTAL_DLY_ZZZ,  na.rm = TRUE)
+            ,TOT_DLY_OTHER     = sum(TOTAL_DLY_OTHER,na.rm = TRUE)
+            ,TOT_DLY_UNREPORTED= sum(TOTAL_UN_RPTED_DLY, na.rm = TRUE)
+            ,TOT_DLY_OVREPORTED= sum(TOTAL_OV_RPTED_DLY, na.rm = TRUE)
+  ) %>% ungroup %>%
+  ## grouping for v1 ------------------------
+  mutate(
+     TOT_DLY_UNID  = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_OTHER + TOT_DLY_UNREPORTED
+    ,AVG_PREDEP_DLY= TOT_DLY_89 / TOT_FLT_DEP
+  ) %>%
+  select(YEAR, MONTH_NUM, AVG_PREDEP_DLY) 
+
+################################################
+button_type_list <-  list(
+  buttons = button_list
+  ,type = 'dropdown'
+ # type = 'buttons',
+ , bgcolor = '#c3c1e8'
+ , active = length(filter_years)-1
+ , direction = 'right'
+ # position of button list
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom"
+ 
+)
+##########################
+ 
+predepdly_pm %>%
+  plot_ly(x = ~MONTH_NUM, y = ~AVG_PREDEP_DLY
+          #https://github.com/ropensci/plotly/issues/1502
+        # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+        , customdata=~YEAR
+         # , color = ~DLY_CAT
+          , type = "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list
+        ) %>%
+  layout( barmode = "stack"
+         ,xaxis = tick_yr_no_title
+         ,yaxis=list(title="Avg. pre-departure delay [min/dep]")
+         ,showlegend = FALSE
+         ,updatemenus = list( button_type_list )
+         ) %>% 
+config(displayModeBar = FALSE)
+```
 
 # Turnaround
 
@@ -903,67 +1068,58 @@ some explanatory notes or more text to keep row column in sync.
 ### Annual Average Turnaround Times
 
 ```{r annual_turn_time}
-turn_pa <- params$turn %>% 
-  group_by(YEAR, AC_CLASS) %>% 
-  summarise(N=sum(N), AVG_ATTT = mean(AVG_ATTT), AVG_STTT = mean(AVG_STTT)) %>%
-  group_by(YEAR) %>% 
-  mutate( SHARE = N / sum(N, na.rm = TRUE)
-         ,SHARE = SHARE * 100 %>% round(2)) %>% 
-  ungroup() %>% 
- # filter(AC_CLASS == "H" | SHARE > 10) %>% # show if Share above 10%
-  filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
-  tidyr::pivot_longer(cols = c("AVG_ATTT", "AVG_STTT"), names_to = "TT_CAT", values_to = "AVG_MIN")
+turn_pa <- params$turn %>%  
+     select(YEAR, AC_CLASS, AVG_ATTT) %>% 
+     filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
+     group_by(YEAR, AC_CLASS) %>% 
+     summarise(AVG_ATTT = mean(AVG_ATTT)) %>%
+     ungroup() %>%
+     pivot_wider(names_from = "AC_CLASS", values_from = AVG_ATTT)
 
-g1 <- ggplot(data = turn_pa, mapping = aes(x = YEAR, y = AVG_MIN, fill = AC_CLASS )) +
-  geom_col(position = "dodge", width = 0.8) +
-  scale_fill_brewer(palette = "Paired") +
-  theme_minimal() + 
-  labs(x=NULL, y="average monthly turn times [min]") + 
-  theme(legend.position = "top" # remove legend
-    # control legend key size
-       ,legend.key.size = unit(0.1, "cm")
-    # remove legend title
-      ,legend.title = element_blank()
-    # remove the vertical grid lines
-       ,panel.grid.major.x = element_blank()
-       ,panel.grid.minor.x = element_blank()
-    # set axis font 
-     ,axis.text  = element_text(size = 6)
-    , axis.title = element_text(size = 8)
-    )
-
-
-# monthly trend for current year -----------------------------------------------
-
-turn_pm <- params$turn %>% filter(YEAR == max(YEAR)) %>%
-  group_by(YEAR, MONTH, AC_CLASS) %>%
-  summarise(N = sum(N), AVG_ATTT = mean(AVG_ATTT), AVG_STTT = mean(AVG_STTT)) %>%
-  ungroup() %>% 
-  filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
-  tidyr::pivot_longer(cols = c("AVG_ATTT", "AVG_STTT"), names_to = "TT_CAT", values_to = "AVG_MIN")
-
-g2 <- ggplot(data = turn_pm, mapping = aes(x = MONTH, y = AVG_MIN, colour = AC_CLASS)) +
-  geom_path(mapping = aes(linetype = TT_CAT)) +
-  scale_x_discrete(limits=c(1,2,3,4,5,6,7,8,9,10,11,12)) +
-  expand_limits(x=c(1,12)) +
-  scale_colour_brewer(palette = "Paired", labels = c("actual","scheduled")) +
-  guides(colour = FALSE) + 
-  theme_minimal() +
-  theme(legend.position = "top"
-        ,legend.title = element_blank()
-    # remove the vertical grid lines
-       ,panel.grid.major.x = element_blank()
-       ,panel.grid.minor.x = element_blank()
-       # set axis fonts
-       ,axis.text  = element_text(size = 6)
-       ,axis.title = element_text(size = 8)
-       ) +
-  labs(x = "", y = "")
-
-## COMBINED PLOT
-
-subplot(g1,g2, nrows=1)
+g1 <- turn_pa %>%
+  plot_ly(x = ~YEAR) %>%
+  add_bars(y = ~H,  name = "Heavy") %>%
+  add_bars(y = ~MJ, name = "Medium Jet") %>%
+  add_bars(y = ~MT, name = "Medium Prop") %>%
+  layout( xaxis = list(title = "", type = "category")
+         ,yaxis = list(title = "average turntime [min]")
+         )
+g1
 ```
+
+
+### Monthly Turnaround Time
+
+```{r monthly_turn_time}
+turn_pm <- params$turn %>% 
+    select(YEAR, MONTH, AC_CLASS, AVG_ATTT, AVG_STTT) %>% 
+    filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
+    group_by(YEAR, MONTH, AC_CLASS) %>% 
+    summarise(AVG_ATTT = mean(AVG_ATTT), AVG_STTT = mean(AVG_STTT)) %>%
+    ungroup() 
+
+actual_pm <- turn_pm %>%
+  select(YEAR, MONTH, AC_CLASS, AVG_ATTT) %>% 
+  pivot_wider(names_from = "AC_CLASS", names_prefix = "ACT_", values_from = AVG_ATTT)
+
+sched_pm <- turn_pm %>%
+  select(YEAR, MONTH, AC_CLASS, AVG_STTT) %>% 
+  pivot_wider(names_from = "AC_CLASS", names_prefix = "SCH_", values_from = AVG_STTT)
+
+
+
+g2 <- actual_pm %>% filter(YEAR == max(YEAR)) %>%
+  plot_ly(x = ~MONTH) %>%
+  add_lines(y = ~ACT_H,  name = "actual Heavy") %>%
+  add_lines(y = ~ACT_MJ, name = "actual Medium Jet") %>%
+  add_lines(y = ~ACT_MT, name = "actual Medium Prop") %>%
+  layout( xaxis = list(title = "", type = "category")
+         ,yaxis = list(title = "average turntime [min]")
+         )
+g2
+```
+
+
 
 ## Row ---------------------------------------------------------------
 

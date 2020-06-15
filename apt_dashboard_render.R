@@ -77,7 +77,8 @@ txot_df <- readxl::read_excel("./data-test/Taxi-Out_Additional_Time.xlsx", sheet
 txit_df <- readr::read_csv("./data-test/STAT_AIRPORT_DATA_TXIT.csv") %>% rename(APT_ICAO = APT)
 
 pddly_df<- readxl::read_excel("./data-test/STAT_AIRPORT_DATA.xlsx", sheet = "DATA") %>%
-  select(APT_ICAO, APT_IATA, YEAR, MONTH_NUM, TOTAL_DLY_89, TOTAL_DLY_999, TOTAL_DLY_ZZZ
+  select(APT_ICAO, APT_IATA, YEAR, MONTH_NUM, APT_FLT_DEP
+         ,TOTAL_DLY_89, TOTAL_DLY_999, TOTAL_DLY_ZZZ
          ,TOTAL_DLY_OTHER, TOTAL_UN_RPTED_DLY, TOTAL_OV_RPTED_DLY)
 
 turn_df <- readr::read_csv("./data-test/STAT_AIRPORT_DATA_TURN.csv") %>% rename(APT_ICAO = APT)
@@ -136,3 +137,4 @@ apts %>%
       , output_file = paste0("./boards/", ., ".html")
     )
   )
+
