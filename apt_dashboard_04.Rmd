@@ -62,7 +62,7 @@ tick_yr_no_title <- list(
 <!-- img src="logo-test-apple.png"/ -->
 <!-- /div -->
 
-# Overview {data-icon="fa-home"}
+# Overview
 
 ## Column ----------------------------------------------------------
 
