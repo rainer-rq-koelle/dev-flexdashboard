@@ -4,6 +4,7 @@ params:
   iata: "YYY"
   name: "airport name"
   state: "state name"
+  config: !r mtcars
   tfc: !r mtcars
   thru: !r mtcars
   atfm: !r mtcars
@@ -26,6 +27,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(DT)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -70,15 +72,57 @@ ad_chart %>% image_trim()
 
 ### General
 
-Airport: `r params$name`    
+```{r apt-id}
+id_tbl <- tribble(
+   ~ITEM       , ~TEXT1       , ~TEXT2
+  ,"Airport"   , params$name  , ""
+  ,"ICAO/IATA" , paste0(params$icao, "/", params$iata) , ""
+  ,"State"     , params$state , ""
+  ,""          ,""            , ""
+  ,"Mostly Used Runway",""    , ""
+)
+
+rwy_config <- params$config %>%
+  mutate(ITEM = "") %>%
+  select(ITEM, TEXT1 = CONFIGURATION, TEXT2 = SHARE_PCT) %>%
+  mutate(TEXT2 = paste0(TEXT2, "%")) %>%
+  na.omit()
+rwy_config$ITEM[1] <- "Configurations in 2019"
+
+id_tbl <- id_tbl %>% bind_rows(rwy_config)
+
+id_tbl %>%
+  datatable(
+    options = list( # ---------------------------------
+         dom             = "t"        # show only table)
+      ,  ordering        = FALSE      # no order arrows/functionality
+      ,  autoWidth = TRUE
+      , columnDefs = list(list(width = '15px', targets = c(1)))
+      , scrollX = TRUE
+    ) # end options list ------------------------------
+    # remove table header and order arrows ~ overwrite with empty names
+    , colnames  = rep("", ncol(id_tbl)) 
+   # , class="compact cell-border"      # removes cell(-col) padding 
+    , rownames  = FALSE
+    , selection = 'none'
+    ) %>%
+  formatStyle(names(id_tbl),lineHeight='70%') #sets "format" of specified columns (here all) 
+
+```
+
+<!-- Airport: `r params$name`    
 ICAO/IATA Code: `r params$icao`/`r params$iata`    
 State: `r params$state`    
-Annual traffic:  NEED DATA 4 last full year
-Active runways: NEED DATA 4 active runway
 
-</br>
+<p>
+Share of most used runway configurations: 
+`r print(params$config)`
+
+<p>
 The information on this dashboard is provided for information purposes.
 For more details refer to the pointers in the **About** section.
+
+-->
 
 ## Column ----------------------------------------------------------
 
@@ -240,7 +284,8 @@ thru_tot <- thru %>%
   mutate(SRC_PHASE = "TOT")
 
 thru <- thru %>% bind_rows(thru_tot) %>% arrange(TIME) %>%
-  mutate(TIME = strtrim(TIME, 5))
+  mutate( TIME = as.character(TIME)
+         ,TIME = strtrim(TIME, 5))
 #  mutate(TIME = lubridate::hm(TIME))
 # TIME seems to be turned to string!!!!, i.e. time formatting does not work!!!
 
@@ -256,7 +301,7 @@ thru %>%
   group_by(SRC_PHASE) %>%
   add_lines(type = 'scatter') %>%    
   add_annotations(text = msg
-                 , x = "12:00:00"
+                 , x = "12:00"
                  , y = 0.1 * max(thru$N_BIN_AVG) 
                  , showarrow = FALSE, ax = 0, ay = 0  # no arrow, no offset
                  , align = "center"
