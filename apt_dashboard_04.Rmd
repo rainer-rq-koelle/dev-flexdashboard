@@ -15,12 +15,24 @@ params:
   turn: !r mtcars
   punc: !r mtcars
 title: "`r params$icao`"
+author: "AIU Home"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows # columns
-    #logo: ECTRL-logo.png
+    logo: "euctrl-logo-noname_48x48.png"
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
 ---
+
+<script>
+$('.navbar-logo').wrap('<a href="http://www.eurocontrol.int">');
+$('.navbar-author').wrap('<a href="http://ansperformance.eu">');
+</script>
+
+<style>
+.navbar-author {
+  color: white;
+}
+</style>
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
