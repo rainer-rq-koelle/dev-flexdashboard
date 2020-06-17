@@ -20,6 +20,9 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows # columns
     logo: "euctrl-logo-noname_48x48.png"
+#    logo: ECTRL-logo.png
+#    navbar:
+#      - { icon: "fa-question-circle", href: "https://google.com", align: right }
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
 ---
 
@@ -573,7 +576,6 @@ config(displayModeBar = FALSE)
 
 ### Monthly ASMA Trend (current Year)
 
-
 ```{r asma-trend}
 tmp <- params$asma %>% 
   mutate( DATE_YM = paste0(YEAR,"-",MONTH_NUM)
@@ -623,36 +625,6 @@ p <- tmp %>%
 p
 ```
 
-### ASMA variation per year and number of arrivals
-
-```{r}
-# monthly trend for current year
-asma_pm <- params$asma %>%
-  select(YEAR, MONTH_NUM, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_ASMA_UNIMP_2 ) %>%
-  group_by(YEAR, MONTH_NUM) %>%
-  summarise( TOT_ADD_ASMA_TIME = sum(TIME_ASMA_ADD_2,   na.rm = TRUE)
-            ,TOT_UNIMP_TIME    = sum(TIME_ASMA_UNIMP_2, na.rm = TRUE)
-            ,TOT_FLT           = sum(FLT_ASMA_UNIMP_2,  na.rm = TRUE)
-  ) %>% ungroup %>%
-  mutate( AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT
-         ,AVG_UNIMP_TIME        = TOT_UNIMP_TIME    / TOT_FLT) 
-
-asma_pm_sc <- asma_pm %>% select(YEAR, MONTH_NUM, AVG_ADD_ASMA_TIME) %>%
-  filter(YEAR >= 2016) %>% mutate(YEAR = as.integer(YEAR))
-mvts_pm_sc <- mvts_pm %>% select(YEAR, MONTH_NUM, FLT_TOT) %>% 
-  mutate(MONTH_NUM = as.integer(MONTH_NUM), YEAR = as.integer(YEAR)) %>%
-  filter(YEAR >= 2016)
-
-scatter_df <- left_join(mvts_pm_sc, asma_pm_sc, by=c("YEAR","MONTH_NUM")) %>%
-  mutate(YM = paste0(YEAR,"-", MONTH_NUM))
-
-xax <- list(title = "Number of flights")
-yax <- list(title = "Average additional ASMA time")
-
-scatter_df %>%
-  plot_ly(x = ~FLT_TOT, y=~AVG_ADD_ASMA_TIME, name=~YEAR, size=3, mode = 'markers') %>%
-  layout(xaxis = xax, yaxis = yax)
-```
 
   
 # Taxi-Times
@@ -763,13 +735,14 @@ E.g. most frequently used stands, txot by (most frequent) airspace users
 # annual bar chart
 txit_pa <- params$txit %>%
   group_by(YEAR) %>% 
-  summarise( TOT_A_TXIT   = sum(TOT_A_TXIT)
-            ,TOT_REF      = sum(TOT_REF)
-            ,TOT_ADD_TXIT = sum(TOT_ADD_TXIT)
-            ,TOT_N        = sum(N_SMPL)) %>% 
+  summarise(# TOT_A_TXIT   = sum(TOT_A_TXIT)
+             TOT_REF      = sum(TOT_REF     , na.rm = TRUE)
+            ,TOT_ADD_TXIT = sum(TOT_ADD_TXIT, na.rm = TRUE)
+            ,TOT_N        = sum(N_SMPL      , na.rm = TRUE)
+            ) %>% 
   ungroup() %>% 
-  mutate( AVG_A_TXIT   = TOT_A_TXIT   / TOT_N
-         ,AVG_REF      = TOT_REF      / TOT_N
+  mutate(# AVG_A_TXIT   = TOT_A_TXIT   / TOT_N
+          AVG_REF      = TOT_REF      / TOT_N
          ,AVG_ADD_TXIT = TOT_ADD_TXIT / TOT_N)
 
 txit_pa <- txit_pa %>%
@@ -797,21 +770,22 @@ g1 <- txit_pa %>%
 g1
 ```
 
-### Monthly Trend
+### Monthly Average Additional Taxi-In Time
 
 ```{r monthly-txit}
 # monthly trend
 txit_pm <- params$txit %>%
-  rename(MONTH_NUM = MONTH) %>%
-  select(YEAR, MONTH_NUM, TOT_A_TXIT, TOT_REF, TOT_ADD_TXIT, N_SMPL) %>%
+# select(YEAR, MONTH_NUM, TOT_A_TXIT, TOT_REF, TOT_ADD_TXIT, N_SMPL) %>%
+# trim to barebone
+  select(YEAR, MONTH_NUM, TOT_REF, TOT_ADD_TXIT, N_SMPL) %>%
   group_by(YEAR, MONTH_NUM) %>% 
-  summarise( TOT_A_TXIT   = sum(TOT_A_TXIT)
-            ,TOT_REF      = sum(TOT_REF)
+  summarise(# TOT_A_TXIT   = sum(TOT_A_TXIT)
+             TOT_REF      = sum(TOT_REF)
             ,TOT_ADD_TXIT = sum(TOT_ADD_TXIT)
             ,TOT_N        = sum(N_SMPL)) %>% 
   ungroup() %>% 
-  mutate( AVG_A_TXIT   = TOT_A_TXIT   / TOT_N
-         ,AVG_REF      = TOT_REF      / TOT_N
+  mutate( #AVG_A_TXIT   = TOT_A_TXIT   / TOT_N
+          AVG_REF      = TOT_REF      / TOT_N
          ,AVG_ADD_TXIT = TOT_ADD_TXIT / TOT_N)
 
 
@@ -1104,6 +1078,7 @@ g1
 
 ```{r monthly_turn_time}
 turn_pm <- params$turn %>% 
+  rename(MONTH = MONTH_NUM) %>%
     select(YEAR, MONTH, AC_CLASS, AVG_ATTT, AVG_STTT) %>% 
     filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
     group_by(YEAR, MONTH, AC_CLASS) %>% 
@@ -1118,13 +1093,19 @@ sched_pm <- turn_pm %>%
   select(YEAR, MONTH, AC_CLASS, AVG_STTT) %>% 
   pivot_wider(names_from = "AC_CLASS", names_prefix = "SCH_", values_from = AVG_STTT)
 
+tmp <- actual_pm %>% left_join(sched_pm, by = c("YEAR", "MONTH"))
 
-
-g2 <- actual_pm %>% filter(YEAR == max(YEAR)) %>%
+g2 <- tmp %>% filter(YEAR == max(YEAR)) %>%
   plot_ly(x = ~MONTH) %>%
   add_lines(y = ~ACT_H,  name = "actual Heavy") %>%
   add_lines(y = ~ACT_MJ, name = "actual Medium Jet") %>%
   add_lines(y = ~ACT_MT, name = "actual Medium Prop") %>%
+  add_lines(y = ~SCH_H,  name = "scheduled Heavy"
+           ,line = list(dash = "dash")) %>%
+  add_lines(y = ~SCH_MJ, name = "scheduled Medium Jet"
+            ,line = list(dash = "dash")) %>%
+  add_lines(y = ~SCH_MT, name = "scheduled Medium Prop"
+            ,line = list(dash = "dash")) %>%
   layout( xaxis = list(title = "", type = "category")
          ,yaxis = list(title = "average turntime [min]")
          )
@@ -1135,10 +1116,13 @@ g2
 
 ## Row ---------------------------------------------------------------
 
+### Trend
+
+
 ### Available Turn-Times
 
 add chart with available turnaround times
-c.f. EIDW discussion
+
 
 
 # Punctuality
