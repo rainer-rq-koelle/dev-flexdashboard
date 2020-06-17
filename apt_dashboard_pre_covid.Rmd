@@ -1,0 +1,78 @@
+---
+title: "Untitled"
+author: "Performance Review Unit"
+date: "17/06/2020"
+output: html_document
+---
+
+Data pre-processing for COVID on landing page
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(lubridate)
+```
+
+read in Muriels COVID Airport Table
+
+```{r}
+ds <- readxl::read_excel(
+  path = "./data/COVID-AIRPORT.xlsx", sheet = "DATA"
+  , range = cell_cols("O:X")) %>%
+  rename(APT_NAME = Entity)
+
+apt_icaos <-  readxl::read_excel(
+  path = "./data/COVID-AIRPORT.xlsx", sheet = "MAP_STATE_AIRPORT"
+  , range = cell_cols("B:C")) %>% 
+  na.omit()
+apt_icaos <- apt_icaos[-c(1),]
+names(apt_icaos) <- c("APT_NAME", "APT_ICAO")
+
+ds <- ds %>% left_join(apt_icaos, by = "APT_NAME") %>%
+  rename( FLTS_2019 = `Flights 2019`, FLTS_2020 = `Flights 2020`
+         ,VAR_DLY ="Daily Variation", VAR_WKLY = "Weekly Variation"
+         ,MOV_AVG_WK = "Weekly Moving Average")
+
+readr::write_csv(ds, "./data/COVID_AIRPORT.csv")
+glimpse(ds)
+```
+
+test visual
+
+```{r}
+library(plotly)
+apt <- "EBBR"
+
+tmp <- ds %>% filter(APT_ICAO == apt)
+
+tmp %>% 
+  plot_ly() %>%
+  add_lines(x=~Day, y=~FLTS_2020, name = "Movements 2020") %>%
+  add_lines(x=~Day, y=~FLTS_2019, name = "Movements 2019"
+            , line = list(dash = "dash", color = "red")) %>%
+  layout(yaxis = list(title = "movements")) -> fig1
+
+tmp %>%
+  plot_ly() %>%
+  add_lines(x=~Day, y=~MOV_AVG_WK, name = "Moving Weekly Average", showlegend=FALSE) %>% 
+  layout(yaxis = list(title = "% change from 2019"
+                      ,titlefont = list(size = 11)
+                      ,hoverformat = ".2f"))-> fig2
+
+fig2
+
+fig <- subplot(fig1, fig2, nrows=2, shareX = TRUE) %>%
+  layout(title = "Movements and Percentage Change 2020 vs 2019"
+         , hovermode = "x unified") %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = c(
+             'sendDataToCloud', # 'toImage',
+             'autoScale2d', # 'resetScale2d',
+             'lasso2d', 'pan2d'
+            ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
+             'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines')
+           )
+fig
+
+```
+
