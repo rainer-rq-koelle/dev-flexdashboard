@@ -23,8 +23,8 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows # columns
     logo: ECTRL-logo.png
-    navbar:
-      - { icon: "fa-question-circle", href: "https://google.com", align: right }
+  #  navbar:
+  #    - { icon: "fa-question-circle", href: "https://google.com", align: right }
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
 ---
 
@@ -49,7 +49,16 @@ tick_yr_no_title <- list(
   ,ticktext = list("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
   ,tickvals = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
   ,tickmode = "array"
-  ,range = c(1,12))
+  ,range = c(0.5,12.5))
+
+# for logo remove set in config(showlogo = FALSE)!
+config_bar_remove_buttons <- c(
+             'sendDataToCloud', # 'toImage',
+             'autoScale2d', # 'resetScale2d',
+             'lasso2d', 'pan2d'
+            ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
+             'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines'
+            ,'drawrect')
 ```
 
 <!-- div style="position:absolute;top:0px;right:0px;" -->
@@ -100,7 +109,7 @@ id_tbl %>%
          dom             = "t"        # show only table)
       ,  ordering        = FALSE      # no order arrows/functionality
       ,  autoWidth = TRUE
-      , columnDefs = list(list(width = '25px', targets = c(0))) # set 1st col
+      , columnDefs = list(list(width = '150px', targets = c(0))) # set 1st col
       , scrollX = TRUE
     ) # end options list ------------------------------
     # remove table header and order arrows ~ overwrite with empty names
@@ -148,7 +157,7 @@ out %>%
   #  )
 ```
 
-### COVID19 Snapshot Traffic Evolution
+### COVID19 Snapshot Traffic Evolution (Movements and Percentage Change 2020 vs 2019)
 
 ```{r, out.width="40%", fig.pos="float"}
 fig1 <- params$covid %>% 
@@ -166,8 +175,7 @@ fig2 <- params$covid %>%
                       ,hoverformat = ".2f"))
 
 fig <- subplot(fig1, fig2, nrows=2, shareX = TRUE) %>%
-  layout(title = "Movements and Percentage Change 2020 vs 2019"
-         , hovermode = "x unified") %>%
+  layout( hovermode = "x unified") %>%
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = c(
              'sendDataToCloud', # 'toImage',
@@ -215,7 +223,7 @@ key_msg <- list(x = unique(mvts_thisyear$YEAR), y = msg_y
 # font <- list(family = "Courier New, monospace", size = 18, color = "#7f7f7f")
 xax <- list(title="")
 # yax <- list(title="Number of flights", titlefont = font)
-yax <- list(title="Number of flights")
+yax <- list(title="Number of flights", titlefont = list(size = 11))
 
 mvts_pa %>%
   plot_ly(x = ~YEAR, y = ~FLT_TOT) %>%
@@ -225,9 +233,17 @@ mvts_pa %>%
                "Year: %{x}"
               ,"<br>Flights: %{y}" 
             )) %>% 
-  layout(xaxis = xax, yaxis = yax
+  layout(xaxis = xax, yaxis = yax # autosize = F, width = 300, height = 300
          ,annotations = key_msg
-    )                    #layout(autosize = F, width = 300, height = 300)
+    ) %>%                    
+config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = c(
+             'sendDataToCloud', # 'toImage',
+             'autoScale2d', # 'resetScale2d',
+             'lasso2d', 'pan2d'
+            ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
+             'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines')
+           )
 ```
 
 ### Annual Variation of Daily Movements 
@@ -240,12 +256,13 @@ tmp <- params$tfc %>%
   separate(PHASE, into = c(NA, "PHASE", NA), sep = "_")
 
 xax <- list(title = "")
-yax <- list(title = "Movements per day")
+yax <- list(title = "Movements per day",titlefont = list(size = 11))
 
 pbox_group <- tmp %>%
   plot_ly(x = ~YEAR, y = ~MVTS, color = ~PHASE, type = "box") %>%
   layout(boxmode = "group", xaxis=xax, yaxis=yax) %>%
-  config(displayModeBar = FALSE)
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 pbox_group
 ```
 
@@ -274,7 +291,7 @@ msg         <- paste0( "<b>Busiest month <br>(last 5 years): <br>"
 
 # plot
 xax <- tick_yr_no_title
-yax <- list(title="Number of flights", rangemode = "tozero")
+yax <- list(title="Number of flights", rangemode = "tozero",titlefont = list(size = 11))
 
 mvts_pm %>%
   plot_ly(x = ~MONTH_NUM, y = ~FLT_TOT, group = ~YEAR, color = ~YEAR) %>%
@@ -286,7 +303,9 @@ mvts_pm %>%
   layout( xaxis = xax, yaxis=yax
         # ,annotations = key_msg
            )  %>%       #layout(autosize = F, width = 300, height = 300)
-  config(displayModeBar = FALSE)
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons
+           )
 ```
 
 ### Hourly Throughput
@@ -310,7 +329,7 @@ thru <- thru %>% bind_rows(thru_tot) %>% arrange(TIME) %>%
 
 #xax = list(title= "", type = 'time', tickformat = "%H%M") # 
 xax = list(title="", type = "category" ,range = c(-2,72)) #
-yax = list(title= 'Average throughput [flights/hour]')
+yax = list(title= 'Average throughput [flights/hour]',titlefont = list(size = 11))
 
 mth <- unique(thru$MONTH)
 msg = paste0("<b>Average 15-min rolling hour <br>throughput-weekdays Month ", mth,"</b>")
@@ -327,7 +346,8 @@ thru %>%
                  ) %>%
   layout( xaxis = xax, yaxis=yax
          ,hovermode = "x unified") %>%
-  config(displayModeBar = FALSE)
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 
@@ -360,9 +380,13 @@ atfm_pa <- params$atfm %>%
 atfm_pa %>% 
   plot_ly(x = ~YEAR, y = ~AVG_ARR_ATFM_REG, color = ~REG_REASON, type = "bar") %>%
   layout(barmode = "stack"
+         , hovermode = "x unified"
          , xaxis = list(title = "")
-         , yaxis = list(title="Average arrival ATFM delay [min/arr]")) %>% 
-config(displayModeBar = FALSE)
+         , yaxis = list(title="Average arrival ATFM delay [min/arr]"
+                        ,titlefont = list(size = 11))
+         ) %>% 
+config( displaylogo = FALSE
+       ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 ### Monthly Arrival ATFM Delay
@@ -400,8 +424,8 @@ button_list  <- lapply(1:length(filter_years), function(x){
 
 
 button_type_list <-  list(
-  type = 'dropdown',
- # type = 'buttons',
+ # type = 'dropdown',
+  type = 'buttons',
   bgcolor = '#c3c1e8',
  active = length(filter_years)-1,
  direction = 'right'
@@ -429,12 +453,15 @@ atfm_pm %>%
               ) # end transforms list
         ) %>%
   layout( barmode = "stack"
+         ,hovermode = "x unified"
          ,xaxis = tick_yr_no_title
-         ,yaxis=list(title="Average arrival ATFM delay [min/arr]")
-         ,showlegend = FALSE
+         ,yaxis=list(title="Average arrival ATFM delay [min/arr]"
+                     ,titlefont = list(size = 11))
+         ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
-config(displayModeBar = FALSE)
+config( displaylogo = FALSE
+       ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 ## Row --------------------------------------------------------------------
@@ -473,42 +500,19 @@ p <- tmp %>%
   layout(#title = "Daily Total Arrival ATFM Delay"
          #, margin = list(t = 75)  # increase margin to deconflict titel and buttons
          #, 
-         xaxis = list(title = ""
-         , rangeselector = list(
-        buttons = list(
-          list(
-            count = 3,
-            label = "3 mo",
-            step = "month",
-            stepmode = "backward"),
-          list(
-            count = 6,
-            label = "6 mo",
-            step = "month",
-            stepmode = "backward"),
-          list(
-            count = 1,
-            label = "1 yr",
-            step = "year",
-            stepmode = "backward"),
-          list(
-            count = 1,
-            label = "YTD",
-            step = "year",
-            stepmode = "todate"),
-          list(step = "all"))),
-
-      rangeslider = list(type = "date")
+         xaxis = list( title = ""
+                      ,rangeslider = list(type = "date")
                         )
-         , yaxis = list(title = "Arrival ATFM Delay [min]")
+        ,yaxis = list(title = "Arrival ATFM Delay [min]"
+                      ,titlefont = list(size = 11))
          ) %>% 
-  
-  config(displayModeBar = F)   # deactivate complete ModeBar
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 p
 ```
 
 
-### Share
+### Share of ATFM Delay Current Year
 
 ```{r atfm-ytd}
 atfm_pm %>% group_by(REG_REASON) %>%
@@ -516,12 +520,13 @@ atfm_pm %>% group_by(REG_REASON) %>%
             ,DLY =         sum(DLY, na.rm = TRUE)) %>%
   ungroup() %>%
   mutate(DLY_TOT    = sum(DLY, na.rm = TRUE)
-         ,DLY_SHARE = DLY / DLY_TOT ) %>%
+         ,DLY_SHARE = round(DLY / DLY_TOT,2) 
+         ,LABELS = paste0(REG_REASON,"<br>", DLY_SHARE,"%")) %>%
   
   plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE) %>%
-    add_pie(hole = 0.4) 
-# default legend on right-hand side = no specs
-#%>% layout(legend = list(orientation = 'h', x = 0, y =-0.1))
+    add_pie(hole = 0.4) %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 # ASMA
@@ -541,17 +546,28 @@ asma_pa <- params$asma %>% select(YEAR, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_
   mutate( AVG_UNIMP_TIME        = TOT_UNIMP_TIME    / TOT_FLT
          ,AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT) 
 
+asma_pa <- asma_pa %>% 
+  tidyr::pivot_longer(cols = c("AVG_UNIMP_TIME","AVG_ADD_ASMA_TIME")
+                      ,names_to = "TYPE", values_to = "TIME" ) %>%
+  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_ASMA_TIME"
+                           , "avg. additional time", "avg. reference time"))
+
 asma_pa %>%
-  plot_ly(x=~YEAR, y=~AVG_ADD_ASMA_TIME
+  plot_ly(x=~YEAR, y=~TIME
           , type = "bar"
-          , showlegend = FALSE
-          , name = "average add. ASMA"
+          , color = ~COL_LBL
+          , showlegend = TRUE
+          , name = "average ASMA"
           ) %>%
   #add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
   layout(barmode = "stack"
+         , hovermode = "x unified"
          ,xaxis = list(title = "", type = "category")
-         ,yaxis = list(title = "Average Additional ASMA Time [min/arr]")
-         ) 
+         ,yaxis = list( title = "Average Additional ASMA Time [min/arr]"
+                       ,titlefont = list(size = 11))
+         ) %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 
 #%>%
 #  add_annotations(
@@ -577,6 +593,12 @@ asma_pm <- params$asma %>%
   mutate( AVG_ADD_ASMA_TIME     = TOT_ADD_ASMA_TIME / TOT_FLT
          ,AVG_UNIMP_TIME        = TOT_UNIMP_TIME    / TOT_FLT) 
 
+asma_pm <- asma_pm %>% 
+  tidyr::pivot_longer(cols = c("AVG_UNIMP_TIME","AVG_ADD_ASMA_TIME")
+                      ,names_to = "TYPE", values_to = "TIME" ) %>%
+  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_ASMA_TIME"
+                           , "avg. additional time", "avg. reference time"))
+
 #############
 filter_years <- asma_pm %>% pull(YEAR) %>% unique()
 button_list  <- lapply(1:length(filter_years), function(x){
@@ -599,11 +621,11 @@ button_type_list <-  list(
 ##########################
  
 asma_pm %>%
-  plot_ly(x = ~MONTH_NUM, y = ~AVG_ADD_ASMA_TIME 
+  plot_ly(x = ~MONTH_NUM, y = ~TIME 
           #https://github.com/ropensci/plotly/issues/1502
         # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
         , customdata=~YEAR
-         # , color = ~REG_REASON
+          , color = ~COL_LBL
           , type = "bar"
           , transforms = list(
               list(
@@ -615,12 +637,16 @@ asma_pm %>%
               ) # end transforms list
         ) %>%
   layout( barmode = "stack"
+          , hovermode = "x unified"
          ,xaxis = tick_yr_no_title
-         ,yaxis=list(title="Average ASMA Time [min/arr]")
-         ,showlegend = FALSE
+         ,yaxis=list( title="Average ASMA Time [min/arr]"
+                     ,titlefont = list(size = 11))
+         ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
-config(displayModeBar = FALSE)
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
+
 ```
 
 ## Row --------------------------------------------------------------
@@ -671,20 +697,19 @@ p <- tmp %>%
                         )
          , yaxis = list(title = "Additional ASMA time [min/arr]")
          ) %>% 
-  
-  config(displayModeBar = F)   # deactivate complete ModeBar
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
+
 p
 ```
 
-
-  
 # Taxi-Times
 
 ## Row -----------------------------------------------------------------------
 
 ### Avergage Taxi-Out Time
 
-```{r}
+```{r txot-annual}
 # annual bar chart
 txot_pa <- params$txot %>% select(YEAR, TIME_TXO_ADD_2, TIME_TXO_UNIMP_2, FLT_TXO_UNIMP_2 ) %>%
   group_by(YEAR) %>%
@@ -699,7 +724,7 @@ txot_pa <- txot_pa %>%
   tidyr::pivot_longer(cols = c("AVG_ADD_TXO_TIME","AVG_UNIMP_TIME")
                       ,names_to = "TYPE", values_to = "TIME" ) %>%
   mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXO_TIME"
-                           , "avg. additional time", "avg. refernce time"))
+                           , "avg. additional time", "avg. reference time"))
 
 g1 <- txot_pa %>%
   plotly::plot_ly(x=~YEAR, y=~TIME
@@ -707,18 +732,20 @@ g1 <- txot_pa %>%
           , showlegend = TRUE
           , color=~COL_LBL
           ) %>%
-  plotly::add_annotations(
+  layout(barmode = "stack", hovermode = "x unified"
+         , xaxis = list(title="")
+         , yaxis = list(title="Average taxi-out time [min/dep]"))
+
+g1
+```
+
+<!-- TO-DO: add annotation plotly::add_annotations(
     text = "annual variation"
     ,xref = "paper",yref = "paper"
     ,x = 0.1, y = 1.05
     ,xanchor = "middle",yanchor = "top", showarrow = FALSE
     ,font = list(size = 15)) %>%
-  layout(barmode = "stack"
-         , xaxis = list(title="")
-         , yaxis = list(title="average taxi-out time [min/dep]"))
-
-g1
-```
+-->
 
 ### Monthly Average Additional Taxi-Out Time
 
@@ -730,27 +757,65 @@ txot_pm <- params$txot %>%
   summarise( TOT_ADD_TXO_TIME  = sum(TIME_TXO_ADD_2,   na.rm = TRUE)
             ,TOT_UNIMP_TIME    = sum(TIME_TXO_UNIMP_2, na.rm = TRUE)
             ,TOT_FLT           = sum(FLT_TXO_UNIMP_2,  na.rm = TRUE)
-            ,TOT_TOT           = TOT_ADD_TXO_TIME + TOT_UNIMP_TIME
-  ) %>% ungroup %>%
+            ) %>% 
+  ungroup %>%
   mutate( AVG_ADD_TXO_TIME     = TOT_ADD_TXO_TIME / TOT_FLT
          ,AVG_UNIMP_TIME       = TOT_UNIMP_TIME   / TOT_FLT
          )
 
+txot_pm <- txot_pm %>% 
+  tidyr::pivot_longer(cols = c("AVG_UNIMP_TIME","AVG_ADD_TXO_TIME")
+                      ,names_to = "TYPE", values_to = "TIME" ) %>%
+  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXO_TIME"
+                           , "avg. additional time", "avg. reference time"))
 
-g2 <-  plot_ly() %>%
-  add_trace(data = txot_pm %>% filter(YEAR == max(YEAR))   # current year
-            , x=~MONTH_NUM, y=~AVG_ADD_TXO_TIME
-            , color=~as.factor(YEAR),line = list(width = 3)
-            , type="scatter", mode="lines") %>%
-  add_trace(data = txot_pm %>% filter(YEAR != max(YEAR))
-            , x=~MONTH_NUM, y=~AVG_ADD_TXO_TIME
-            , color=~as.factor(YEAR),line = list(width = 1)
-            , type="scatter", mode="lines") %>%
-  layout( xaxis = tick_yr_no_title
-         ,yaxis = list(title = "Avg. additional taxi-out time [min/dep]")
-         ) 
+#############
+filter_years <- txot_pm %>% pull(YEAR) %>% unique()
+button_list  <- lapply(1:length(filter_years), function(x){
+  list(method = "restyle",
+       args = list("transforms[0].value", filter_years[x]),
+       label = filter_years[x])
+})
 
-g2
+button_type_list <-  list(
+ # type = 'dropdown',
+  type = 'buttons',
+  bgcolor = '#c3c1e8',
+ active = length(filter_years)-1,
+ direction = 'right'
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom",
+#  pad = list('r'= 0, 't'= 10, 'b' = 10),   # without padding buttons stay fixed
+  buttons = button_list
+)
+##########################
+ 
+txot_pm %>%
+  plot_ly(x = ~MONTH_NUM, y = ~TIME 
+          #https://github.com/ropensci/plotly/issues/1502
+        # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+        , customdata=~YEAR
+          , color = ~COL_LBL
+          , type = "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list
+        ) %>%
+  layout( barmode = "stack"
+         ,xaxis = tick_yr_no_title
+         ,yaxis=list( title="Average taxi-out time [min/arr]"
+                     ,titlefont = list(size = 11))
+         ,showlegend = TRUE
+         ,updatemenus = list( button_type_list )
+         ) %>% 
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
+
 ```
 
 <!-- 
@@ -808,18 +873,20 @@ g1 <- txit_pa %>%
           , showlegend = TRUE
           , color=~COL_LBL
           ) %>%
-  plotly::add_annotations(
-    text = "annual variation"
-    ,xref = "paper",yref = "paper"
-    ,x = 0.1, y = 1.05
-    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
-    ,font = list(size = 15)) %>%
   layout(barmode = "stack"
          , xaxis = list(title="")
          , yaxis = list(title="average taxi-in time [min/arr]"))
 
 g1
 ```
+
+<!-- TODO: plotly::add_annotations(
+    text = "annual variation"
+    ,xref = "paper",yref = "paper"
+    ,x = 0.1, y = 1.05
+    ,xanchor = "middle",yanchor = "top", showarrow = FALSE
+    ,font = list(size = 15)) %>%
+-->    
 
 ### Monthly Average Additional Taxi-In Time
 
@@ -835,28 +902,66 @@ txit_pm <- params$txit %>%
             ,TOT_ADD_TXIT = sum(TOT_ADD_TXIT)
             ,TOT_N        = sum(N_SMPL)) %>% 
   ungroup() %>% 
-  mutate( #AVG_A_TXIT   = TOT_A_TXIT   / TOT_N
-          AVG_REF      = TOT_REF      / TOT_N
+  mutate( AVG_REF      = TOT_REF      / TOT_N
          ,AVG_ADD_TXIT = TOT_ADD_TXIT / TOT_N)
 
 
-g2 <-  plot_ly() %>%
-  add_trace(data = txit_pm %>% filter(YEAR == max(YEAR))
-            , x=~MONTH_NUM, y=~AVG_ADD_TXIT
-            , color=~as.factor(YEAR),line = list(width = 3)
-            , type="scatter", mode="lines") %>%
-  add_trace(data = txit_pm %>% filter(YEAR != max(YEAR))
-            , x=~MONTH_NUM, y=~AVG_ADD_TXIT
-            , color=~as.factor(YEAR),line = list(width = 1)
-            , type="scatter", mode="lines") %>%
-  layout( xaxis = tick_yr_no_title
-         ,yaxis = list(title="Avg. additional taxi-in time [min/arr]")) 
+txit_pm <- txit_pm %>% 
+  tidyr::pivot_longer(cols = c("AVG_REF","AVG_ADD_TXIT")
+                      ,names_to = "TYPE", values_to = "TIME" ) %>%
+  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXIT"
+                           , "avg. additional time", "avg. reference time"))
 
-g2
+#############
+filter_years <- txot_pm %>% pull(YEAR) %>% unique()
+button_list  <- lapply(1:length(filter_years), function(x){
+  list(method = "restyle",
+       args = list("transforms[0].value", filter_years[x]),
+       label = filter_years[x])
+})
+
+button_type_list <-  list(
+ # type = 'dropdown',
+  type = 'buttons',
+  bgcolor = '#c3c1e8',
+ active = length(filter_years)-1,
+ direction = 'right'
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom",
+#  pad = list('r'= 0, 't'= 10, 'b' = 10),   # without padding buttons stay fixed
+  buttons = button_list
+)
+##########################
+ 
+txit_pm %>%
+  plot_ly(x = ~MONTH_NUM, y = ~TIME 
+          #https://github.com/ropensci/plotly/issues/1502
+        # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+        , customdata=~YEAR
+          , color = ~COL_LBL
+          , type = "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list
+        ) %>%
+  layout( barmode = "stack"
+         ,xaxis = tick_yr_no_title
+         ,yaxis=list( title="Average taxi-in time [min/arr]"
+                     ,titlefont = list(size = 11))
+         ,showlegend = TRUE
+         ,updatemenus = list( button_type_list )
+         ) %>% 
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 
-# Pre-Dep \n Delay
+# Pre-Dep Delay
 
 ## Row -------------------------------------------------------
 
@@ -892,8 +997,11 @@ pddly_pa$DLY_CAT <- factor(pddly_pa$DLY_CAT
 g1 <- pddly_pa %>%
   plot_ly(x=~YEAR, y=~DLY_DUR, type="bar", color=~DLY_CAT, legendgroup=~DLY_CAT) %>%
   layout(barmode = "stack"
-         ,yaxis = list(title = "Pre-departure delay [min]")
-         )
+         ,yaxis = list( title = "Pre-departure delay [min]"
+                       ,titlefont = list(size = 11))
+         ) %>% 
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 
 g1
 ```
@@ -926,8 +1034,7 @@ pddly_pm$DLY_CAT <- factor(pddly_pm$DLY_CAT
 
 button_type_list <-  list(
   buttons = button_list
-  ,type = 'dropdown'
- # type = 'buttons',
+ , type = 'buttons' #,type = 'dropdown'
  , bgcolor = '#c3c1e8'
  , active = length(filter_years)-1
  , direction = 'right'
@@ -956,11 +1063,13 @@ pddly_pm %>%
         ) %>%
   layout( barmode = "stack"
          ,xaxis = tick_yr_no_title
-         ,yaxis=list(title="Pre-departure delay [min]")
+         ,yaxis=list( title="Pre-departure delay [min]"
+                     ,titlefont = list(size = 11))
          ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
-config(displayModeBar = FALSE)
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 
@@ -1012,10 +1121,11 @@ p <- tmp %>%
 
       rangeslider = list(type = "date")
                         )
-         , yaxis = list(title = "Pre-departure delay [min]")
+         , yaxis = list( title = "Pre-departure delay [min]"
+                        ,titlefont = list(size = 11))
          ) %>% 
-  
-  config(displayModeBar = F)   # deactivate complete ModeBar
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 p
 ```
 
@@ -1061,8 +1171,7 @@ predepdly_pm <- params$pddly %>%
 ################################################
 button_type_list <-  list(
   buttons = button_list
-  ,type = 'dropdown'
- # type = 'buttons',
+ , type = 'buttons' # ,type = 'dropdown'
  , bgcolor = '#c3c1e8'
  , active = length(filter_years)-1
  , direction = 'right'
@@ -1091,11 +1200,13 @@ predepdly_pm %>%
         ) %>%
   layout( barmode = "stack"
          ,xaxis = tick_yr_no_title
-         ,yaxis=list(title="Avg. pre-departure delay [min/dep]")
+         ,yaxis=list( title="Avg. pre-departure delay [min/dep]"
+                     ,titlefont = list(size = 11))
          ,showlegend = FALSE
          ,updatemenus = list( button_type_list )
-         ) %>% 
-config(displayModeBar = FALSE)
+         ) %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 # Turnaround
@@ -1119,8 +1230,11 @@ g1 <- turn_pa %>%
   add_bars(y = ~MJ, name = "Medium Jet") %>%
   add_bars(y = ~MT, name = "Medium Prop") %>%
   layout( xaxis = list(title = "", type = "category")
-         ,yaxis = list(title = "average turntime [min]")
-         )
+         ,yaxis = list(title = "average turntime [min]"
+                       ,titlefont = list(size = 11))
+         ) %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 g1
 ```
 
@@ -1129,52 +1243,100 @@ g1
 
 ```{r monthly_turn_time}
 turn_pm <- params$turn %>% 
-  rename(MONTH = MONTH_NUM) %>%
     select(YEAR, MONTH, AC_CLASS, AVG_ATTT, AVG_STTT) %>% 
     filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
     group_by(YEAR, MONTH, AC_CLASS) %>% 
     summarise(AVG_ATTT = mean(AVG_ATTT), AVG_STTT = mean(AVG_STTT)) %>%
     ungroup() 
 
-actual_pm <- turn_pm %>%
-  select(YEAR, MONTH, AC_CLASS, AVG_ATTT) %>% 
-  pivot_wider(names_from = "AC_CLASS", names_prefix = "ACT_", values_from = AVG_ATTT)
+################################################
+button_type_list <-  list(
+  buttons = button_list
+ , type = 'buttons' # ,type = 'dropdown'
+ , bgcolor = '#c3c1e8'
+ , active = length(filter_years)-1
+ , direction = 'right'
+ # position of button list
+ , xref = "paper", x = 0.3, xanchor = 'left'
+ , yref = "paper", y = 1.2, yanchor = "bottom"
+ 
+)
+##########################
 
-sched_pm <- turn_pm %>%
-  select(YEAR, MONTH, AC_CLASS, AVG_STTT) %>% 
-  pivot_wider(names_from = "AC_CLASS", names_prefix = "SCH_", values_from = AVG_STTT)
-
-tmp <- actual_pm %>% left_join(sched_pm, by = c("YEAR", "MONTH"))
-
-g2 <- tmp %>% filter(YEAR == max(YEAR)) %>%
-  plot_ly(x = ~MONTH) %>%
-  add_lines(y = ~ACT_H,  name = "actual Heavy") %>%
-  add_lines(y = ~ACT_MJ, name = "actual Medium Jet") %>%
-  add_lines(y = ~ACT_MT, name = "actual Medium Prop") %>%
-  add_lines(y = ~SCH_H,  name = "scheduled Heavy"
-           ,line = list(dash = "dash")) %>%
-  add_lines(y = ~SCH_MJ, name = "scheduled Medium Jet"
-            ,line = list(dash = "dash")) %>%
-  add_lines(y = ~SCH_MT, name = "scheduled Medium Prop"
-            ,line = list(dash = "dash")) %>%
-  layout( xaxis = list(title = "", type = "category")
-         ,yaxis = list(title = "average turntime [min]")
-         )
-g2
+turn_pm %>% 
+  plot_ly() %>% 
+  add_lines(x=~MONTH, y=~AVG_ATTT, color =~AC_CLASS, name = "actual"
+          #https://github.com/ropensci/plotly/issues/1502
+          #define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+          ,customdata=~YEAR
+          # given with add_lines, type = "scatter" ## "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list)
+          ,text = ~AC_CLASS
+          , hovertemplate = paste0( "Class: %{text}"
+                                   ,"<br>Month: %{x}"
+                                   ,"<br>Avg. Turn: %{y:.2f}min")
+         ) %>% 
+  add_lines(x=~MONTH, y=~AVG_STTT, color =~AC_CLASS, name = "scheduled", line = list(dash = 'dash')
+            #https://github.com/ropensci/plotly/issues/1502
+          #define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+          ,customdata=~YEAR
+         # , type = "line" ## "bar"
+          , transforms = list(
+              list(
+                type = 'filter',
+                target = "customdata",
+                operation = '=',
+                value = "2020"
+                  )
+              ) # end transforms list)
+         ,text = ~AC_CLASS
+          , hovertemplate = paste0( "Class: %{text}"
+                                   ,"<br>Month: %{x}"
+                                   ,"<br>Avg. Turn: %{y:.2f}min")
+         ) %>%
+  layout( updatemenus = list( button_type_list )
+         ,hovermode = "x unified"  
+         ,xaxis = tick_yr_no_title 
+         ,yaxis = list(title = "Average monthly turn times [min]"
+                      ,titlefont = list(size = 11))
+         ) %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 
 
 ## Row ---------------------------------------------------------------
 
-### Trend
+### Variation of Annual Actual Turn-Around Times
+
+```{r}
+turn_pm %>%
+  plot_ly(x = ~YEAR, y = ~AVG_ATTT, color = ~AC_CLASS, type = "box") %>%
+  layout( boxmode = "group"   # save to ignore warning message
+         ,xaxis = list(title = "")
+         ,yaxis = list( title = "Average actual turn-around time [min]"
+                       ,titlefont = list(size = 11)
+                       ,hoverformat = ".2f")
+         ) %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
+```
 
 
+<!--
 ### Available Turn-Times
 
 add chart with available turnaround times
 
-
+-->
 
 # Punctuality
 

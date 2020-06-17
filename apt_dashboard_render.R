@@ -29,8 +29,8 @@ min_year <- 2016 # by definition 5 years, i.e. 2016-2020
 # TO LIMIT TEST LOAD SUBSET FOR "TEST" AIRPORTS
 # To-Do: deployed version should use airport list, etc or be derived from ids
 # the list is used as an iterator for the render loop below
-#apts   <- c("EGLL", "EDDF", "EIDW")
-apts <- c("EBBR", "LEMD")
+#apts   <- c(, "EDDF", "EIDW")
+apts <- c("EGLL","EBBR", "LEMD")
 # version - counter increased to 05 (including Sara's comments) & discussion with
 # Enrico --> deactivated as we move towards deployment. version<- "05"
 ## ------------------------------------------------ REMOVE WHEN DEPLOYED
@@ -114,7 +114,8 @@ turn_df <- readr::read_csv2("./data/STAT_AIRPORT_TURN_AROUND.csv") %>%
   select(APT_ICAO, YEAR, MONTH_NUM, AC_CLASS
          ,N = NB_TURN_ARROUND
          ,TOT_SDTT_MIN, TOT_ACTT_MIN, TOT_ADTT_MIN) %>%
-  mutate(AVG_ATTT = TOT_ACTT_MIN / N, AVG_STTT = TOT_SDTT_MIN)
+  mutate(AVG_ATTT = TOT_ACTT_MIN / N, AVG_STTT = TOT_SDTT_MIN / N) %>%
+  select(APT_ICAO, YEAR, MONTH = MONTH_NUM, AC_CLASS, N, AVG_ATTT, AVG_STTT)
 
 punc_df <-  readr::read_csv("./data-test/STAT_AIRPORT_DATA_PUNC.csv") %>% rename(APT_ICAO = APT)
 
