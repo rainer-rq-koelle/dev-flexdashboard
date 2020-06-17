@@ -56,7 +56,7 @@ config_df <- db_conf %>%
   select(APT_ICAO, YEAR, CONFIGURATION, SHARE_PCT) %>%
   arrange(desc(SHARE_PCT))
 
-thru_df <- readr::read_csv("./data-test/STAT_AIRPORT_DATA_THRU.csv") %>% rename(APT_ICAO = APT)
+thru_df <- readr::read_csv2("./data/STAT_AIRPORT_THROUGHPUT.csv") %>% rename(APT_ICAO = AIRPORT)
 
 atfm_df <- readxl::read_excel("./data/Airport_Arrival_ATFM_Delay.xlsx", sheet = "DATA") %>%
   mutate(FLT_DATE = lubridate::date(FLT_DATE)) %>%
@@ -231,6 +231,17 @@ trim_covid <- function(.df, .apt){
     select(Day, FLTS_2020, FLTS_2019, MOV_AVG_WK)
 }
 
+pack_thru <- function(.df, .apt){
+  df <- .df %>% filter(APT_ICAO == .apt) %>%
+    mutate(DATE = lubridate::dmy(DAY, tz="UTC")
+           ,YEAR = year(DATE), MONTH_NUM = month(DATE)
+           , WEEKDAY = lubridate::wday(DATE, label=TRUE)) %>%
+    filter(YEAR == max(YEAR)) %>% filter(MONTH_NUM == max(MONTH_NUM)) %>%
+    select(APT_ICAO, YEAR, MONTH_NUM, DATE, WEEKDAY, TIME, ROLLING_HOUR_MVT, PHASE) %>%
+    group_by(TIME, PHASE) %>% summarise(ROLLING_HOUR_MVT = mean(ROLLING_HOUR_MVT)) %>%
+    ungroup()
+}
+
 ## ------------ RENDER DASHBOARDS -------------------------------------
 
 
@@ -248,7 +259,7 @@ apts %>%
                        ,latest= latest_month_indicators(db_df, atfm_df, .apt = .)
                        ,covid = trim_covid(      covid_df, .apt = .)
                        ,tfc   = filter_df_by_apt(tfc_df,   .apt = .)
-                       ,thru  = filter_df_by_apt(thru_df,  .apt = .)
+                       ,thru  = pack_thru(       thru_df,  .apt = .)
                        ,atfm  = filter_df_by_apt(atfm_df,  .apt = .)
                        ,slot  = filter_df_by_apt(slot_df,  .apt = .)
                        ,asma  = filter_df_by_apt(asma_df,  .apt = .)

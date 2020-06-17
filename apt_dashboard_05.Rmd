@@ -19,14 +19,27 @@ params:
   turn: !r mtcars
   punc: !r mtcars
 title: "`r params$icao`"
+author: "AIU Home"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows # columns
-    logo: ECTRL-logo.png
+    logo: "euctrl-logo-noname_48x48.png"
+  #  logo: ECTRL-logo.png
   #  navbar:
   #    - { icon: "fa-question-circle", href: "https://google.com", align: right }
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
 ---
+
+<script>
+$('.navbar-logo').wrap('<a href="http://www.eurocontrol.int">');
+$('.navbar-author').wrap('<a href="http://ansperformance.eu">');
+</script>
+
+<style>
+.navbar-author {
+  color: white;
+}
+</style>
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
@@ -50,6 +63,8 @@ tick_yr_no_title <- list(
   ,tickvals = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
   ,tickmode = "array"
   ,range = c(0.5,12.5))
+
+pick_mth <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 # for logo remove set in config(showlogo = FALSE)!
 config_bar_remove_buttons <- c(
@@ -91,7 +106,6 @@ id_tbl <- tribble(
   ,"ICAO/IATA" , paste0(params$icao, "/", params$iata) , ""
   ,"State"     , params$state , ""
   ,""          ,""            , ""
-  ,"Mostly Used Runway",""    , ""
 )
 
 rwy_config <- params$config %>%
@@ -295,12 +309,14 @@ yax <- list(title="Number of flights", rangemode = "tozero",titlefont = list(siz
 
 mvts_pm %>%
   plot_ly(x = ~MONTH_NUM, y = ~FLT_TOT, group = ~YEAR, color = ~YEAR) %>%
-  add_trace( type = 'scatter', mode = 'markers+lines') %>%
+  add_trace( type = 'scatter', mode = 'markers+lines'
+             ) %>%
   add_annotations( text = msg
                   , x = mvts_pm_max$MONTH_NUM
                   , y = mvts_pm_max$FLT_TOT
                   , showarrow = TRUE, ax = 50, ay = 100) %>%
   layout( xaxis = xax, yaxis=yax
+          ,hovermode = "x unified"
         # ,annotations = key_msg
            )  %>%       #layout(autosize = F, width = 300, height = 300)
   config( displaylogo = FALSE
@@ -311,17 +327,13 @@ mvts_pm %>%
 ### Hourly Throughput
 
 ```{r}
-thru <- params$thru %>% 
-  select(APT_ICAO, YEAR, MONTH, TIME, SRC_PHASE, N_BIN_AVG) %>%
-  filter(YEAR == max(YEAR)) %>% filter(MONTH == max(MONTH))
+thru <- params$thru
+ 
+thru_tot <- thru %>% group_by(TIME) %>% 
+  summarise(ROLLING_HOUR_MVT = sum(ROLLING_HOUR_MVT, na.rm = TRUE)) %>% 
+  mutate(PHASE="TOT") %>% ungroup()
 
-thru_tot <- thru %>% 
-  group_by(APT_ICAO, YEAR, MONTH, TIME) %>% 
-  summarise(N_BIN_AVG = sum(N_BIN_AVG, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(SRC_PHASE = "TOT")
-
-thru <- thru %>% bind_rows(thru_tot) %>% arrange(TIME) %>%
+thru <- thru %>% bind_rows(thru_tot) %>%
   mutate( TIME = as.character(TIME)
          ,TIME = strtrim(TIME, 5))
 #  mutate(TIME = lubridate::hm(TIME))
@@ -331,21 +343,20 @@ thru <- thru %>% bind_rows(thru_tot) %>% arrange(TIME) %>%
 xax = list(title="", type = "category" ,range = c(-2,72)) #
 yax = list(title= 'Average throughput [flights/hour]',titlefont = list(size = 11))
 
-mth <- unique(thru$MONTH)
-msg = paste0("<b>Average 15-min rolling hour <br>throughput-weekdays Month ", mth,"</b>")
+msg = paste0("<b>Average 15-min rolling hour <br>throughput-weekdays month May</b>")
 
 thru %>% 
-  plot_ly(x = ~TIME, y = ~N_BIN_AVG, color = ~SRC_PHASE) %>%
-  group_by(SRC_PHASE) %>%
+  plot_ly(x = ~TIME, y = ~ROLLING_HOUR_MVT, color = ~PHASE) %>%
+  group_by(PHASE) %>%
   add_lines(type = 'scatter') %>%    
   add_annotations(text = msg
                  , x = "12:00"
-                 , y = 0.1 * max(thru$N_BIN_AVG) 
+                 , y = 0.1 * max(thru$ROLLING_HOUR_MVT) 
                  , showarrow = FALSE, ax = 0, ay = 0  # no arrow, no offset
                  , align = "center"
                  ) %>%
-  layout( xaxis = xax, yaxis=yax
-         ,hovermode = "x unified") %>%
+  layout( xaxis = xax, yaxis = yax
+         ,hovermode = "x unified", hoverformat = ".2f") %>%
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
@@ -484,8 +495,8 @@ worst_day_dly  <- worst_day_last_year$TOT_ARR_ATFM
 worst_day_avgATFMdly <- worst_day_last_year$TOT_ARR_ATFM / worst_day_last_year$ARRS
 
 key_msg <- paste0( "<b>Worst day in last 12 months: ", worst_day_date
-                  ,"<br>with total Arrival ATFM Delay: ", worst_day_dly
-                  ,"<br>(avg. Arrival ATFM Delay: ", worst_day_avgATFMdly, "</b>")
+                  ,"<br>with total Arrival ATFM Delay: ", worst_day_dly,"min"
+                  ,"<br>(avg. Arrival ATFM Delay: ", worst_day_avgATFMdly, "min)</b>")
 
 p <- tmp %>%
   plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM
@@ -503,7 +514,7 @@ p <- tmp %>%
          xaxis = list( title = ""
                       ,rangeslider = list(type = "date")
                         )
-        ,yaxis = list(title = "Arrival ATFM Delay [min]"
+        ,yaxis = list(title = "Arrival ATFM delay [min]"
                       ,titlefont = list(size = 11))
          ) %>% 
   config( displaylogo = FALSE
@@ -557,13 +568,12 @@ asma_pa %>%
           , type = "bar"
           , color = ~COL_LBL
           , showlegend = TRUE
-          , name = "average ASMA"
           ) %>%
   #add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
   layout(barmode = "stack"
          , hovermode = "x unified"
          ,xaxis = list(title = "", type = "category")
-         ,yaxis = list( title = "Average Additional ASMA Time [min/arr]"
+         ,yaxis = list( title = "Average ASMA time [min/arr]"
                        ,titlefont = list(size = 11))
          ) %>%
   config( displaylogo = FALSE
@@ -665,10 +675,8 @@ p <- tmp %>%
           , type = 'scatter', mode = 'lines'
           , line = list(shape = "hvh", width = 1)
           ) %>%
-  layout(#title = "Monthly Average Additional ASMA Time"
-         #, margin = list(t = 75)  # increase margin to deconflict titel and buttons
-         #, 
-         xaxis = list(title = ""
+  layout( hoverformat = ".2f" 
+         ,xaxis = list(title = ""
          , rangeselector = list(
         buttons = list(
           list(
@@ -695,7 +703,8 @@ p <- tmp %>%
 
       rangeslider = list(type = "date")
                         )
-         , yaxis = list(title = "Additional ASMA time [min/arr]")
+         , yaxis = list(title = "Additional average ASMA time [min/arr]"
+                        ,titlefont = list(size = 11))
          ) %>% 
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
@@ -732,9 +741,11 @@ g1 <- txot_pa %>%
           , showlegend = TRUE
           , color=~COL_LBL
           ) %>%
-  layout(barmode = "stack", hovermode = "x unified"
+  layout(barmode = "stack", hovermode = "x unified", hoverformat = ".2f"
          , xaxis = list(title="")
-         , yaxis = list(title="Average taxi-out time [min/dep]"))
+         , yaxis = list(title="Average taxi-out time [min/dep]"
+                        ,titlefont = list(size = 11))
+         )
 
 g1
 ```
@@ -873,9 +884,10 @@ g1 <- txit_pa %>%
           , showlegend = TRUE
           , color=~COL_LBL
           ) %>%
-  layout(barmode = "stack"
+  layout(barmode = "stack", hovermode = "x unified", hoverformat = ".2f"
          , xaxis = list(title="")
-         , yaxis = list(title="average taxi-in time [min/arr]"))
+         , yaxis = list(title="average taxi-in time [min/arr]"
+                        ,titlefont = list(size=11)))
 
 g1
 ```
@@ -996,7 +1008,9 @@ pddly_pa$DLY_CAT <- factor(pddly_pa$DLY_CAT
 
 g1 <- pddly_pa %>%
   plot_ly(x=~YEAR, y=~DLY_DUR, type="bar", color=~DLY_CAT, legendgroup=~DLY_CAT) %>%
-  layout(barmode = "stack"
+  layout( barmode = "stack"
+         ,hovermode = "x unified" 
+         ,xaxis = list(title = "")
          ,yaxis = list( title = "Pre-departure delay [min]"
                        ,titlefont = list(size = 11))
          ) %>% 
@@ -1282,6 +1296,7 @@ turn_pm %>%
           , hovertemplate = paste0( "Class: %{text}"
                                    ,"<br>Month: %{x}"
                                    ,"<br>Avg. Turn: %{y:.2f}min")
+          ,showlegend = FALSE
          ) %>% 
   add_lines(x=~MONTH, y=~AVG_STTT, color =~AC_CLASS, name = "scheduled", line = list(dash = 'dash')
             #https://github.com/ropensci/plotly/issues/1502
@@ -1300,6 +1315,7 @@ turn_pm %>%
           , hovertemplate = paste0( "Class: %{text}"
                                    ,"<br>Month: %{x}"
                                    ,"<br>Avg. Turn: %{y:.2f}min")
+         ,showlegend = FALSE
          ) %>%
   layout( updatemenus = list( button_type_list )
          ,hovermode = "x unified"  
@@ -1337,177 +1353,6 @@ turn_pm %>%
 add chart with available turnaround times
 
 -->
-
-# Punctuality
-
-## Row ---------------------------------------------------------------
-
-### Arrival Punctuality
-
-```{r arrpunc}
-punc_lvls <- c( "EARLY 30+","EARLY 15-30","EARLY 5-15","EARLY 0-5"
-               ,"LATE 0-5","LATE 5-15","LATE 15-30","LATE 30-60","LATE 60+")
-
-punc_pa_arr <- params$punc %>% filter(SRC_PHASE == "ARR") %>% 
-  group_by(YEAR, GROUP) %>% 
-  summarise(N_GRP_YR = sum(N_GRP)) %>% ungroup()
-
-punc_pa_freq <- left_join(
-  punc_pa_arr, count(punc_pa_arr, YEAR, wt = N_GRP_YR, name="TOT_YR"))
-
-g1 <- punc_pa_freq %>% 
-  plot_ly( x      =~YEAR, y=~(N_GRP_YR / TOT_YR)
-          ,color  =~factor(GROUP, levels=punc_lvls)
-          ,colors = "RdYlGn"
-          ,showlegend = FALSE
-          ,legendgroup = ~factor(GROUP, levels=punc_lvls)) %>% 
-  add_bars() %>% 
-  layout(barmode="stack")
-
-
-# <!-- # monthly trend -->
-punc_pm_arr <- params$punc %>% filter(SRC_PHASE == "ARR", YEAR == max(YEAR)) %>% 
-  group_by(YEAR, MONTH, GROUP) %>% 
-  summarise(N_GRP_MN = sum(N_GRP)) %>% ungroup()
-
-punc_pm_m <- punc_pm_arr %>% group_by(YEAR, MONTH) %>%
-  summarise(N_MNTH = sum(N_GRP_MN)) %>% ungroup()
-
-punc_pm_freq <- punc_pm_arr %>% 
-  left_join(punc_pm_m, by=c("YEAR","MONTH")) %>%
-  mutate(FREQ = N_GRP_MN / N_MNTH)
-
-g2 <- punc_pm_freq %>%
-  plot_ly(x=~MONTH, y=~FREQ
-          ,color  =~factor(GROUP, levels=punc_lvls)
-          ,colors = "RdYlGn"
-          ,showlegend = TRUE
-          ,legendgroup = ~factor(GROUP, levels=punc_lvls)) %>% 
-  add_bars() %>% 
-  layout(barmode="stack")
-  
-subplot( g1, g2, nrows=1, shareY = TRUE, margin = 0.03, widths = c(0.35, 0.65)) %>%
-  layout( yaxis  = list(title = "")     #, yaxis2 = list(showlegend = FALSE)
-         ,xaxis2 = tick_yr
-  #       ,legend = list(orientation = 'h', x = 0, y =-0.1)
-         ) %>%
-  # deactivate modebar
-  config(displayModeBar = FALSE)
-```
-
-### Departure Punctuality
-
-```{r deppunc}
-punc_lvls <- c( "EARLY 30+","EARLY 15-30","EARLY 5-15","EARLY 0-5"
-               ,"LATE 0-5","LATE 5-15","LATE 15-30","LATE 30-60","LATE 60+")
-
-punc_pa <- params$punc %>% filter(SRC_PHASE == "DEP") %>% 
-  group_by(YEAR, GROUP) %>% 
-  summarise(N_GRP_YR = sum(N_GRP)) %>% ungroup()
-
-punc_pa_freq <- left_join(
-  punc_pa, count(punc_pa, YEAR, wt = N_GRP_YR, name="TOT_YR"))
-
-g1 <- punc_pa_freq %>% 
-  plot_ly( x      =~YEAR, y=~(N_GRP_YR / TOT_YR)
-          ,color  =~factor(GROUP, levels=punc_lvls)
-          ,colors = "RdYlGn"
-          ,showlegend = FALSE
-          ,legendgroup = ~factor(GROUP, levels=punc_lvls)) %>% 
-  add_bars() %>% 
-  layout(barmode="stack")
-
-
-# <!-- # monthly trend -->
-punc_pm <- params$punc %>% filter(SRC_PHASE == "DEP", YEAR == max(YEAR)) %>% 
-  group_by(YEAR, MONTH, GROUP) %>% 
-  summarise(N_GRP_MN = sum(N_GRP)) %>% ungroup()
-
-punc_pm_m <- punc_pm %>% group_by(YEAR, MONTH) %>%
-  summarise(N_MNTH = sum(N_GRP_MN)) %>% ungroup()
-
-punc_pm_freq <- punc_pm %>% 
-  left_join(punc_pm_m, by=c("YEAR","MONTH")) %>%
-  mutate(FREQ = N_GRP_MN / N_MNTH)
-
-g2 <- punc_pm_freq %>%
-  plot_ly(x=~MONTH, y=~FREQ
-          ,color  =~factor(GROUP, levels=punc_lvls)
-          ,colors = "RdYlGn"
-          ,showlegend = TRUE
-          ,legendgroup = ~factor(GROUP, levels=punc_lvls)) %>% 
-  add_bars() %>% 
-  layout(barmode="stack")
-  
-subplot( g1, g2, nrows=1, shareY = TRUE, margin = 0.03, widths = c(0.35, 0.65)) %>%
-  layout( yaxis  = list(title = "")     #, yaxis2 = list(showlegend = FALSE)
-         ,xaxis2 = tick_yr
-  #       ,legend = list(orientation = 'h', x = 0, y =-0.1)
-         ) %>%
-  # deactivate modebar
-  config(displayModeBar = FALSE)
-```
-
-## Row ---------------------------------------------------------------
-
-### Arrival On-Time Performance vs +/-15 or +/-5 min windows
-
-```{r}
-otp_vs_wi <- punc_pa_arr %>% 
-  mutate(
-    OTP = case_when(GROUP %in% c("EALRY 30+","EARLY 15-30","EARLY 5-15","EARLY 0-5"
-                                 ,"LATE 0-5","LATE 5-15") ~ "OTP", TRUE ~ "NA")
-  ,WI15 = case_when(GROUP %in% c("EARLY 5-15","EARLY 0-5","LATE 0-5","LATE 5-15") ~ "WI15"
-                    , TRUE ~ "NA")
-  , WI5 = case_when(GROUP %in% c("EARLY 0-5","LATE 0-5") ~ "WI5", TRUE ~ "NA")
-  ) %>% 
-  group_by(YEAR) %>% 
-  summarise(N_YR = sum(N_GRP_YR)
-            ,OTP = sum(N_GRP_YR[OTP == "OTP"])
-            ,WI15= sum(N_GRP_YR[WI15=="WI15"])
-            , WI5= sum(N_GRP_YR[WI5=="WI5"])
-            ) %>% 
-  mutate(OTP_P = OTP / N_YR, WI15_P = WI15/N_YR, WI5_P = WI5 / N_YR)
-
-otp_vs_wi %>%
-  plot_ly(y=~YEAR) %>%
-    add_trace(x=~OTP_P, type="bar", name="OTP", orientation = 'h') %>%
-    add_trace(x=~WI15_P, type="bar", name="WI15", orientation = 'h') %>%
-    add_trace(x=~WI5_P, type="bar", name="WI5", orientation = 'h') %>%
-  layout(yaxis=list(title=""), xaxis=list(title="Share of flights [%]")) %>%
-  # deactivate modebar
-  config(displayModeBar = FALSE)
-```
-
-### Departure On-Time Performance vs +/-15 or +/-5 min windows
-
-```{r}
-otp_vs_wi <- punc_pa %>% 
-  mutate(
-    OTP = case_when(GROUP %in% c("EALRY 30+","EARLY 15-30","EARLY 5-15","EARLY 0-5"
-                                 ,"LATE 0-5","LATE 5-15") ~ "OTP", TRUE ~ "NA")
-  ,WI15 = case_when(GROUP %in% c("EARLY 5-15","EARLY 0-5","LATE 0-5","LATE 5-15") ~ "WI15"
-                    , TRUE ~ "NA")
-  , WI5 = case_when(GROUP %in% c("EARLY 0-5","LATE 0-5") ~ "WI5", TRUE ~ "NA")
-  ) %>% 
-  group_by(YEAR) %>% 
-  summarise(N_YR = sum(N_GRP_YR)
-            ,OTP = sum(N_GRP_YR[OTP == "OTP"])
-            ,WI15= sum(N_GRP_YR[WI15=="WI15"])
-            , WI5= sum(N_GRP_YR[WI5=="WI5"])
-            ) %>% 
-  mutate(OTP_P = OTP / N_YR, WI15_P = WI15/N_YR, WI5_P = WI5 / N_YR)
-
-otp_vs_wi %>%
-  plot_ly(y=~YEAR) %>%
-    add_trace(x=~OTP_P, type="bar", name="OTP", orientation = 'h') %>%
-    add_trace(x=~WI15_P, type="bar", name="WI15", orientation = 'h') %>%
-    add_trace(x=~WI5_P, type="bar", name="WI5", orientation = 'h') %>%
-  layout(yaxis=list(title=""), xaxis=list(title="share of flights [%]")) %>%
-  # deactivate modebar
-  config(displayModeBar = FALSE)
-```
-
 
 # About
 
