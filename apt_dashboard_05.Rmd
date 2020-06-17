@@ -5,6 +5,8 @@ params:
   name: "airport name"
   state: "state name"
   config: !r mtcars
+  ldgsum: !r mtcars
+  latest: !r mtcars
   tfc: !r mtcars
   thru: !r mtcars
   atfm: !r mtcars
@@ -56,7 +58,7 @@ tick_yr_no_title <- list(
 
 # Overview {data-icon="fa-home"}
 
-## Column ----------------------------------------------------------
+## Row ----------------------------------------------------------
 
 ### Aerodrome Layout
 
@@ -110,28 +112,15 @@ id_tbl %>%
 
 ```
 
-<!-- Airport: `r params$name`    
-ICAO/IATA Code: `r params$icao`/`r params$iata`    
-State: `r params$state`    
-
-<p>
-Share of most used runway configurations: 
-`r print(params$config)`
-
-<p>
-The information on this dashboard is provided for information purposes.
-For more details refer to the pointers in the **About** section.
-
--->
-
-## Column ----------------------------------------------------------
+## Row ----------------------------------------------------------
 
 ### Summary
 
 ```{r front-page-table}
-source("./R/prepare_frontpage_DT.R")
+source("./R/prepare_frontpage_DT_Rel1.R")
 
-out <- prepare_front_page_DT(params$icao, params$tfc, params$asma, params$txot, params$atfm)
+out <- prepare_front_page_DT(params$icao, params$tfc, params$asma, params$txot, params$atfm
+                             , params$ldgsum, params$latest)
 
 out %>% 
   datatable(
@@ -145,13 +134,15 @@ out %>%
                                   HTMLWidgets.staticRender();  }' )
           ) #end options
       ,escape = FALSE      # set escape to FALSE for htmlwidget/sparkline
-      ,colnames   = c("Indicator","Reporting Month", "% Change <br>Previous Month"
-                      ,"12-month Trend")
+      ,colnames   = c("Indicator","Year 2019"  # REL1 FIX, "% Change <br>Previous Month"
+                       ,"Most Recent Month","12-month Trend")
       ) %>% 
-  spk_add_deps() %>%       # add sparkline dependencies
-  formatPercentage(
-    3, 2    # format 3rd column as % and 2 digits
-    )
+  spk_add_deps() 
+  
+  #%>%       # add sparkline dependencies
+  #formatPercentage(
+  #  3, 2    # format 3rd column as % and 2 digits
+  #  )
 ```
 
 ### Powered By
