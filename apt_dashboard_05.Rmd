@@ -173,7 +173,11 @@ out %>%
 
 ### COVID19 Snapshot Traffic Evolution (Movements and Percentage Change 2020 vs 2019)
 
-```{r, out.width="40%", fig.pos="float"}
+```{r covid-snapshot, results='asis'}
+if(nrow(params$covid) < 1){
+  cat("<p><b>This is under development!</b>")
+}else{
+  
 fig1 <- params$covid %>% 
   plot_ly() %>%
   add_lines(x=~Day, y=~FLTS_2020, name = "Movements 2020") %>%
@@ -184,7 +188,8 @@ fig1 <- params$covid %>%
 fig2 <- params$covid %>% 
   plot_ly() %>%
   add_lines(x=~Day, y=~MOV_AVG_WK, name = "Moving Weekly Average", showlegend=FALSE) %>% 
-  layout(yaxis = list(title = "% change from 2019"
+  layout( xaxis = list(title = "") 
+         ,yaxis = list(title = "% change from 2019"
                       ,titlefont = list(size = 11)
                       ,hoverformat = ".2f"))
 
@@ -199,6 +204,7 @@ fig <- subplot(fig1, fig2, nrows=2, shareX = TRUE) %>%
              'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines')
            )
 fig
+}
 ```
 
 
@@ -490,13 +496,23 @@ tmp <- params$atfm %>% group_by(FLT_DATE) %>%
 worst_day_last_year <- tmp %>%
   top_n(365, FLT_DATE) %>%
   filter(TOT_ARR_ATFM == max(TOT_ARR_ATFM, na.rm = TRUE))
+
 worst_day_date <- worst_day_last_year$FLT_DATE
 worst_day_dly  <- worst_day_last_year$TOT_ARR_ATFM
 worst_day_avgATFMdly <- worst_day_last_year$TOT_ARR_ATFM / worst_day_last_year$ARRS
 
-key_msg <- paste0( "<b>Worst day in last 12 months: ", worst_day_date
-                  ,"<br>with total Arrival ATFM Delay: ", worst_day_dly,"min"
-                  ,"<br>(avg. Arrival ATFM Delay: ", worst_day_avgATFMdly, "min)</b>")
+if(nrow(worst_day_last_year) >= 5){
+  key_msg <- paste0(
+    "<b>Many days with identical <br>share of Arrival ATFM Delay!<b>")
+  worst_day_date <- floor_date(mean(worst_day_last_year$FLT_DATE))
+  worst_day_dly  <- unique(worst_day_last_year$TOT_ARR_ATFM)
+  
+}else{
+  key_msg <- paste0(
+     "<b>Worst day in last 12 months: ", worst_day_date
+    ,"<br>with total Arrival ATFM Delay: ", worst_day_dly,"min"
+    ,"<br>(avg. Arrival ATFM Delay: ", worst_day_avgATFMdly, "min)</b>")
+}
 
 p <- tmp %>%
   plot_ly(x = ~FLT_DATE, y = ~TOT_ARR_ATFM
@@ -1238,11 +1254,20 @@ turn_pa <- params$turn %>%
      ungroup() %>%
      pivot_wider(names_from = "AC_CLASS", values_from = AVG_ATTT)
 
-g1 <- turn_pa %>%
+if(params$icao %in% c("EDDR","EGLC")){
+  g1 <- turn_pa %>%
+  plot_ly(x = ~YEAR) %>%
+  add_bars(y = ~MJ, name = "Medium Jet") %>%
+  add_bars(y = ~MT, name = "Medium Prop")
+}else{
+  g1 <- turn_pa %>%
   plot_ly(x = ~YEAR) %>%
   add_bars(y = ~H,  name = "Heavy") %>%
   add_bars(y = ~MJ, name = "Medium Jet") %>%
-  add_bars(y = ~MT, name = "Medium Prop") %>%
+  add_bars(y = ~MT, name = "Medium Prop")
+}
+
+g1 <- g1 %>%
   layout( xaxis = list(title = "", type = "category")
          ,yaxis = list(title = "average turntime [min]"
                        ,titlefont = list(size = 11))
