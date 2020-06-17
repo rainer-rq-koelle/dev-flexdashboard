@@ -7,6 +7,7 @@ params:
   config: !r mtcars
   ldgsum: !r mtcars
   latest: !r mtcars
+  covid: !r mtcars
   tfc: !r mtcars
   thru: !r mtcars
   atfm: !r mtcars
@@ -99,7 +100,7 @@ id_tbl %>%
          dom             = "t"        # show only table)
       ,  ordering        = FALSE      # no order arrows/functionality
       ,  autoWidth = TRUE
-      , columnDefs = list(list(width = '15px', targets = c(1)))
+      , columnDefs = list(list(width = '25px', targets = c(0))) # set 1st col
       , scrollX = TRUE
     ) # end options list ------------------------------
     # remove table header and order arrows ~ overwrite with empty names
@@ -127,6 +128,7 @@ out %>%
       options = list(
         dom             = "t"        # show only table
         ,pageLength     = nrow(out)  # number of rows shown
+        ,ordering       = FALSE      # no order arrows/functionality
         ,columnDefs     = list(list(className = 'dt-center'
                                     , targets = "_all" ))  # or targets = 0:4
           # widget callback for sparkline
@@ -136,6 +138,7 @@ out %>%
       ,escape = FALSE      # set escape to FALSE for htmlwidget/sparkline
       ,colnames   = c("Indicator","Year 2019"  # REL1 FIX, "% Change <br>Previous Month"
                        ,"Most Recent Month","12-month Trend")
+      , rownames  = FALSE
       ) %>% 
   spk_add_deps() 
   
@@ -145,10 +148,35 @@ out %>%
   #  )
 ```
 
-### Powered By
+### COVID19 Snapshot Traffic Evolution
 
 ```{r, out.width="40%", fig.pos="float"}
-knitr::include_graphics("./figures/ECTRL-logo.svg")
+fig1 <- params$covid %>% 
+  plot_ly() %>%
+  add_lines(x=~Day, y=~FLTS_2020, name = "Movements 2020") %>%
+  add_lines(x=~Day, y=~FLTS_2019, name = "Movements 2019"
+            , line = list(dash = "dash", color = "red")) %>%
+  layout(yaxis = list(title = "movements"))
+
+fig2 <- params$covid %>% 
+  plot_ly() %>%
+  add_lines(x=~Day, y=~MOV_AVG_WK, name = "Moving Weekly Average", showlegend=FALSE) %>% 
+  layout(yaxis = list(title = "% change from 2019"
+                      ,titlefont = list(size = 11)
+                      ,hoverformat = ".2f"))
+
+fig <- subplot(fig1, fig2, nrows=2, shareX = TRUE) %>%
+  layout(title = "Movements and Percentage Change 2020 vs 2019"
+         , hovermode = "x unified") %>%
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = c(
+             'sendDataToCloud', # 'toImage',
+             'autoScale2d', # 'resetScale2d',
+             'lasso2d', 'pan2d'
+            ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
+             'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines')
+           )
+fig
 ```
 
 

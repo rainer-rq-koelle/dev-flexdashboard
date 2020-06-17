@@ -42,8 +42,7 @@ test visual
 ```{r}
 library(plotly)
 apt <- "EBBR"
-
-tmp <- ds %>% filter(APT_ICAO == apt)
+tmp <- ds %>% filter(APT_ICAO == apt) %>% select(Day, FLTS_2020, FLTS_2019, MOV_AVG_WK)
 
 tmp %>% 
   plot_ly() %>%

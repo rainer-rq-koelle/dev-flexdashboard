@@ -118,6 +118,8 @@ turn_df <- readr::read_csv2("./data/STAT_AIRPORT_TURN_AROUND.csv") %>%
 
 punc_df <-  readr::read_csv("./data-test/STAT_AIRPORT_DATA_PUNC.csv") %>% rename(APT_ICAO = APT)
 
+covid_df <- readr::read_csv("./data/COVID_AIRPORT.csv")
+
 
 ## ------------ UTILITY FUNCTIONS -------------------------------------
 
@@ -223,6 +225,11 @@ latest_month_indicators <- function(.df=db_df, .atfm=atfm_df, .apt){
 
 }
 
+trim_covid <- function(.df, .apt){
+  df <- .df %>% filter(APT_ICAO == .apt) %>%
+    select(Day, FLTS_2020, FLTS_2019, MOV_AVG_WK)
+}
+
 ## ------------ RENDER DASHBOARDS -------------------------------------
 
 
@@ -238,6 +245,7 @@ apts %>%
                        ,config= filter_df_by_apt(config_df,.apt = .)
                        ,ldgsum= landing_page_indicators(db_df, atfm_df, .apt = .)
                        ,latest= latest_month_indicators(db_df, atfm_df, .apt = .)
+                       ,covid = trim_covid(      covid_df, .apt = .)
                        ,tfc   = filter_df_by_apt(tfc_df,   .apt = .)
                        ,thru  = filter_df_by_apt(thru_df,  .apt = .)
                        ,atfm  = filter_df_by_apt(atfm_df,  .apt = .)
