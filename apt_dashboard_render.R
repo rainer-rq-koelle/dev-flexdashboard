@@ -2,8 +2,8 @@
 # This scrips reads in the data files (i.e. monthly files currently stored on
 # ansperformance.eu) and additional data summaries. These input files are
 # currently saved to the project folder for the script to read.
-
-
+#
+#
 # To-Do
 # 1. processing pipeline read/extract data from PRISME to remove by hand download
 # 1a. download data from blog portal repo:
@@ -13,13 +13,12 @@
 #    once it is known what the "minimal needed payload data" is
 # 3. post-processing: rendered boards are stored as html-pages in the boards
 #    sub-folder
-
+#
 # load required packages
 library("dplyr")
 library("lubridate")
 library("purrr")
 library("readxl")
-
 library(formattable)
 library(sparkline)
 
@@ -34,10 +33,10 @@ apts <- c("EGLL","EBBR", "LEMD")
 # version - counter increased to 05 (including Sara's comments) & discussion with
 # Enrico --> deactivated as we move towards deployment. version<- "05"
 ## ------------------------------------------------ REMOVE WHEN DEPLOYED
-
-
+#
+#
 ## ------------ READ IN DATA TABLES FROM DOWNLOAD POINT ------------------
-
+#
 # Thierry's dashboard table
 db_df <- readr::read_csv2("./data/STAT_AIRPORT_MONTHLY.csv")
 
@@ -81,7 +80,7 @@ atfm_df <- readxl::read_excel("./data/Airport_Arrival_ATFM_Delay.xlsx", sheet = 
 #                               ) %>%
 #  select(1, 4) %>%
 #  filter(!is.na(`Reason Group`))
-
+#
 slot_df <- readxl::read_excel("./data/ATFM_Slot_Adherence.xlsx", sheet = "DATA")
 
 asma_df <- readxl::read_excel("./data/ASMA_Additional_Time.xlsx", sheet = "DATA")
@@ -94,7 +93,6 @@ txit_df <- db_df %>%
          ,N_SMPL  = NB_TAXI_IN_FL
          ,TOT_REF = TAXI_IN_REF_TIME_MIN
          ,TOT_ADD_TXIT = ADD_TAXI_IN_TIME_MIN)
-
 
 #pddly_df<- readxl::read_excel("./data-test/STAT_AIRPORT_DATA.xlsx", sheet = "DATA") %>%
 #  select(APT_ICAO, APT_IATA, YEAR, MONTH_NUM, APT_FLT_DEP
@@ -121,29 +119,28 @@ punc_df <-  readr::read_csv("./data-test/STAT_AIRPORT_DATA_PUNC.csv") %>% rename
 
 covid_df <- readr::read_csv("./data/COVID_AIRPORT.csv")
 
-
 ## ------------ UTILITY FUNCTIONS -------------------------------------
-
+#
 filter_df_by_apt <- function(.df, .apt){
   df <- .df %>% filter(APT_ICAO == .apt) %>%
     filter(YEAR >= min_year)  # ensure only 5 years of data
 }
-
+#
 pick_apt_name <- function(.df, .apt){
   name <- .df %>% filter(APT_ICAO == .apt)
   name <- name$APT_NAME[1]
 }
-
+#
 pick_state_name <- function(.df, .apt){
   state <- .df %>% filter(APT_ICAO == .apt)
   state <- state$STATE_NAME[1]
 }
-
+#
 pick_apt_iata <- function(.df, .apt){
   iata <- .df %>% filter(APT_ICAO == .apt)
   iata <- iata$APT_IATA[1]
 }
-
+#
 landing_page_indicators <- function(.df=db_df, .atfm=atfm_df, .apt){
   inds <- .df %>% filter(APT_ICAO == .apt)
 
@@ -178,7 +175,7 @@ landing_page_indicators <- function(.df=db_df, .atfm=atfm_df, .apt){
   out <- ind_tfc_2019 %>%
     bind_cols(ind_txot_2019, ind_asma_2019, ind_atfm_2019)
 }
-
+#
 latest_month_indicators <- function(.df=db_df, .atfm=atfm_df, .apt){
   inds <- .df %>% filter(APT_ICAO == .apt)
 
@@ -225,12 +222,12 @@ latest_month_indicators <- function(.df=db_df, .atfm=atfm_df, .apt){
     bind_cols(ind_txot_lm, ind_asma_lm, ind_atfm_lm)
 
 }
-
+#
 trim_covid <- function(.df, .apt){
   df <- .df %>% filter(APT_ICAO == .apt) %>%
     select(Day, FLTS_2020, FLTS_2019, MOV_AVG_WK)
 }
-
+#
 pack_thru <- function(.df, .apt){
   df <- .df %>% filter(APT_ICAO == .apt) %>%
     mutate(DATE = lubridate::dmy(DAY, tz="UTC")
@@ -238,10 +235,10 @@ pack_thru <- function(.df, .apt){
            , WEEKDAY = lubridate::wday(DATE, label=TRUE)) %>%
     filter(YEAR == max(YEAR)) %>% filter(MONTH_NUM == max(MONTH_NUM)) %>%
     select(APT_ICAO, YEAR, MONTH_NUM, DATE, WEEKDAY, TIME, ROLLING_HOUR_MVT, PHASE) %>%
-    group_by(TIME, PHASE) %>% summarise(ROLLING_HOUR_MVT = mean(ROLLING_HOUR_MVT)) %>%
+    group_by(YEAR, MONTH_NUM, TIME, PHASE) %>% summarise(ROLLING_HOUR_MVT = mean(ROLLING_HOUR_MVT)) %>%
     ungroup()
 }
-
+#
 ## ------------ RENDER DASHBOARDS -------------------------------------
 
 
