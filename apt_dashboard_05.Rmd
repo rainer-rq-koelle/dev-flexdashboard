@@ -68,9 +68,10 @@ pick_mth <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oc
 
 # for logo remove set in config(showlogo = FALSE)!
 config_bar_remove_buttons <- c(
-             'sendDataToCloud', # 'toImage',
-             'autoScale2d', # 'resetScale2d',
-             'lasso2d', 'pan2d'
+              'sendDataToCloud' # 'toImage',
+             ,'autoScale2d'  # 'resetScale2d',
+             ,"select2d"     # box select   
+             ,'lasso2d', 'pan2d'
             ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
              'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines'
             ,'drawrect')
@@ -182,7 +183,7 @@ fig1 <- params$covid %>%
   plot_ly() %>%
   add_lines(x=~Day, y=~FLTS_2020, name = "Movements 2020") %>%
   add_lines(x=~Day, y=~FLTS_2019, name = "Movements 2019"
-            , line = list(dash = "dash", color = "red")) %>%
+            , line = list(dash = "dot", color = "red")) %>%
   layout(yaxis = list(title = "movements"))
 
 fig2 <- params$covid %>% 
@@ -214,12 +215,7 @@ fig
 
 ### Annual Traffic
 
-```{r}
-# annual bar chart
-mvts_pa <- params$tfc %>% select(YEAR, FLT_TOT_1 ) %>%
-  group_by(YEAR) %>%
-  summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE)) %>% ungroup()
-
+<!-- REMOVED YTD
 # annotation - ytd
 mvts_thisyear = params$tfc %>% filter(YEAR == max(YEAR))
 mvts_jan = mvts_thisyear %>% filter(MONTH_NUM == "01") %>% 
@@ -228,12 +224,35 @@ max_mth  <- max(mvts_thisyear$MONTH_NUM)
 mvts_last<- mvts_thisyear %>% filter(MONTH_NUM == max_mth) %>%
   summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE))
 mvts_ytd <- (mvts_last - mvts_jan) / mvts_jan
+-->
 
-msg     <- paste0("<b>YTD: ", round(mvts_ytd, 2),"% </b>")
+```{r}
+# annual bar chart
+mvts_pa <- params$tfc %>% select(YEAR, FLT_TOT_1 ) %>%
+  group_by(YEAR) %>%
+  summarise(FLT_TOT = sum(FLT_TOT_1, na.rm = TRUE)) %>% ungroup()
+
+cum_mvts <- params$tfc %>% 
+  select(YEAR, MONTH_NUM, FLT_DATE, FLT_TOT_1) %>% 
+  mutate(across(c(YEAR,MONTH_NUM), as.numeric)) %>% 
+  filter(YEAR %in% c(max(YEAR), max(YEAR)-1))
+
+this_year_max_month <- cum_mvts %>% filter(YEAR == max(YEAR)) %>% 
+  pull(MONTH_NUM) %>% max() %>% unique()
+
+cum_mvts <- cum_mvts %>% filter(MONTH_NUM <= this_year_max_month) %>% 
+  group_by(YEAR) %>% 
+  summarise(FLT_TOT_1 = sum(FLT_TOT_1, na.rm = TRUE)) %>% 
+  mutate(CHANGE = ( FLT_TOT_1 - lag(FLT_TOT_1))/lag(FLT_TOT_1) )
+
+msg     <- paste0( "<b>Change Jan-", pick_mth[this_year_max_month],"<br>"
+                  , cum_mvts$YEAR[2]," vs ", cum_mvts$YEAR[1]
+                  , ":<br>", round(100* cum_mvts[2,"CHANGE"], 2),"% </b>")
+
 msg_y   <- mvts_pa %>% 
   filter(YEAR == as.integer(max(YEAR)) - 1) %>% 
   mutate(FLT_TOT = 0.7 * FLT_TOT) %>% pull(FLT_TOT)
-key_msg <- list(x = unique(mvts_thisyear$YEAR), y = msg_y
+key_msg <- list(x = unique(max(mvts_pa$YEAR)), y = msg_y
                 ,text = msg
                 ,size = 14
                 ,showarrow = FALSE)
@@ -334,6 +353,9 @@ mvts_pm %>%
 
 ```{r}
 thru <- params$thru
+
+thru_yr <- unique(thru$YEAR)
+thru_mth<- unique(thru$MONTH_NUM)
  
 thru_tot <- thru %>% group_by(TIME) %>% 
   summarise(ROLLING_HOUR_MVT = sum(ROLLING_HOUR_MVT, na.rm = TRUE)) %>% 
@@ -346,23 +368,32 @@ thru <- thru %>% bind_rows(thru_tot) %>%
 # TIME seems to be turned to string!!!!, i.e. time formatting does not work!!!
 
 #xax = list(title= "", type = 'time', tickformat = "%H%M") # 
-xax = list(title="", type = "category" ,range = c(-2,72)) #
-yax = list(title= 'Average throughput [flights/hour]',titlefont = list(size = 11))
+xax = list( title="", type = "category" ,range = c("05:45","23:15")) #
+yax = list( title= 'Average throughput [flights/hour]'
+           ,titlefont = list(size = 11)
+           ,hoverformat = ".2f")
 
-msg = paste0("<b>Average 15-min rolling hour <br>throughput-weekdays month May</b>")
+msg = paste0("<b>Average 15-min rolling hour",
+             "<br>throughput-weekdays month ", pick_mth[thru_mth],"</b>")
+
+if(max(thru$ROLLING_HOUR_MVT) <= 20){
+  msg_y <- 1.2 * max(thru$ROLLING_HOUR_MVT)
+}else{
+  msg_y <- 0.1 * max(thru$ROLLING_HOUR_MVT)
+}
 
 thru %>% 
   plot_ly(x = ~TIME, y = ~ROLLING_HOUR_MVT, color = ~PHASE) %>%
   group_by(PHASE) %>%
   add_lines(type = 'scatter') %>%    
   add_annotations(text = msg
-                 , x = "12:00"
-                 , y = 0.1 * max(thru$ROLLING_HOUR_MVT) 
+                 , x = 0.5, xref = "paper"       #"12:00"
+                 , y = msg_y  
                  , showarrow = FALSE, ax = 0, ay = 0  # no arrow, no offset
                  , align = "center"
                  ) %>%
   layout( xaxis = xax, yaxis = yax
-         ,hovermode = "x unified", hoverformat = ".2f") %>%
+         ,hovermode = "x unified") %>%
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
@@ -394,8 +425,28 @@ atfm_pa <- params$atfm %>%
   mutate(AVG_ARR_ATFM_DLY = DLY_APT_ARR_TOT / FLT_ARR_TOT
          ,AVG_ARR_ATFM_REG= DLY / FLT_ARR_TOT)
 
+# ------------------ ATFM Grouping and Colour Definition ------------------
+atfm_col <- c(
+   "#595959"    # rgb2hex(89,89,89)    # AD Events
+  ,"#B9CDE5"    # rgb2hex(185,205,229) # AD Disruption
+  ,"#E6B9B8"    # rgb2hex(230,185,184) # AD Capacity
+  ,"#9BBB59"    # rgb2hex(155,187,89)  # AD Weather
+  ,"#4F81BD"    # rgb2hex(79,129,189)  # AD Disruption ATC
+  ,"#F79646"    # rgb2hex(247,150,70)  # Staffing ATC
+  ,"#C0504D"    # rgb2hex(192,80,77)   # AD Capacity ATC
+)
+atfm_grps <- c("AD_EVENTS","AD_DISRUPTION","AD_CAPACITY","AD_WEATHER","AD_DISRUPTION_ATC","AD_STAFFING_ATC","AD_CAPACITY_ATC")
+atfm_lbl <- c("Events","Disruption","Capacity", "Weather", "Disruption (ATC)","Staffing (ATC)", "Capacity (ATC)")
+
+# -------------------------------------------------------------------------
+
+atfm_pa <- atfm_pa %>% 
+  mutate(REG_REASON = factor(REG_REASON, levels = atfm_grps, labels = atfm_lbl))
+
 atfm_pa %>% 
-  plot_ly(x = ~YEAR, y = ~AVG_ARR_ATFM_REG, color = ~REG_REASON, type = "bar") %>%
+  plot_ly( x = ~YEAR, y = ~AVG_ARR_ATFM_REG
+          ,color = ~REG_REASON, colors = atfm_col
+          , type = "bar") %>%
   layout(barmode = "stack"
          , hovermode = "x unified"
          , xaxis = list(title = "")
@@ -425,7 +476,7 @@ atfm_pm <- params$atfm %>%
             ,AD_CAPACITY_ATC = sum(AD_CAPACITY_ATC, na.rm = TRUE)
             ,AD_STAFFING_ATC = sum(AD_STAFFING_ATC, na.rm = TRUE)
             ,AD_EVENTS       = sum(AD_EVENTS,     na.rm = TRUE)
-            ) %>% ungroup() %>% 
+            ) %>% ungroup() %>%
   tidyr::pivot_longer(cols = starts_with("AD_"), names_to = "REG_REASON", values_to = "DLY") %>%
   mutate(AVG_ARR_ATFM_DLY = DLY_APT_ARR_TOT / FLT_ARR_TOT
          ,AVG_ARR_ATFM_REG= DLY / FLT_ARR_TOT)
@@ -452,13 +503,17 @@ button_type_list <-  list(
   buttons = button_list
 )
 ##########################
- 
+
+# set REG_REASON grouping and colours 
+atfm_pm <- atfm_pm %>%
+  mutate(REG_REASON = factor(REG_REASON, levels = atfm_grps, labels = atfm_lbl))
+
 atfm_pm %>%
   plot_ly(x = ~MONTH_NUM, y = ~AVG_ARR_ATFM_REG
           #https://github.com/ropensci/plotly/issues/1502
         # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
         , customdata=~YEAR
-          , color = ~REG_REASON
+          , color = ~REG_REASON, colors = atfm_col
           , type = "bar"
           , transforms = list(
               list(
@@ -473,7 +528,8 @@ atfm_pm %>%
          ,hovermode = "x unified"
          ,xaxis = tick_yr_no_title
          ,yaxis=list(title="Average arrival ATFM delay [min/arr]"
-                     ,titlefont = list(size = 11))
+                     ,titlefont = list(size = 11)
+                     ,rangemode = 'tozero')
          ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
@@ -511,7 +567,7 @@ if(nrow(worst_day_last_year) >= 5){
   key_msg <- paste0(
      "<b>Worst day in last 12 months: ", worst_day_date
     ,"<br>with total Arrival ATFM Delay: ", worst_day_dly,"min"
-    ,"<br>(avg. Arrival ATFM Delay: ", worst_day_avgATFMdly, "min)</b>")
+    ,"<br>(avg. Arrival ATFM Delay: ", round(worst_day_avgATFMdly,2), "min)</b>")
 }
 
 p <- tmp %>%
@@ -542,16 +598,34 @@ p
 ### Share of ATFM Delay Current Year
 
 ```{r atfm-ytd}
-atfm_pm %>% group_by(REG_REASON) %>%
+current_year <- lubridate::year(Sys.time())
+share_atfm <- atfm_pm %>% filter(YEAR == current_year) %>% 
+  group_by(REG_REASON) %>%
   summarise( FLT_ARR_TOT = sum(FLT_ARR_TOT, na.rm = TRUE)
             ,DLY =         sum(DLY, na.rm = TRUE)) %>%
   ungroup() %>%
   mutate(DLY_TOT    = sum(DLY, na.rm = TRUE)
          ,DLY_SHARE = round(DLY / DLY_TOT,2) 
          ,LABELS = paste0(REG_REASON,"<br>", DLY_SHARE,"%")) %>%
-  
-  plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE) %>%
-    add_pie(hole = 0.4) %>%
+  # surpress 0% !!
+  filter(DLY_SHARE > 0)
+
+
+#reg_rsn <- share_atfm$REG_RESON
+#atfm_grps_pie <- atfm_grps[atfm_grps %in% reg_rsn]
+#atfm_col_pie  <- atfm_col[atfm_grps %in% reg_rsn]
+
+center_text <- paste0("<b>", current_year,"</b>")
+
+share_atfm %>%
+  plot_ly(labels = ~REG_REASON, values = ~DLY_SHARE #, color = atfm_col_pie
+          ) %>%
+    add_pie(hole = 0.4
+            #,textposition = ifelse(atfm_pm$DLY_SHARE < .25,"outside","inside")
+            ,textposition = "outside"
+            ) %>%
+  add_annotations( text = center_text, font = list(size = 18)
+                  ,x = 0.5, y = 0.5, showarrow = FALSE) %>%
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
@@ -575,14 +649,21 @@ asma_pa <- params$asma %>% select(YEAR, TIME_ASMA_ADD_2, TIME_ASMA_UNIMP_2, FLT_
 
 asma_pa <- asma_pa %>% 
   tidyr::pivot_longer(cols = c("AVG_UNIMP_TIME","AVG_ADD_ASMA_TIME")
-                      ,names_to = "TYPE", values_to = "TIME" ) %>%
-  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_ASMA_TIME"
-                           , "avg. additional time", "avg. reference time"))
+                      ,names_to = "TYPE", values_to = "TIME" ) 
+
+asma_pa <- asma_pa %>%
+  mutate(TYPE = factor(TYPE, levels = c("AVG_UNIMP_TIME","AVG_ADD_ASMA_TIME")
+                       ,labels = c("avg. reference time","avg. additional time")
+                       )
+         )
+#%>%
+#  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_ASMA_TIME"
+#                           , "avg. additional time", "avg. reference time"))
 
 asma_pa %>%
   plot_ly(x=~YEAR, y=~TIME
           , type = "bar"
-          , color = ~COL_LBL
+          , color = ~TYPE
           , showlegend = TRUE
           ) %>%
   #add_bars(x=~YEAR, y=~AVG_ADD_ASMA_TIME, type = "bar")%>%
@@ -590,7 +671,8 @@ asma_pa %>%
          , hovermode = "x unified"
          ,xaxis = list(title = "", type = "category")
          ,yaxis = list( title = "Average ASMA time [min/arr]"
-                       ,titlefont = list(size = 11))
+                       ,titlefont = list(size = 11)
+                       ,hoverformat = ".2f")
          ) %>%
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
@@ -621,10 +703,14 @@ asma_pm <- params$asma %>%
 
 asma_pm <- asma_pm %>% 
   tidyr::pivot_longer(cols = c("AVG_UNIMP_TIME","AVG_ADD_ASMA_TIME")
-                      ,names_to = "TYPE", values_to = "TIME" ) %>%
-  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_ASMA_TIME"
-                           , "avg. additional time", "avg. reference time"))
+                      ,names_to = "TYPE", values_to = "TIME" ) 
 
+asma_pm <- asma_pm %>%
+  mutate(TYPE = factor(TYPE
+                       ,levels = c("AVG_UNIMP_TIME","AVG_ADD_ASMA_TIME")
+                       ,labels = c("avg. reference time","avg. additional time")
+                       )
+         )
 #############
 filter_years <- asma_pm %>% pull(YEAR) %>% unique()
 button_list  <- lapply(1:length(filter_years), function(x){
@@ -651,7 +737,7 @@ asma_pm %>%
           #https://github.com/ropensci/plotly/issues/1502
         # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
         , customdata=~YEAR
-          , color = ~COL_LBL
+          , color = ~TYPE
           , type = "bar"
           , transforms = list(
               list(
@@ -663,10 +749,11 @@ asma_pm %>%
               ) # end transforms list
         ) %>%
   layout( barmode = "stack"
-          , hovermode = "x unified"
+         ,hovermode = "x unified"
          ,xaxis = tick_yr_no_title
          ,yaxis=list( title="Average ASMA Time [min/arr]"
-                     ,titlefont = list(size = 11))
+                     ,titlefont = list(size = 11)
+                     , hoverformat = ".2f")
          ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
@@ -747,21 +834,30 @@ txot_pa <- params$txot %>% select(YEAR, TIME_TXO_ADD_2, TIME_TXO_UNIMP_2, FLT_TX
 
 txot_pa <- txot_pa %>% 
   tidyr::pivot_longer(cols = c("AVG_ADD_TXO_TIME","AVG_UNIMP_TIME")
-                      ,names_to = "TYPE", values_to = "TIME" ) %>%
-  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXO_TIME"
-                           , "avg. additional time", "avg. reference time"))
+                      ,names_to = "TYPE", values_to = "TIME" ) 
+
+# coerce grouping - most right = top of bar
+txot_pa <- txot_pa %>%
+  mutate(TYPE = factor(TYPE
+                       ,levels = c("AVG_UNIMP_TIME","AVG_ADD_TXO_TIME")
+                       ,labels = c("avg. reference time","avg. additional time")
+                       )
+  )
 
 g1 <- txot_pa %>%
   plotly::plot_ly(x=~YEAR, y=~TIME
           , type = "bar"
           , showlegend = TRUE
-          , color=~COL_LBL
+          , color=~TYPE
           ) %>%
-  layout(barmode = "stack", hovermode = "x unified", hoverformat = ".2f"
+  layout(barmode = "stack", hovermode = "x unified"
          , xaxis = list(title="")
          , yaxis = list(title="Average taxi-out time [min/dep]"
-                        ,titlefont = list(size = 11))
-         )
+                        ,titlefont = list(size = 11)
+                        ,hoverformat = ".2f")
+         ) %>% 
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 
 g1
 ```
@@ -792,9 +888,14 @@ txot_pm <- params$txot %>%
 
 txot_pm <- txot_pm %>% 
   tidyr::pivot_longer(cols = c("AVG_UNIMP_TIME","AVG_ADD_TXO_TIME")
-                      ,names_to = "TYPE", values_to = "TIME" ) %>%
-  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXO_TIME"
-                           , "avg. additional time", "avg. reference time"))
+                      ,names_to = "TYPE", values_to = "TIME" ) 
+# coerce grouping
+txot_pm <- txot_pm %>%
+  mutate(TYPE = factor(TYPE
+                       ,levels = c("AVG_UNIMP_TIME","AVG_ADD_TXO_TIME")
+                       ,labels = c("avg. reference time","avg. additional time")
+                       )
+  )
 
 #############
 filter_years <- txot_pm %>% pull(YEAR) %>% unique()
@@ -822,7 +923,7 @@ txot_pm %>%
           #https://github.com/ropensci/plotly/issues/1502
         # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
         , customdata=~YEAR
-          , color = ~COL_LBL
+          , color = ~TYPE
           , type = "bar"
           , transforms = list(
               list(
@@ -833,10 +934,11 @@ txot_pm %>%
                   )
               ) # end transforms list
         ) %>%
-  layout( barmode = "stack"
+  layout( barmode = "stack", hovermode = "x unified"
          ,xaxis = tick_yr_no_title
          ,yaxis=list( title="Average taxi-out time [min/arr]"
-                     ,titlefont = list(size = 11))
+                     ,titlefont = list(size = 11)
+                     ,hoverformat = ".2f")
          ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
@@ -890,22 +992,30 @@ txit_pa <- params$txit %>%
 
 txit_pa <- txit_pa %>%
   tidyr::pivot_longer( cols = c("AVG_ADD_TXIT","AVG_REF")
-                      ,names_to = "TYPE", values_to = "TIME" ) %>%
-  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXIT"
-                           , "avg. additional time", "avg. reference time"))
+                      ,names_to = "TYPE", values_to = "TIME" ) 
 
-g1 <- txit_pa %>%
+# coerce Grouping
+txit_pa <- txit_pa %>%
+  mutate(TYPE = factor(TYPE
+                       ,levels = c("AVG_REF","AVG_ADD_TXIT")
+                       ,labels = c("avg. reference time","avg. additional time")
+                       )
+         )
+
+txit_pa %>%
   plotly::plot_ly(x=~YEAR, y=~TIME
           , type = "bar"
           , showlegend = TRUE
-          , color=~COL_LBL
+          , color=~TYPE
           ) %>%
-  layout(barmode = "stack", hovermode = "x unified", hoverformat = ".2f"
+  layout(barmode = "stack", hovermode = "x unified"
          , xaxis = list(title="")
          , yaxis = list(title="average taxi-in time [min/arr]"
-                        ,titlefont = list(size=11)))
-
-g1
+                        ,titlefont = list(size=11)
+                        ,hoverformat = ".2f")
+         )%>% 
+  config( displaylogo = FALSE
+         ,modeBarButtonsToRemove = config_bar_remove_buttons)
 ```
 
 <!-- TODO: plotly::add_annotations(
@@ -936,9 +1046,14 @@ txit_pm <- params$txit %>%
 
 txit_pm <- txit_pm %>% 
   tidyr::pivot_longer(cols = c("AVG_REF","AVG_ADD_TXIT")
-                      ,names_to = "TYPE", values_to = "TIME" ) %>%
-  mutate(COL_LBL = if_else(TYPE == "AVG_ADD_TXIT"
-                           , "avg. additional time", "avg. reference time"))
+                      ,names_to = "TYPE", values_to = "TIME" )
+
+txit_pm <- txit_pm %>%
+  mutate(TYPE = factor(TYPE
+                       ,levels = c("AVG_REF","AVG_ADD_TXIT")
+                       ,labels = c("avg. reference time","avg. additional time")
+                       )
+         )
 
 #############
 filter_years <- txot_pm %>% pull(YEAR) %>% unique()
@@ -966,7 +1081,7 @@ txit_pm %>%
           #https://github.com/ropensci/plotly/issues/1502
         # define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
         , customdata=~YEAR
-          , color = ~COL_LBL
+          , color = ~TYPE
           , type = "bar"
           , transforms = list(
               list(
@@ -977,10 +1092,11 @@ txit_pm %>%
                   )
               ) # end transforms list
         ) %>%
-  layout( barmode = "stack"
+  layout( barmode = "stack", hovermode = "x unified"
          ,xaxis = tick_yr_no_title
          ,yaxis=list( title="Average taxi-in time [min/arr]"
-                     ,titlefont = list(size = 11))
+                     ,titlefont = list(size = 11)
+                     ,hoverformat = ".2f")
          ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
@@ -1230,8 +1346,9 @@ predepdly_pm %>%
         ) %>%
   layout( barmode = "stack"
          ,xaxis = tick_yr_no_title
-         ,yaxis=list( title="Avg. pre-departure delay [min/dep]"
-                     ,titlefont = list(size = 11))
+         ,yaxis=list( title="Avg. ATC pre-departure delay [min/dep]"
+                     ,titlefont = list(size = 11)
+                     ,hoverformat = ".2f")
          ,showlegend = FALSE
          ,updatemenus = list( button_type_list )
          ) %>%
@@ -1270,7 +1387,8 @@ if(params$icao %in% c("EDDR","EGLC")){
 g1 <- g1 %>%
   layout( xaxis = list(title = "", type = "category")
          ,yaxis = list(title = "average turntime [min]"
-                       ,titlefont = list(size = 11))
+                       ,titlefont = list(size = 11)
+                       ,hoverformat = ".2f")
          ) %>%
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
