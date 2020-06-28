@@ -1168,7 +1168,7 @@ pddly_pm <- params$pddly %>%
   ) %>% ungroup %>%
   ## grouping for v1 ------------------------
   mutate(
-    TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_OTHER + TOT_DLY_UNREPORTED
+    TOT_DLY_UNID = TOT_DLY_999 + TOT_DLY_ZZZ + TOT_DLY_UNREPORTED
   ) %>%
   select(YEAR, MONTH_NUM, TOT_DLY_89, TOT_DLY_OTHER, TOT_DLY_UNID) %>%
   tidyr::pivot_longer(cols = starts_with("TOT_DLY_") , names_to = "DLY_CAT", values_to = "DLY_DUR")
