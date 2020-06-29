@@ -1134,7 +1134,8 @@ g1 <- pddly_pa %>%
          ,hovermode = "x unified" 
          ,xaxis = list(title = "")
          ,yaxis = list( title = "Pre-departure delay [min]"
-                       ,titlefont = list(size = 11))
+                       ,titlefont = list(size = 11)
+                       )
          ) %>% 
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
@@ -1200,7 +1201,8 @@ pddly_pm %>%
   layout( barmode = "stack"
          ,xaxis = tick_yr_no_title
          ,yaxis=list( title="Pre-departure delay [min]"
-                     ,titlefont = list(size = 11))
+                     ,titlefont = list(size = 11)
+                     )
          ,showlegend = TRUE
          ,updatemenus = list( button_type_list )
          ) %>% 
@@ -1258,7 +1260,8 @@ p <- tmp %>%
       rangeslider = list(type = "date")
                         )
          , yaxis = list( title = "Pre-departure delay [min]"
-                        ,titlefont = list(size = 11))
+                        ,titlefont = list(size = 11)
+                        )
          ) %>% 
   config( displaylogo = FALSE
          ,modeBarButtonsToRemove = config_bar_remove_buttons)
@@ -1529,7 +1532,10 @@ Thus, typically, APDF data becomes available the 2nd month following the month o
 * in analogy, additional taxi-times are measured for the taxi-out and taxi-in phase. The observed taxi times are compared with a respective reference time. The refernce time considers the parking position and runway used by the departure/arrival.
 * pre-dearture delay provides for the airspace user reported delay reasoning in case of departures blocking off late. Delay codes have to be provided for delays >= 4 minutes. Airports per se do not validate these delay codes, however, effort is underway to ensure appropriateness of the reported delay codes.
 * turnaround shows the time elapsing between an aircraft blocking in and blocking off for the next flight.
+
+<!--
 * punctuality is measured for the arrival and departure phase. The delay is expressed as the difference between the actual and scheduled off-block (i.e. departure) or in-block (i.e. arrival).
+-->
 
 
 
