@@ -176,7 +176,7 @@ out %>%
 
 ```{r covid-snapshot, results='asis'}
 if(nrow(params$covid) < 1){
-  cat("<p><b>This is under development!</b>")
+  cat("<p><b>COVID19 traffic evolution for this airport under development!</b>")
 }else{
   
 fig1 <- params$covid %>% 
@@ -197,12 +197,7 @@ fig2 <- params$covid %>%
 fig <- subplot(fig1, fig2, nrows=2, shareX = TRUE) %>%
   layout( hovermode = "x unified") %>%
   config( displaylogo = FALSE
-         ,modeBarButtonsToRemove = c(
-             'sendDataToCloud', # 'toImage',
-             'autoScale2d', # 'resetScale2d',
-             'lasso2d', 'pan2d'
-            ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
-             'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines')
+         ,modeBarButtonsToRemove = config_bar_remove_buttons
            )
 fig
 }
@@ -276,12 +271,7 @@ mvts_pa %>%
          ,annotations = key_msg
     ) %>%                    
 config( displaylogo = FALSE
-         ,modeBarButtonsToRemove = c(
-             'sendDataToCloud', # 'toImage',
-             'autoScale2d', # 'resetScale2d',
-             'lasso2d', 'pan2d'
-            ,'zoom2d','zoomIn2d', 'zoomOut2d', 'zoomInGeo', 'zoomOutGeo',
-             'hoverClosestCartesian','hoverCompareCartesian','toggleSpikelines')
+         ,modeBarButtonsToRemove = config_bar_remove_buttons
            )
 ```
 
@@ -1291,7 +1281,7 @@ Ambiguity codes and other codes are summed to **unidentified delay**.
 
 --> 
 
-### Average Pre-Departure Delay
+### Average ATC Pre-Departure Delay
 
 ```{r pre-dep-indicator}
 predepdly_pm <- params$pddly %>%
