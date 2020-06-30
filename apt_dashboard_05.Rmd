@@ -28,6 +28,9 @@ output:
   #  navbar:
   #    - { icon: "fa-question-circle", href: "https://google.com", align: right }
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
+    # speeding up plotly --> https://www.timlrx.com/2019/12/17/speeding-up-r-plotly-webapps-r-x-javascript-part-i/
+    mathjax: NULL          # no math symbols/equations used
+    self_contained: FALSE  # do not include plotly libs in html output
 ---
 
 <script>

@@ -32,5 +32,14 @@ docs/
 EDDF.html
 # development environment RQ-s old versions
 boards/old/
+boards/Rel-09/
+boards/WSSS*
 E*.html
 EGLL_factsheet.log
+apt_factsheet_renderer.Rmd
+# RQ - test environment - old stuff
+data-ad-charts/ad-charts-v01-20200622.zip
+data-test/*
+0*cpsievert.zip
+dev-flexdashboard_old.Rproj
+factsheets/*
