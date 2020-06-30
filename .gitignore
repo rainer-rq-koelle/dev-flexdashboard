@@ -28,7 +28,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 # pkgdown site
-docs/
 EDDF.html
 # development environment RQ-s old versions
 boards/old/
