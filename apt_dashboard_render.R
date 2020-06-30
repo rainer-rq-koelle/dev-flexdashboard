@@ -269,7 +269,8 @@ apts %>%
       # output_dir DEACTIVATED and included in output_file name
       # brittle as reported in stackoverflow
       #  , output_dir = "./boards"
-      , output_file = paste0("./boards/", ., ".html")
+      #, output_file = paste0("./boards/", ., ".html")
+      , output_file = paste0("./docs/", ., ".html")
     )
   )
 
