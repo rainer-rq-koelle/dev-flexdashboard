@@ -29,8 +29,8 @@ output:
   #    - { icon: "fa-question-circle", href: "https://google.com", align: right }
     #vertical_layout: scroll # fill # forces filled page (not good for multiple charts)
     # speeding up plotly --> https://www.timlrx.com/2019/12/17/speeding-up-r-plotly-webapps-r-x-javascript-part-i/
-    mathjax: NULL          # no math symbols/equations used
-    self_contained: FALSE  # do not include plotly libs in html output
+  #  mathjax: NULL          # no math symbols/equations used
+    self_contained: TRUE # FALSE  # do not include plotly libs in html output
 ---
 
 <script>
@@ -116,7 +116,7 @@ id_tbl <- tribble(
 rwy_config <- params$config %>%
   mutate(ITEM = "") %>%
   select(ITEM, TEXT1 = CONFIGURATION, TEXT2 = SHARE_PCT ) %>%
-  mutate(TEXT2 = paste0(round( 100 * TEXT2, 2) , "%")) %>%
+  mutate(TEXT2 = paste0(round( 100 * TEXT2) , "%")) %>%   # no digit
   na.omit()
 rwy_config$ITEM[1] <- "Configurations in 2019"
 
