@@ -2,348 +2,260 @@ AIRPORT;APT_ICAO;APT_IATA;APT_NAME;APT_COUNTRY;ICAO_LABEL;IATA_LABEL;YEAR;CONFIG
 EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2016;;
 EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2017;;
 EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2018;;
-EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:01 - DEP:07R;5
-EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:07L - DEP:07R;5
-EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:25L - ARR:25R - DEP:25R;45
-EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:25R - DEP:25R;4
-EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:25L - DEP:25R;24
+EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:07L - DEP:07R;0,0618752974773917
+EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:19 - DEP:25R;0,0304616849119467
+EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:25L - ARR:25R - DEP:25R;0,575043630017452
+EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:25L - DEP:25R;0,207440901158179
+EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2019;ARR:01 - DEP:07R;0,0653656988735523
 EBBR;EBBR;BRU;Brussels;Belgium;Brussels (EBBR);Brussels (BRU);2020;;
 EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2016;;
 EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2017;;
 EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2018;;
-EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2019;ARR:24 - DEP:24;43
-EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2019;DEP:24;17
-EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2019;ARR:24;17
-EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2019;ARR:06 - DEP:06;8
+EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2019;ARR:06 - DEP:06;0,132217027291508
+EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2019;ARR:24 - DEP:24;0,866315102750897
 EBCI;EBCI;CRL;Charleroi;Belgium;Charleroi (EBCI);Charleroi (CRL);2020;;
 EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2016;;
 EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2017;;
 EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2018;;
-EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;DEP:25R;11
-EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;ARR:07L;4
-EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;DEP:07L;5
-EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;ARR:25R - DEP:25R;45
-EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;ARR:25R;11
-EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;ARR:07L - DEP:07L;19
+EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;ARR:07L - DEP:07L;0,290619969757573
+EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2019;ARR:25R - DEP:25R;0,709282474025657
 EDDB;EDDB;SXF;Berlin - Schoenefeld;Germany;Berlin - Schoenefeld (EDDB);Berlin - Schoenefeld (SXF);2020;;
 EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2016;;
 EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2017;;
 EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2018;;
-EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;DEP:22;17
-EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;ARR:04;7
-EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;DEP:04;5
-EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;ARR:22 - DEP:22;8
-EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;ARR:22;17
+EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;ARR:22 - DEP:22;0,780122736117348
+EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2019;ARR:04 - DEP:04;0,216284987277354
 EDDC;EDDC;DRS;Dresden;Germany;Dresden (EDDC);Dresden (DRS);2020;;
 EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2016;;
 EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2017;;
 EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2018;;
-EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2019;ARR:28;4
-EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2019;DEP:28;5
-EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2019;ARR:28 - DEP:28;3
+EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2019;ARR:10 - DEP:10;0,267441860465116
+EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2019;ARR:28 - DEP:28;0,727390180878553
 EDDE;EDDE;ERF;Erfurt;Germany;Erfurt (EDDE);Erfurt (ERF);2020;;
 EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2016;;
 EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2017;;
 EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2018;;
-EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2019;ARR:07L - ARR:07R - DEP:07C - DEP:18;27
-EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2019;ARR:25L - ARR:25R - DEP:18 - DEP:25C;25
-EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2019;ARR:25C - ARR:25L - ARR:25R - DEP:18 - DEP:25C;34
+EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2019;ARR:25L - ARR:25R - DEP:18 - DEP:25C;0,224236296670759
+EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2019;ARR:07L - ARR:07R - DEP:07C - DEP:18;0,396981295587492
+EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2019;ARR:25C - ARR:25L - ARR:25R - DEP:18 - DEP:25C;0,352639560915722
 EDDF;EDDF;FRA;Frankfurt;Germany;Frankfurt (EDDF);Frankfurt (FRA);2020;;
 EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2016;;
 EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2017;;
 EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2018;;
-EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;DEP:25;12
-EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;ARR:07;7
-EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;DEP:07;5
-EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;ARR:25 - DEP:25;11
-EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;ARR:25;19
-EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;ARR:07 - DEP:07;5
+EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;ARR:07 - DEP:07;0,295735129068462
+EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2019;ARR:25 - DEP:25;0,70381593714927
 EDDG;EDDG;FMO;Muenster-Osnabrueck;Germany;Muenster-Osnabrueck (EDDG);Muenster-Osnabrueck (FMO);2020;;
 EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2016;;
 EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2017;;
 EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2018;;
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:33 - DEP:33;5
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;DEP:33;3
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:05 - DEP:33;9
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:23 - DEP:33;37
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:23 - DEP:23;11
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:15 - DEP:23;16
-EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:15 - DEP:05;4
+EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:33 - DEP:33;0,0518099068585944
+EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:05 - DEP:33;0,101555884843353
+EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:23 - DEP:23;0,125211685012701
+EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:15 - DEP:23;0,191627857747671
+EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:23 - DEP:33;0,458456816257409
+EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2019;ARR:15 - DEP:05;0,0455651989839119
 EDDH;EDDH;HAM;Hamburg;Germany;Hamburg (EDDH);Hamburg (HAM);2020;;
 EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2016;;
 EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2017;;
 EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2018;;
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;DEP:14L;6
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;DEP:32R;3
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:14L;3
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:32R - DEP:32R;16
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:24 - DEP:14L;5
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:24 - ARR:32R - DEP:32R;5
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:14L - DEP:14L;19
-EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:14L - ARR:24 - DEP:14L;11
+EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:14L - DEP:14L;0,40956228956229
+EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:32R - DEP:32R;0,384511784511785
+EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2019;ARR:14L - ARR:24 - DEP:14L;0,121212121212121
 EDDK;EDDK;CGN;Cologne-Bonn;Germany;Cologne-Bonn (EDDK);Cologne-Bonn (CGN);2020;;
 EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2016;;
 EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2017;;
 EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2018;;
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23L - DEP:23L - DEP:23R;4
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23R - DEP:23L;20
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23R - DEP:05R - DEP:23L;3
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:05L - DEP:05R;4
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23L - DEP:23L;31
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23L - DEP:05R - DEP:23L;6
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23L - ARR:23R - DEP:23L;5
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:05R - DEP:05R - DEP:23L;4
-EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:05R - DEP:05R;6
+EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23L - DEP:23L;0,478328323475225
+EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:23R - DEP:23L;0,24687287889072
+EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:05R - DEP:05R;0,0887229710074663
+EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:05L - DEP:05R;0,0482885678270144
+EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2019;ARR:05R - DEP:05R - DEP:23L;0,0458644429361001
 EDDL;EDDL;DUS;Dusseldorf;Germany;Dusseldorf (EDDL);Dusseldorf (DUS);2020;;
 EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2016;;
 EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2017;;
 EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2018;;
-EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2019;ARR:26R - DEP:26L - DEP:26R;3
-EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2019;ARR:08L - ARR:08R - DEP:08L - DEP:08R;33
-EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2019;ARR:26L - ARR:26R - DEP:26L - DEP:26R;54
+EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2019;ARR:08L - ARR:08R - DEP:08L - DEP:08R;0,37075587220305
+EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2019;ARR:26L - ARR:26R - DEP:26L - DEP:26R;0,614994990537682
 EDDM;EDDM;MUC;Munich;Germany;Munich (EDDM);Munich (MUC);2020;;
 EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2016;;
 EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2017;;
 EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2018;;
-EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;DEP:28;14
-EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;ARR:10;9
-EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;DEP:10;7
-EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;ARR:28 - DEP:28;26
-EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;ARR:28;14
-EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;ARR:10 - DEP:10;15
+EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;ARR:28 - DEP:28;0,648200312989045
+EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2019;ARR:10 - DEP:10;0,349671361502347
 EDDN;EDDN;NUE;Nuremberg;Germany;Nuremberg (EDDN);Nuremberg (NUE);2020;;
 EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2016;;
 EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2017;;
 EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2018;;
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:08L;3
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;DEP:26L;5
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;DEP:26R;9
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26L;8
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;DEP:08R;3
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26R - DEP:26R;6
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26R;8
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26L - DEP:26R;4
-EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26L - DEP:26L;4
+EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26R - DEP:26R;0,315864358548731
+EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26L - DEP:26L;0,257054778278397
+EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:08R - DEP:08R;0,209627697415224
+EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:08L - DEP:08R;0,0642636945695992
+EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:26L - DEP:26R;0,0407872895423287
+EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2019;ARR:08L - DEP:08L;0,0336732274128527
 EDDP;EDDP;LEJ;Leipzig-Halle;Germany;Leipzig-Halle (EDDP);Leipzig-Halle (LEJ);2020;;
 EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2016;;
 EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2017;;
 EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2018;;
-EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2019;ARR:09;4
-EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2019;ARR:27;9
-EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2019;DEP:27;7
-EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2019;DEP:09;4
+EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2019;ARR:27 - DEP:27;0,729656419529837
+EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2019;ARR:09 - DEP:09;0,264014466546112
 EDDR;EDDR;SCR;Saarbruecken;Germany;Saarbruecken (EDDR);Saarbruecken (SCR);2020;;
 EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2016;;
 EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2017;;
 EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2018;;
-EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;DEP:25;4
-EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;ARR:25 - DEP:25;48
-EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;ARR:25 - DEP:07 - DEP:25;4
-EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;ARR:25;6
-EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;ARR:07 - DEP:07;29
+EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;ARR:07 - DEP:07;0,37389227911913
+EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2019;ARR:25 - DEP:25;0,622923852480764
 EDDS;EDDS;STR;Stuttgart;Germany;Stuttgart (EDDS);Stuttgart (STR);2020;;
 EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2016;;
 EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2017;;
 EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2018;;
-EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2019;ARR:26R - DEP:26L - DEP:26R;9
-EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2019;ARR:26R - DEP:26L;57
-EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2019;ARR:08L - DEP:08R;23
-EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2019;ARR:08L - DEP:08L - DEP:08R;5
+EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2019;ARR:26R - DEP:26L;0,709831254585473
+EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2019;ARR:08L - DEP:08R;0,265651748593788
 EDDT;EDDT;TXL;Berlin - Tegel;Germany;Berlin - Tegel (EDDT);Berlin - Tegel (TXL);2020;;
 EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2016;;
 EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2017;;
 EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2018;;
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27R;6
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27L - DEP:27R;4
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27L - ARR:27R - DEP:27R;4
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27L;5
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:09L;3
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27R - DEP:27R;9
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;DEP:27L;4
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;DEP:27R;7
-EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27L - DEP:27L;6
+EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27R - DEP:27R;0,390423162583519
+EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:09L - DEP:09L;0,0325167037861915
+EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:27L - DEP:27L;0,302895322939866
+EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:09R - DEP:09R;0,0859688195991091
+EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2019;ARR:09L - DEP:09R;0,0752783964365256
 EDDV;EDDV;HAJ;Hanover;Germany;Hanover (EDDV);Hanover (HAJ);2020;;
 EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2016;;
 EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2017;;
 EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2018;;
-EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;ARR:09 - DEP:09;11
-EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;ARR:09;7
-EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;ARR:27;15
-EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;DEP:09;7
-EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;DEP:27;14
-EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;ARR:27 - DEP:27;21
+EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;ARR:09 - DEP:09;0,329640918890789
+EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2019;ARR:27 - DEP:27;0,669764329789607
 EDDW;EDDW;BRE;Bremen;Germany;Bremen (EDDW);Bremen (BRE);2020;;
 EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2016;;
 EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2017;;
 EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2018;;
-EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;ARR:26 - DEP:26;20
-EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;ARR:08;4
-EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;DEP:08;4
-EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;DEP:08 - DEP:26;4
-EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;DEP:26;18
-EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;ARR:26;18
+EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2019;ARR:26 - DEP:26;0,946934845404943
 EETN;EETN;TLL;Tallinn;Estonia;Tallinn (EETN);Tallinn (TLL);2020;;
 EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2016;;
 EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2017;;
 EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2018;;
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:22L - ARR:22R - DEP:22R;4
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:15 - DEP:22R;11
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:15 - DEP:22L - DEP:22R;4
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:04L - DEP:04R;12
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:04L - ARR:04R - DEP:04R;6
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:22L - DEP:22L - DEP:22R;4
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:22L - DEP:22R;15
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;DEP:22R;3
-EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:15 - DEP:22L;4
+EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:15 - DEP:22L;0,0788860103626943
+EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:22L - ARR:22R - DEP:22R;0,0484455958549223
+EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:15 - DEP:22R;0,157124352331606
+EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:04L - DEP:04R;0,235621761658031
+EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:22L - DEP:22R;0,251683937823834
+EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2019;ARR:04L - ARR:04R - DEP:04R;0,0569948186528497
 EFHK;EFHK;HEL;Helsinki - Vantaa;Finland;Helsinki - Vantaa (EFHK);Helsinki - Vantaa (HEL);2020;;
 EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2016;;
 EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2017;;
 EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2018;;
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:15 - DEP:33;3
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:15;5
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;DEP:15;5
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:33;5
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:33 - DEP:33;36
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;DEP:33;6
-EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:15 - DEP:15;34
+EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:15 - DEP:33;0,0328902018709995
+EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:33 - DEP:33;0,488823239783358
+EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2019;ARR:15 - DEP:15;0,457557853274249
 EGBB;EGBB;BHX;Birmingham;United Kingdom;Birmingham (EGBB);Birmingham (BHX);2020;;
 EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2016;;
 EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2017;;
 EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2018;;
-EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:23R - DEP:23L;45
-EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:05L - DEP:05L;5
-EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:05R - DEP:05L;12
-EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:23R - DEP:23R;26
+EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:05L - DEP:05L;0,0572013357750727
+EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:05R - DEP:05L;0,128406765054401
+EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:23R - DEP:23R;0,294678444468383
+EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2019;ARR:23R - DEP:23L;0,502100614025638
 EGCC;EGCC;MAN;Manchester;United Kingdom;Manchester (EGCC);Manchester (MAN);2020;;
 EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2016;;
 EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2017;;
 EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2018;;
-EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2019;DEP:27;4
-EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2019;ARR:27 - DEP:27;8
-EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2019;ARR:27;4
-EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2019;ARR:09 - DEP:09;4
+EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2019;ARR:27 - DEP:27;0,690396983810157
+EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2019;ARR:09 - DEP:09;0,307385229540918
 EGGD;EGGD;BRS;Bristol;United Kingdom;Bristol (EGGD);Bristol (BRS);2020;;
 EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2016;;
 EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2017;;
 EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2018;;
-EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2019;DEP:26;5
-EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2019;ARR:26 - DEP:26;60
-EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2019;ARR:26;5
-EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2019;ARR:08 - DEP:08;25
+EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2019;ARR:08 - DEP:08;0,286479627802058
+EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2019;ARR:26 - DEP:26;0,713426382818741
 EGGW;EGGW;LTN;London - Luton;United Kingdom;London - Luton (EGGW);London - Luton (LTN);2020;;
 EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2016;;
 EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2017;;
 EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2018;;
-EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2019;ARR:08R - DEP:08R;31
-EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2019;ARR:26L - DEP:26L;67
+EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2019;ARR:08R - DEP:08R;0,311060670544285
+EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2019;ARR:26L - DEP:26L;0,68544001513217
 EGKK;EGKK;LGW;London - Gatwick;United Kingdom;London - Gatwick (EGKK);London - Gatwick (LGW);2020;;
 EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2016;;
 EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2017;;
 EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2018;;
-EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2019;ARR:09 - DEP:09;14
-EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2019;ARR:27;4
-EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2019;ARR:27 - DEP:27;29
-EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2019;DEP:27;4
+EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2019;ARR:09 - DEP:09;0,312651856994099
+EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2019;ARR:27 - DEP:27;0,685699409927109
 EGLC;EGLC;LCY;London - City;United Kingdom;London - City (EGLC);London - City (LCY);2020;;
 EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2016;;
 EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2017;;
 EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2018;;
-EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:09L - ARR:09R - DEP:09R;3
-EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:09L - DEP:09R;23
-EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:27L - ARR:27R - DEP:27R;3
-EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:27L - DEP:27R;34
-EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:27R - DEP:27L;33
-EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:27L - ARR:27R - DEP:27L;3
+EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:09L - DEP:09R;0,25343258891646
+EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:27L - DEP:27R;0,360904328646264
+EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2019;ARR:27R - DEP:27L;0,349434794596085
 EGLL;EGLL;LHR;London - Heathrow;United Kingdom;London - Heathrow (EGLL);London - Heathrow (LHR);2020;;
 EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2016;;
 EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2017;;
 EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2018;;
-EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;DEP:25;18
-EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;ARR:07;7
-EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;DEP:07;7
-EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;ARR:25 - DEP:25;23
-EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;ARR:25;17
-EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;ARR:07 - DEP:07;10
+EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;ARR:07 - DEP:07;0,272756890597511
+EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2019;ARR:25 - DEP:25;0,724701896136053
 EGNT;EGNT;NCL;Newcastle;United Kingdom;Newcastle (EGNT);Newcastle (NCL);2020;;
 EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2016;;
 EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2017;;
 EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2018;;
-EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;DEP:34;10
-EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;ARR:16 - DEP:16;23
-EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;ARR:16;12
-EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;ARR:34;10
-EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;DEP:16;12
-EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;ARR:34 - DEP:34;19
+EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;ARR:16 - DEP:16;0,548314735994478
+EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2019;ARR:34 - DEP:34;0,44852179914874
 EGPD;EGPD;ABZ;Aberdeen;United Kingdom;Aberdeen (EGPD);Aberdeen (ABZ);2020;;
 EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2016;;
 EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2017;;
 EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2018;;
-EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;ARR:05;4
-EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;ARR:23 - DEP:23;47
-EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;DEP:05;4
-EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;ARR:23;10
-EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;ARR:05 - DEP:05;18
-EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;DEP:23;11
+EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;ARR:23 - DEP:23;0,731701161029783
+EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2019;ARR:05 - DEP:05;0,267844522968198
 EGPF;EGPF;GLA;Glasgow;United Kingdom;Glasgow (EGPF);Glasgow (GLA);2020;;
 EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2016;;
 EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2017;;
 EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2018;;
-EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2019;ARR:06 - DEP:06;28
-EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2019;DEP:24;5
-EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2019;ARR:24 - DEP:24;57
-EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2019;ARR:24;5
+EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2019;ARR:06 - DEP:06;0,318962264150943
+EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2019;ARR:24 - DEP:24;0,681037735849057
 EGPH;EGPH;EDI;Edinburgh;United Kingdom;Edinburgh (EGPH);Edinburgh (EDI);2020;;
 EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2016;;
 EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2017;;
 EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2018;;
-EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2019;DEP:22;3
-EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2019;ARR:22 - DEP:22;61
-EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2019;ARR:04 - DEP:04;27
+EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2019;ARR:04 - DEP:04;0,288730677329692
+EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2019;ARR:22 - DEP:22;0,708343492465987
 EGSS;EGSS;STN;London - Stansted;United Kingdom;London - Stansted (EGSS);London - Stansted (STN);2020;;
 EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2016;;
 EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2017;;
 EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2018;;
-EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18C - ARR:18R - DEP:18L - DEP:24;3
-EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:06 - ARR:36R - DEP:36L;4
-EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18C - ARR:18R - DEP:24;3
-EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18R - DEP:18C - DEP:18L;3
-EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18R - DEP:18L - DEP:24;8
-EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18C - ARR:18R - DEP:18L;6
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18R - DEP:18C - DEP:18L;0,0552884615384615
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:36C - ARR:36R - DEP:36L;0,0544143356643357
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18R - ARR:22 - DEP:24;0,044798951048951
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:36R - DEP:36C - DEP:36L;0,0432692307692308
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:27 - ARR:36C - DEP:36L;0,0428321678321678
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:06 - DEP:36C - DEP:36L;0,0417395104895105
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:27 - DEP:24 - DEP:36L;0,0356206293706294
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:06 - DEP:09 - DEP:36L;0,0347465034965035
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18C - ARR:18R - DEP:24;0,0576923076923077
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:06 - ARR:36R - DEP:36L;0,0767045454545455
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18C - ARR:18R - DEP:18L;0,121284965034965
+EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2019;ARR:18R - DEP:18L - DEP:24;0,117788461538461
 EHAM;EHAM;AMS;Amsterdam - Schiphol;Netherlands;Amsterdam - Schiphol (EHAM);Amsterdam - Schiphol (AMS);2020;;
 EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2016;;
 EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2017;;
 EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2018;;
-EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;DEP:34;8
-EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;DEP:16;12
-EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;ARR:34 - DEP:34;14
-EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;ARR:34;8
-EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;ARR:16 - DEP:16;14
-EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;ARR:16;10
+EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;ARR:34 - DEP:34;0,448335539041026
+EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2019;ARR:16 - DEP:16;0,540771658352845
 EICK;EICK;ORK;Cork;Ireland;Cork (EICK);Cork (ORK);2020;;
 EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2016;;
 EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2017;;
 EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2018;;
-EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2019;ARR:10 - DEP:10;19
-EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2019;ARR:28 - DEP:28;73
-EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2019;ARR:28 - DEP:28 - DEP:34;3
+EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2019;ARR:28 - DEP:28;0,7792156669783
+EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2019;ARR:10 - DEP:10;0,203316439502042
 EIDW;EIDW;DUB;Dublin;Ireland;Dublin (EIDW);Dublin (DUB);2020;;
 EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2016;;
 EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2017;;
 EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2018;;
-EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2019;ARR:22L - DEP:22R;58
-EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2019;ARR:04L - ARR:04R - DEP:04R;6
-EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2019;ARR:04L - DEP:04R;20
-EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2019;ARR:22L - DEP:22L - DEP:22R;4
+EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2019;ARR:22L - DEP:22R;0,732577382776586
+EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2019;ARR:04L - DEP:04R;0,210665032178976
 EKCH;EKCH;CPH;Copenhagen - Kastrup;Denmark;Copenhagen - Kastrup (EKCH);Copenhagen - Kastrup (CPH);2020;;
 ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2016;;
 ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2017;;
 ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2018;;
-ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;ARR:06;4
-ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;DEP:24;11
-ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;ARR:06 - DEP:06;21
-ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;ARR:24;11
-ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;ARR:24 - DEP:24;42
-ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;DEP:06;5
+ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;ARR:24 - DEP:24;0,675646987464618
+ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2019;ARR:06 - DEP:06;0,323190456934897
 ELLX;ELLX;LUX;Luxembourg;Luxembourg;Luxembourg (ELLX);Luxembourg (LUX);2020;;
 ENBR;ENBR;BGO;Bergen;Norway;Bergen (ENBR);Bergen (BGO);2016;;
 ENBR;ENBR;BGO;Bergen;Norway;Bergen (ENBR);Bergen (BGO);2017;;
@@ -353,15 +265,14 @@ ENBR;ENBR;BGO;Bergen;Norway;Bergen (ENBR);Bergen (BGO);2020;;
 ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2016;;
 ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2017;;
 ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2018;;
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - ARR:01R - DEP:01L;6
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - ARR:01R - DEP:01L - DEP:01R;16
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - DEP:01L - DEP:01R;4
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01R - DEP:01L;11
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19L - ARR:19R - DEP:01 - DEP:19L - DEP:19R;3
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19L - ARR:19R - DEP:19L - DEP:19R;13
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19R - DEP:19L;7
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19R - DEP:19L - DEP:19R;6
-ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - ARR:01R - DEP:01 - DEP:01L - DEP:01R;4
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - DEP:01L;0,0313132515775688
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - DEP:01L - DEP:01R;0,0511965710203596
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19R - DEP:19R;0,0594118347422312
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19R - DEP:19L - DEP:19R;0,079890463150375
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19R - DEP:19L;0,105250625074414
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01R - DEP:01L;0,183950470294083
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:01L - ARR:01R - DEP:01L - DEP:01R;0,234313608762948
+ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2019;ARR:19L - ARR:19R - DEP:19L - DEP:19R;0,194308846291225
 ENGM;ENGM;OSL;Oslo - Gardermoen;Norway;Oslo - Gardermoen (ENGM);Oslo - Gardermoen (OSL);2020;;
 ENVA;ENVA;TRD;Trondheim;Norway;Trondheim (ENVA);Trondheim (TRD);2016;;
 ENVA;ENVA;TRD;Trondheim;Norway;Trondheim (ENVA);Trondheim (TRD);2017;;
@@ -376,478 +287,346 @@ ENZV;ENZV;SVG;Stavanger;Norway;Stavanger (ENZV);Stavanger (SVG);2020;;
 EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2016;;
 EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2017;;
 EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2018;;
-EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:11 - DEP:15;17
-EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:15 - DEP:15;9
-EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:33 - DEP:29;30
-EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:33 - DEP:29 - DEP:33;9
-EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:33 - DEP:33;22
+EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:15 - DEP:15;0,109696320919488
+EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:11 - DEP:15;0,219336300636656
+EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:33 - DEP:33;0,289931827145191
+EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:33 - DEP:29;0,343681334159671
+EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2019;ARR:33 - DEP:29 - DEP:33;0,033692038988112
 EPWA;EPWA;WAW;Warszawa - Chopina;Poland;Warszawa - Chopina (EPWA);Warszawa - Chopina (WAW);2020;;
 ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2016;;
 ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2017;;
 ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2018;;
-ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;ARR:03;6
-ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;ARR:21;13
-ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;ARR:21 - DEP:21;37
-ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;DEP:03;6
-ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;ARR:03 - DEP:03;16
-ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;DEP:21;14
+ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;ARR:21 - DEP:21;0,699712643678161
+ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2019;ARR:03 - DEP:03;0,295104679802956
 ESGG;ESGG;GOT;Göteborg;Sweden;Göteborg (ESGG);Göteborg (GOT);2020;;
 ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2016;;
 ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2017;;
 ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2018;;
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:19R - DEP:08;6
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:01L - DEP:08;8
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:01R - DEP:01L;16
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:01R - DEP:01R;3
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:19L - DEP:19R;19
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:26 - DEP:19L;10
-ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:26 - DEP:19R;14
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:19L - DEP:19R;0,23810703666997
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:01R - DEP:01L;0,183040138751239
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:26 - DEP:19R;0,179633300297324
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:26 - DEP:19L;0,124752229930624
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:01L - DEP:08;0,0878344895936571
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:19R - DEP:08;0,0699950445986125
+ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2019;ARR:01R - DEP:01R;0,0441650148662042
 ESSA;ESSA;ARN;Stockholm - Arlanda;Sweden;Stockholm - Arlanda (ESSA);Stockholm - Arlanda (ARN);2020;;
 EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2016;;
 EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2017;;
 EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2018;;
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;ARR:36;8
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;ARR:36 - DEP:36;14
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;DEP:18;13
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;DEP:18 - DEP:36;4
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;DEP:36;6
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;ARR:18 - DEP:18;25
-EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;ARR:18;13
+EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;ARR:18 - DEP:18;0,634223598013102
+EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2019;ARR:36 - DEP:36;0,34223598013102
 EVRA;EVRA;RIX;Riga;Latvia;Riga (EVRA);Riga (RIX);2020;;
 EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2016;;
 EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2017;;
 EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2018;;
-EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;ARR:01 - DEP:01;9
-EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;ARR:19;15
-EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;ARR:19 - DEP:19;18
-EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;DEP:01;8
-EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;DEP:19;18
-EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;ARR:01;10
+EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;ARR:01 - DEP:01;0,308925318761384
+EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2019;ARR:19 - DEP:19;0,661347905282331
 EYVI;EYVI;VNO;Vilnius;Lithuania;Vilnius (EYVI);Vilnius (VNO);2020;;
 GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2016;;
 GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2017;;
 GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2018;;
-GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2019;ARR:01;22
-GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2019;DEP:01;21
-GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2019;ARR:01 - DEP:01;37
+GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2019;ARR:01 - DEP:01;0,970270435260363
 GCFV;GCFV;FUE;Fuerteventura;Spain;Fuerteventura (GCFV);Fuerteventura (FUE);2020;;
 GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2016;;
 GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2017;;
 GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2018;;
-GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03L - DEP:03L - DEP:03R;32
-GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03L;7
-GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03L - DEP:03L;32
-GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03L - DEP:03R;8
-GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;DEP:03L;7
+GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03R - DEP:03R;0,0332087090389268
+GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03L - DEP:03L - DEP:03R;0,400703760721355
+GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2019;ARR:03L - DEP:03L;0,528480316692325
 GCLP;GCLP;LPA;Gran Canaria;Spain;Gran Canaria (GCLP);Gran Canaria (LPA);2020;;
 GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2016;;
 GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2017;;
 GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2018;;
-GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2019;DEP:03;16
-GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2019;ARR:03 - DEP:03;46
-GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2019;ARR:03;20
+GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2019;ARR:03 - DEP:03;0,97291142274961
 GCRR;GCRR;ACE;Lanzarote;Spain;Lanzarote (GCRR);Lanzarote (ACE);2020;;
 GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2016;;
 GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2017;;
 GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2018;;
-GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2019;DEP:07;17
-GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2019;ARR:07 - DEP:07;46
-GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2019;ARR:07;18
+GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2019;ARR:25 - DEP:25;0,0495519553735683
+GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2019;ARR:07 - DEP:07;0,950329357308172
 GCTS;GCTS;TFS;Tenerife Sur - Reina Sofia;Spain;Tenerife Sur - Reina Sofia (GCTS);Tenerife Sur - Reina Sofia (TFS);2020;;
 GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2016;;
 GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2017;;
 GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2018;;
-GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;DEP:30;10
-GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;DEP:12;3
-GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;ARR:12;4
-GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;ARR:12 - DEP:12;14
-GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;ARR:30;14
-GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;ARR:30 - DEP:30;48
+GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;ARR:12 - DEP:12;0,211857292759706
+GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2019;ARR:30 - DEP:30;0,787303252885624
 GCXO;GCXO;TFN;Tenerife North;Spain;Tenerife North (GCXO);Tenerife North (TFN);2020;;
 LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2016;;
 LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2017;;
 LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2018;;
-LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;DEP:27;11
-LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;ARR:09;6
-LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;DEP:09;11
-LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;ARR:27 - DEP:27;27
-LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;ARR:27;15
-LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;ARR:09 - DEP:09;13
+LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;ARR:09 - DEP:09;0,354724194429274
+LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2019;ARR:27 - DEP:27;0,636605679956308
 LBSF;LBSF;SOF;Sofia;Bulgaria;Sofia (LBSF);Sofia (SOF);2020;;
 LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2016;;
 LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2017;;
 LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2018;;
-LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;DEP:NA;4
-LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:22;4
-LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;DEP:22;5
-LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:NA - DEP:NA;11
-LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:NA;4
-LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:22 - DEP:22;10
+LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:04 - DEP:04;0,139258679196032
+LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:22 - DEP:22;0,443356825894022
+LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2019;ARR:NA - DEP:NA;0,387888279822501
 LCLK;LCLK;LCA;Larnaca;Cyprus;Larnaca (LCLK);Larnaca (LCA);2020;;
 LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2016;;
 LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2017;;
 LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2018;;
-LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;DEP:23L;8
-LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;ARR:05R;17
-LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;DEP:05R;18
-LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;ARR:23L - DEP:23L;9
-LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;ARR:23L;8
-LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;ARR:05R - DEP:05R;22
+LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;ARR:23L - DEP:23L;0,289031932348858
+LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2019;ARR:05R - DEP:05R;0,710273886154234
 LDZA;LDZA;ZAG;Zagreb;Croatia;Zagreb (LDZA);Zagreb (ZAG);2020;;
 LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2016;;
 LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2017;;
 LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2018;;
-LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;ARR:28 - DEP:28;22
-LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;DEP:28;5
-LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;ARR:28;5
-LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;ARR:10 - DEP:10;49
-LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;ARR:10;7
-LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;DEP:10;8
+LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;ARR:28 - DEP:28;0,326980493630573
+LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2019;ARR:10 - DEP:10;0,672621417197452
 LEAL;LEAL;ALC;Alicante;Spain;Alicante (LEAL);Alicante (ALC);2020;;
 LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2016;;
 LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2017;;
 LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2018;;
-LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;ARR:12;5
-LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;ARR:30;17
-LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;ARR:30 - DEP:30;30
-LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;DEP:12;5
-LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;DEP:30;19
-LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;ARR:12 - DEP:12;7
+LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;ARR:30 - DEP:30;0,810215291369405
+LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2019;ARR:12 - DEP:12;0,188774543847465
 LEBB;LEBB;BIO;Bilbao;Spain;Bilbao (LEBB);Bilbao (BIO);2020;;
 LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2016;;
 LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2017;;
 LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2018;;
-LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2019;ARR:25R - DEP:25L - DEP:25R;6
-LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2019;ARR:07L - DEP:07R;16
-LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2019;ARR:25R - DEP:25L;73
+LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2019;ARR:25R - DEP:25L;0,812716945408646
+LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2019;ARR:07L - DEP:07R;0,169769643420637
 LEBL;LEBL;BCN;Barcelona;Spain;Barcelona (LEBL);Barcelona (BCN);2020;;
 LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2016;;
 LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2017;;
 LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2018;;
-LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;ARR:06;6
-LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;ARR:06 - DEP:06;28
-LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;ARR:24;11
-LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;ARR:24 - DEP:24;24
-LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;DEP:06;6
-LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;DEP:24;9
+LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;ARR:24 - DEP:24;0,50964884530212
+LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2019;ARR:06 - DEP:06;0,490161341347675
 LEIB;LEIB;IBZ;Ibiza;Spain;Ibiza (LEIB);Ibiza (IBZ);2020;;
 LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2016;;
 LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2017;;
 LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2018;;
-LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:18L - ARR:18R - DEP:14R;3
-LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:18L - ARR:18R - DEP:14L - DEP:14R;19
-LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:32L - DEP:36L - DEP:36R;6
-LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:32L - ARR:32R - DEP:36R;3
-LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:32L - ARR:32R - DEP:36L - DEP:36R;58
+LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:32L - ARR:32R - DEP:36L - DEP:36R;0,686150234741784
+LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:18L - ARR:18R - DEP:14L - DEP:14R;0,20768779342723
+LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2019;ARR:32L - DEP:36L - DEP:36R;0,0416079812206573
 LEMD;LEMD;MAD;Madrid - Barajas;Spain;Madrid - Barajas (LEMD);Madrid - Barajas (MAD);2020;;
 LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2016;;
 LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2017;;
 LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2018;;
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:13 - DEP:13;39
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:13;4
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;DEP:31;5
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;DEP:13;4
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31;4
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31 - DEP:30;4
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31 - DEP:30 - DEP:31;8
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31 - DEP:31;17
-LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:12 - DEP:13;10
+LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31 - DEP:30;0,0305781476577769
+LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31 - DEP:30 - DEP:31;0,0342979635584137
+LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:12 - DEP:13;0,112855431561692
+LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:31 - DEP:31;0,234600592648635
+LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2019;ARR:13 - DEP:13;0,583632810037198
 LEMG;LEMG;AGP;Málaga;Spain;Málaga (LEMG);Málaga (AGP);2020;;
 LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2016;;
 LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2017;;
 LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2018;;
-LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2019;ARR:24L - DEP:24R;61
-LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2019;DEP:24R;4
-LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2019;ARR:06L - DEP:06R;21
+LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2019;ARR:24L - DEP:24R;0,730778990104034
+LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2019;ARR:06L - DEP:06R;0,236488200964222
 LEPA;LEPA;PMI;Palma de Mallorca;Spain;Palma de Mallorca (LEPA);Palma de Mallorca (PMI);2020;;
 LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2016;;
 LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2017;;
 LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2018;;
-LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;DEP:12;7
-LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;ARR:30 - DEP:30;29
-LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;ARR:12 - DEP:12;29
-LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;ARR:30;10
-LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;DEP:30;10
-LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;ARR:12;8
+LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;ARR:12 - DEP:12;0,476969988765848
+LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2019;ARR:30 - DEP:30;0,522495051623602
 LEVC;LEVC;VLC;Valencia;Spain;Valencia (LEVC);Valencia (VLC);2020;;
 LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2016;;
 LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2017;;
 LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2018;;
-LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;DEP:27;12
-LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;DEP:09;8
-LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;ARR:09;7
-LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;ARR:27 - DEP:27;32
-LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;ARR:27;11
-LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;ARR:09 - DEP:09;19
+LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;ARR:09 - DEP:09;0,378905821730073
+LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2019;ARR:27 - DEP:27;0,620710448415744
 LEZL;LEZL;SVQ;Sevilla;Spain;Sevilla (LEZL);Sevilla (SVQ);2020;;
 LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2016;;
 LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2017;;
 LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2018;;
-LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;DEP:32R;5
-LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:14R - DEP:14L;8
-LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32L - DEP:32R;13
-LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32L - ARR:32R - DEP:32R;7
-LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32R - DEP:32R;6
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32L - DEP:32R;0,3523948279002
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32L - DEP:32L;0,0641048989255145
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:14R - DEP:14R;0,0642870151156438
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:14L - DEP:14L;0,0513567656164633
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:14R - DEP:14L;0,290657439446367
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32R - DEP:32R;0,0861409579311601
+LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2019;ARR:32L - ARR:32R - DEP:32R;0,0701147331997815
 LFBO;LFBO;TLS;Toulouse-Blagnac;France;Toulouse-Blagnac (LFBO);Toulouse-Blagnac (TLS);2020;;
 LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2016;;
 LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2017;;
 LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2018;;
-LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;DEP:35L;8
-LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;DEP:17R;6
-LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;ARR:17R;5
-LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;ARR:35L - DEP:35L;41
-LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;ARR:17R - DEP:17R;26
-LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;ARR:35L;8
+LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;ARR:17R - DEP:17R;0,388599508599508
+LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2019;ARR:35L - DEP:35L;0,590958230958231
 LFLL;LFLL;LYS;Lyon-Saint-Exupéry;France;Lyon-Saint-Exupéry (LFLL);Lyon-Saint-Exupéry (LYS);2020;;
 LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2016;;
 LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2017;;
 LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2018;;
-LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;ARR:31R - DEP:31R;44
-LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;ARR:13L;4
-LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;ARR:13L - DEP:13L;22
-LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;DEP:31R;7
-LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;DEP:13L;3
-LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;ARR:31R;7
+LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;ARR:13L - DEP:13L;0,321557400515316
+LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2019;ARR:31R - DEP:31R;0,661093615803035
 LFML;LFML;MRS;Marseille-Provence;France;Marseille-Provence (LFML);Marseille-Provence (MRS);2020;;
 LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2016;;
 LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2017;;
 LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2018;;
-LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:04R - DEP:04R;18
-LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;DEP:04R;6
-LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:22L - DEP:22L;6
-LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:22R - DEP:22L;6
-LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:04L - ARR:04R - DEP:04R;13
-LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:04L - DEP:04R;37
+LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:04L - ARR:04R - DEP:04R;0,0417381753277957
+LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:22L - DEP:22L;0,0798379899773461
+LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:04L - DEP:04R;0,513695338779433
+LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:22R - DEP:22L;0,0599986270337063
+LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2019;ARR:04R - DEP:04R;0,291961282350518
 LFMN;LFMN;NCE;Nice-Côte d’Azur;France;Nice-Côte d’Azur (LFMN);Nice-Côte d’Azur (NCE);2020;;
 LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2016;;
 LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2017;;
 LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2018;;
-LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2019;ARR:08R - ARR:09L - DEP:08L - DEP:09R;27
-LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2019;ARR:26L - ARR:27R - DEP:26R - DEP:27L;47
+LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2019;ARR:08R - ARR:09L - DEP:08L - DEP:09R;0,345856198114535
+LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2019;ARR:26L - ARR:27R - DEP:26R - DEP:27L;0,616012382158435
 LFPG;LFPG;CDG;Paris-Charles-de-Gaulle;France;Paris-Charles-de-Gaulle (LFPG);Paris-Charles-de-Gaulle (CDG);2020;;
 LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2016;;
 LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2017;;
 LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2018;;
-LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:26 - DEP:24;36
-LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:24 - DEP:24;16
-LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:24 - DEP:20 - DEP:24;3
-LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:24 - DEP:20;4
-LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:06 - DEP:08;21
-LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:06 - DEP:06;11
+LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:06 - DEP:08;0,225497883017093
+LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:06 - DEP:06;0,120589618943077
+LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:26 - DEP:24;0,408028853692959
+LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2019;ARR:24 - DEP:24;0,175003920338717
 LFPO;LFPO;ORY;Paris-Orly;France;Paris-Orly (LFPO);Paris-Orly (ORY);2020;;
 LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2016;;
 LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2017;;
 LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2018;;
-LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2019;ARR:15;17
-LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2019;DEP:15;13
-LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2019;ARR:33 - DEP:33;5
-LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2019;ARR:15 - DEP:15;47
+LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2019;ARR:33 - DEP:33;0,0888192267502612
+LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2019;ARR:15 - DEP:15;0,906386379003012
 LFSB;LFSB;BSL;Bâle-Mulhouse;France;Bâle-Mulhouse (LFSB);Bâle-Mulhouse (BSL);2020;;
 LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2016;;
 LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2017;;
 LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2018;;
-LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:03L - ARR:03R - DEP:03R;7
-LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:21R - DEP:21L;21
-LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:03R - DEP:03L;12
-LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:03L - DEP:03R;40
+LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:03R - DEP:03L;0,138833770722652
+LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:03L - DEP:03R;0,502848364590668
+LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2019;ARR:21R - DEP:21L;0,287716827753952
 LGAV;LGAV;ATH;Athens;Greece;Athens (LGAV);Athens (ATH);2020;;
 LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2016;;
 LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2017;;
 LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2018;;
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31R - DEP:31R;4
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;DEP:31L;6
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:13R - DEP:13L;15
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31R - DEP:31L;30
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31R;4
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31L - DEP:31L;11
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31L - ARR:31R - DEP:31L;6
-LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:13R - DEP:13R;7
+LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31R - DEP:31L;0,434692235483438
+LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31R - DEP:31R;0,0635644361003084
+LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:13R - DEP:13L;0,220732197934826
+LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:31L - DEP:31L;0,159581601180099
+LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2019;ARR:13R - DEP:13R;0,0958160118009924
 LHBP;LHBP;BUD;Budapest - Ferihegy;Hungary;Budapest - Ferihegy (LHBP);Budapest - Ferihegy (BUD);2020;;
 LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2016;;
 LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2017;;
 LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2018;;
-LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2019;ARR:08 - DEP:08;63
-LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2019;ARR:08;16
-LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2019;DEP:08;15
+LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2019;ARR:08 - DEP:08;1
 LICC;LICC;CTA;Catania;Italy;Catania (LICC);Catania (CTA);2020;;
 LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2016;;
 LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2017;;
 LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2018;;
-LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2019;ARR:35R - DEP:35L;42
-LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2019;ARR:35L - ARR:35R - DEP:35L;6
-LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2019;ARR:35L - ARR:35R - DEP:35R;4
-LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2019;ARR:35L - DEP:35R;38
+LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2019;ARR:35R - DEP:35L;0,506000960153625
+LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2019;ARR:35L - DEP:35R;0,450732117138742
 LIMC;LIMC;MXP;Milan - Malpensa;Italy;Milan - Malpensa (LIMC);Milan - Malpensa (MXP);2020;;
 LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2016;;
 LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2017;;
 LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2018;;
-LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2019;ARR:28 - DEP:28;64
-LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2019;DEP:28;15
-LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2019;ARR:28;15
+LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2019;ARR:28 - DEP:28;0,996117745343752
 LIME;LIME;BGY;Bergamo;Italy;Bergamo (LIME);Bergamo (BGY);2020;;
 LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2016;;
 LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2017;;
 LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2018;;
-LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2019;ARR:36 - DEP:36;33
-LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2019;DEP:36;25
-LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2019;ARR:36;23
+LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2019;ARR:36 - DEP:36;0,999813676169182
 LIMF;LIMF;TRN;Torino Caselle;Italy;Torino Caselle (LIMF);Torino Caselle (TRN);2020;;
 LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2016;;
 LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2017;;
 LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2018;;
-LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2019;DEP:36;5
-LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2019;ARR:36 - DEP:36;62
-LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2019;ARR:36;5
+LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2019;ARR:36 - DEP:36;0,99681130423909
 LIML;LIML;LIN;Milan - Linate;Italy;Milan - Linate (LIML);Milan - Linate (LIN);2020;;
 LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2016;;
 LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2017;;
 LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2018;;
-LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;DEP:30;4
-LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;ARR:12;9
-LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;DEP:12;6
-LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;ARR:12 - DEP:12;27
-LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;ARR:30 - DEP:30;8
+LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;ARR:12 - DEP:12;0,764214219378805
+LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2019;ARR:30 - DEP:30;0,225776493653906
 LIPE;LIPE;BLQ;Bologna;Italy;Bologna (LIPE);Bologna (BLQ);2020;;
 LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2016;;
 LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2017;;
 LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2018;;
-LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2019;DEP:04R;14
-LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2019;ARR:04R - DEP:04R;70
-LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2019;ARR:04R;13
+LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2019;ARR:04R - DEP:04R;0,996034400382226
 LIPZ;LIPZ;VCE;Venice;Italy;Venice (LIPZ);Venice (VCE);2020;;
 LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2016;;
 LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2017;;
 LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2018;;
-LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2019;ARR:15;20
-LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2019;DEP:15;20
-LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2019;ARR:33 - DEP:33;4
-LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2019;ARR:15 - DEP:15;38
+LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2019;ARR:33 - DEP:33;0,080715955081799
+LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2019;ARR:15 - DEP:15;0,913070740466283
 LIRA;LIRA;CIA;Rome - Ciampino;Italy;Rome - Ciampino (LIRA);Rome - Ciampino (CIA);2020;;
 LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2016;;
 LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2017;;
 LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2018;;
-LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:16L - ARR:16R - DEP:25;42
-LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:16L - ARR:16R - DEP:16R - DEP:25;6
-LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:16L - DEP:16R - DEP:25;7
-LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:16L - DEP:25;21
-LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:34R - DEP:25;4
-LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:34L - ARR:34R - DEP:25;8
+LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:16L - DEP:25;0,140643049672699
+LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:34L - ARR:34R - DEP:25;0,118502117828263
+LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2019;ARR:16L - ARR:16R - DEP:25;0,603966114747786
 LIRF;LIRF;FCO;Rome - Fiumicino;Italy;Rome - Fiumicino (LIRF);Rome - Fiumicino (FCO);2020;;
 LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2016;;
 LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2017;;
 LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2018;;
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:24 - DEP:06 - DEP:24;7
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:24;10
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:06 - DEP:06;20
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:06;5
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;DEP:24;7
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;DEP:06;6
-LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:24 - DEP:24;34
+LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:06 - DEP:06;0,403840970350404
+LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2019;ARR:24 - DEP:24;0,576145552560647
 LIRN;LIRN;NAP;Naples;Italy;Naples (LIRN);Naples (NAP);2020;;
 LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2016;;
 LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2017;;
 LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2018;;
-LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2019;ARR:30;25
-LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2019;DEP:30;20
-LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2019;DEP:12;4
-LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2019;ARR:30 - DEP:30;16
+LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2019;ARR:30 - DEP:30;0,975005229031583
 LJLJ;LJLJ;LJU;Ljubljana;Slovenia;Ljubljana (LJLJ);Ljubljana (LJU);2020;;
 LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2016;;
 LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2017;;
 LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2018;;
-LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;DEP:24;4
-LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:06 - DEP:06;19
-LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:30 - DEP:30;4
-LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:24 - DEP:24 - DEP:30;4
-LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:24 - DEP:24;51
-LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:24;4
+LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:30 - DEP:30;0,0492737635594778
+LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:24 - DEP:24;0,688361831218974
+LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2019;ARR:06 - DEP:06;0,239443525157811
 LKPR;LKPR;PRG;Prague;Czech Republic;Prague (LKPR);Prague (PRG);2020;;
 LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2016;;
 LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2017;;
 LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2018;;
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:31 - DEP:31;18
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;DEP:31;10
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;DEP:13;5
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:13;5
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:31 - DEP:23 - DEP:31;6
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:31;8
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:23 - DEP:31;3
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:23 - ARR:31 - DEP:31;6
-LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:13 - DEP:13;6
+LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:13 - DEP:13;0,31823221923016
+LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2019;ARR:31 - DEP:31;0,593853952162205
 LMML;LMML;MLA;Malta;Malta;Malta (LMML);Malta (MLA);2020;;
 LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2016;;
 LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2017;;
 LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2018;;
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:34 - DEP:29;31
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:34 - DEP:29 - DEP:34;17
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:11 - ARR:16 - DEP:16;7
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:29 - DEP:29;5
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:16 - DEP:29;12
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:16 - DEP:16 - DEP:29;5
-LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:11 - DEP:16;10
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:16 - DEP:29;0,161093978250284
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:34 - DEP:29;0,403100146080182
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:34 - DEP:29 - DEP:34;0,142184710274306
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:11 - DEP:16;0,121652329167343
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:11 - ARR:16 - DEP:16;0,0719850673591949
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:29 - DEP:29;0,0457717902937835
+LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2019;ARR:16 - DEP:16 - DEP:29;0,035383866255478
 LOWW;LOWW;VIE;Vienna;Austria;Vienna (LOWW);Vienna (VIE);2020;;
 LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2016;;
 LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2017;;
 LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2018;;
-LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;DEP:10;5
-LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;DEP:28;13
-LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;ARR:28 - DEP:28;36
-LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;ARR:10 - DEP:10;13
-LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;ARR:10;5
-LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;ARR:28;12
+LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;ARR:28 - DEP:28;0,72972972972973
+LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2019;ARR:10 - DEP:10;0,26973566973567
 LPFR;LPFR;FAO;Faro;Portugal;Faro (LPFR);Faro (FAO);2020;;
 LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2016;;
 LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2017;;
 LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2018;;
-LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;ARR:17 - DEP:17;23
-LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;ARR:17;4
-LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;ARR:35 - DEP:35;49
-LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;DEP:17;4
-LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;DEP:35;8
-LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;ARR:35;8
+LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;ARR:35 - DEP:35;0,6872179713557
+LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2019;ARR:17 - DEP:17;0,31219344712576
 LPPR;LPPR;OPO;Porto;Portugal;Porto (LPPR);Porto (OPO);2020;;
 LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2016;;
 LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2017;;
 LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2018;;
-LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2019;ARR:03 - DEP:03;70
-LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2019;ARR:21 - DEP:21;28
+LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2019;ARR:21 - DEP:21;0,277928391137702
+LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2019;ARR:03 - DEP:03;0,722071608862298
 LPPT;LPPT;LIS;Lisbon;Portugal;Lisbon (LPPT);Lisbon (LIS);2020;;
 LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2016;;
 LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2017;;
 LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2018;;
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:26L - DEP:26R;14
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;DEP:08L;4
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;DEP:08R;5
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08R - DEP:08R;4
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08R - DEP:08L;15
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08R;3
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08L - DEP:08R;22
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08L - DEP:08L;5
-LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08L;3
+LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08L - DEP:08R;0,361831953990742
+LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08R - DEP:08R;0,0480432038154019
+LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08R - DEP:08L;0,239163978117548
+LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:26L - DEP:26R;0,217632206480572
+LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2019;ARR:08L - DEP:08L;0,0708374246037312
 LROP;LROP;OTP;Bucharest - Otopeni;Romania;Bucharest - Otopeni (LROP);Bucharest - Otopeni (OTP);2020;;
 LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2016;;
 LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2017;;
 LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2018;;
-LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2019;ARR:04 - DEP:04;39
-LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2019;ARR:22 - DEP:22;55
+LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2019;ARR:04 - DEP:04;0,413853180769412
+LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2019;ARR:22 - DEP:22;0,586146819230588
 LSGG;LSGG;GVA;Geneva;Switzerland;Geneva (LSGG);Geneva (GVA);2020;;
 LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2016;;
 LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2017;;
 LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2018;;
-LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:14 - DEP:16 - DEP:28;29
-LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:34 - DEP:32;4
-LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:28 - DEP:32;13
-LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:14 - DEP:28;37
-LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:14 - ARR:28 - DEP:28;3
+LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:14 - DEP:28;0,424577545784305
+LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:14 - DEP:16 - DEP:28;0,299478014686366
+LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:28 - DEP:32;0,192338317260904
+LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2019;ARR:34 - DEP:32;0,0497213129257719
 LSZH;LSZH;ZRH;Zürich;Switzerland;Zürich (LSZH);Zürich (ZRH);2020;;
 LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2016;;
 LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2017;;
 LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2018;;
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;DEP:13;5
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;DEP:31;7
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:22;3
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;DEP:04;10
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:31 - DEP:31;4
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:31 - DEP:04;7
-LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:31;19
+LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:31 - DEP:13;0,0356553998351195
+LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:22 - DEP:13;0,0529678483099753
+LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:31 - DEP:04;0,712077493816983
+LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2019;ARR:31 - DEP:31;0,183841714756801
 LZIB;LZIB;BTS;Bratislava;Slovakia;Bratislava (LZIB);Bratislava (BTS);2020;;
