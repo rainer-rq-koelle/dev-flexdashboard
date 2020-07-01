@@ -115,8 +115,8 @@ id_tbl <- tribble(
 
 rwy_config <- params$config %>%
   mutate(ITEM = "") %>%
-  select(ITEM, TEXT1 = CONFIGURATION, TEXT2 = SHARE_PCT) %>%
-  mutate(TEXT2 = paste0(TEXT2, "%")) %>%
+  select(ITEM, TEXT1 = CONFIGURATION, TEXT2 = SHARE_PCT ) %>%
+  mutate(TEXT2 = paste0(round( 100 * TEXT2, 2) , "%")) %>%
   na.omit()
 rwy_config$ITEM[1] <- "Configurations in 2019"
 
