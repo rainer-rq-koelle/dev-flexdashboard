@@ -44,6 +44,10 @@ $('.navbar-author').wrap('<a href="http://ansperformance.eu">');
 }
 </style>
 
+<!-- div style="position:absolute;top:0px;right:0px;" -->
+<!-- img src="ECTRL-logo.svg"/ -->
+<!-- /div -->
+
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(DT)
@@ -80,10 +84,7 @@ config_bar_remove_buttons <- c(
             ,'drawrect')
 ```
 
-<!-- div style="position:absolute;top:0px;right:0px;" -->
-<!-- img src="ECTRL-logo.svg"/ -->
-<!-- img src="logo-test-apple.png"/ -->
-<!-- /div -->
+
 
 # Overview {data-icon="fa-home"}
 
