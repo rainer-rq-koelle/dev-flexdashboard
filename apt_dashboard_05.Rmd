@@ -120,11 +120,24 @@ rwy_config <- params$config %>%
   na.omit()
 rwy_config$ITEM[1] <- "Configurations in 2019"
 
+rwy_config_footer <- data.frame(
+  ITEM = "", TEXT1 = ""
+)
+
 id_tbl <- id_tbl %>% bind_rows(rwy_config)
+
+# a way to include footnote into DT: https://rstudio.github.io/DT/
+# went in the end for the caption variant.
+#
+# sketch <- htmltools::withTags(table(
+#    tableHeader(id_tbl),
+#    tableFooter("Only configurations with a minimum of 3% share are shown.")
+#))
 
 id_tbl %>%
   datatable(
-    options = list( # ---------------------------------
+ #   container = sketch,   # added for footnote
+     options = list( # ---------------------------------
          dom             = "t"        # show only table)
       ,  ordering        = FALSE      # no order arrows/functionality
       ,  autoWidth = TRUE
@@ -136,6 +149,11 @@ id_tbl %>%
    # , class="compact cell-border"      # removes cell(-col) padding 
     , rownames  = FALSE
     , selection = 'none'
+   # footnote ------------------------------------------
+    , caption = htmltools::tags$caption(
+             style = 'caption-side: bottom; text-align: right;'
+            ,'Only configurations with a minimum of 3% share are shown.'
+            ) # ----------------------------------------
     ) %>%
   formatStyle(names(id_tbl),lineHeight='70%') #sets "format" of specified columns (here all) 
 
@@ -167,6 +185,11 @@ out %>%
       ,colnames   = c("Indicator","Year 2019"  # REL1 FIX, "% Change <br>Previous Month"
                        ,"Most Recent Month","12-month Trend")
       , rownames  = FALSE
+    # footnote ------------------------------------------
+      , caption = htmltools::tags$caption(
+             style = 'caption-side: bottom; text-align: right;'
+            ,'Performance measures (other than traffic) are typically reported for the month preceeding the previous month, i.e. July -> May. Data reported under Most Recent Month dating back further point at on-going quality validation or missing reporting.'
+            ) # ----------------------------------------
       ) %>% 
   spk_add_deps() 
   
@@ -1357,7 +1380,7 @@ predepdly_pm %>%
 
 ## Row ----------------------------------------------------------
 
-### Annual Average Turnaround Times
+### Annual Average Actual Turnaround Times
 
 ```{r annual_turn_time}
 turn_pa <- params$turn %>%  
@@ -1383,7 +1406,7 @@ if(params$icao %in% c("EDDR","EGLC")){
 
 g1 <- g1 %>%
   layout( xaxis = list(title = "", type = "category")
-         ,yaxis = list(title = "average turntime [min]"
+         ,yaxis = list(title = "Average turnaround time [min]"
                        ,titlefont = list(size = 11)
                        ,hoverformat = ".2f")
          ) %>%
@@ -1401,7 +1424,10 @@ turn_pm <- params$turn %>%
     filter(AC_CLASS %in% c("H", "MJ", "MT") ) %>%
     group_by(YEAR, MONTH, AC_CLASS) %>% 
     summarise(AVG_ATTT = mean(AVG_ATTT), AVG_STTT = mean(AVG_STTT)) %>%
-    ungroup() 
+    ungroup() %>%
+    mutate( LBL_ACTUAL = paste0("actual turnaround ",   AC_CLASS)
+           ,LBL_SCHED  = paste0("scheduled turnaround ",AC_CLASS)
+    )
 
 ################################################
 button_type_list <-  list(
@@ -1419,9 +1445,11 @@ button_type_list <-  list(
 
 turn_pm %>% 
   plot_ly() %>% 
-  add_lines(x=~MONTH, y=~AVG_ATTT, color =~AC_CLASS, name = "actual"
-          #https://github.com/ropensci/plotly/issues/1502
-          #define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
+  add_lines(x=~MONTH, y=~AVG_ATTT, color =~AC_CLASS
+            , name = ~LBL_ACTUAL       # "actual"
+# https://github.com/ropensci/plotly/issues/1502
+# define mapping variable for transform filter, i.e. cannot
+# link directly to ~YEAR!!!
           ,customdata=~YEAR
           # given with add_lines, type = "scatter" ## "bar"
           , transforms = list(
@@ -1436,9 +1464,12 @@ turn_pm %>%
           , hovertemplate = paste0( "Class: %{text}"
                                    ,"<br>Month: %{x}"
                                    ,"<br>Avg. Turn: %{y:.2f}min")
-          ,showlegend = FALSE
+          ,legendgroup = ~AC_CLASS
+          ,showlegend = TRUE
          ) %>% 
-  add_lines(x=~MONTH, y=~AVG_STTT, color =~AC_CLASS, name = "scheduled", line = list(dash = 'dash')
+  add_lines( x=~MONTH, y=~AVG_STTT, color =~AC_CLASS
+            , name = ~LBL_SCHED   # "scheduled"
+            , line = list(dash = 'dash')
             #https://github.com/ropensci/plotly/issues/1502
           #define mapping variable for transform filter, i.e. cannot link directly to ~YEAR!!!
           ,customdata=~YEAR
@@ -1455,7 +1486,8 @@ turn_pm %>%
           , hovertemplate = paste0( "Class: %{text}"
                                    ,"<br>Month: %{x}"
                                    ,"<br>Avg. Turn: %{y:.2f}min")
-         ,showlegend = FALSE
+         ,showlegend = TRUE
+         ,legendgroup = ~AC_CLASS
          ) %>%
   layout( updatemenus = list( button_type_list )
          ,hovermode = "x unified"  
@@ -1471,14 +1503,14 @@ turn_pm %>%
 
 ## Row ---------------------------------------------------------------
 
-### Variation of Annual Actual Turn-Around Times
+### Variation of Annual Actual Turnaround Times
 
 ```{r}
 turn_pm %>%
   plot_ly(x = ~YEAR, y = ~AVG_ATTT, color = ~AC_CLASS, type = "box") %>%
   layout( boxmode = "group"   # save to ignore warning message
          ,xaxis = list(title = "")
-         ,yaxis = list( title = "Average actual turn-around time [min]"
+         ,yaxis = list( title = "Average actual turnaround time [min]"
                        ,titlefont = list(size = 11)
                        ,hoverformat = ".2f")
          ) %>%
@@ -1498,7 +1530,7 @@ add chart with available turnaround times
 
 ## Row ------------------------------------------------------------------
 
-### Sponsored by {data-height=100}
+### Powered by {data-height=100}
 
 ```{r, out.width="40%", fig.pos="float"}
 knitr::include_graphics("./figures/ECTRL-logo.svg")
@@ -1525,17 +1557,20 @@ For feedback or questions please contact us at: Performance Review Unit (PRU-Sup
 
 ### Data and Methodolgy
 
-IFR traffic data and ATFM delay related data is extracted from the Network Manager.     
-All other airport related data is collected through the Airport Operator Data Flow (APDF).
-Under the APDF airports are required to report flight-by-flight data on a monthly basis. The data is reported during the month following the month of operations. 
-Thus, typically, APDF data becomes available the 2nd month following the month of operation.
+**Data and Methodology**   
 
-* traffic data comprises all IFR flight plans for the airport
-* ATFM delay data captures the arrival ATFM delay triggered by constraints at the airport.
-* additional ASMA time measures the difference between an observed travel time elapsing from entering the 40NM radius around the airport to landing. This time is compared against a reference time to the respective entry sector, aircraft type, and landing runway.
-* in analogy, additional taxi-times are measured for the taxi-out and taxi-in phase. The observed taxi times are compared with a respective reference time. The refernce time considers the parking position and runway used by the departure/arrival.
-* pre-dearture delay provides for the airspace user reported delay reasoning in case of departures blocking off late. Delay codes have to be provided for delays >= 4 minutes. Airports per se do not validate these delay codes, however, effort is underway to ensure appropriateness of the reported delay codes.
-* turnaround shows the time elapsing between an aircraft blocking in and blocking off for the next flight.
+IFR traffic data and ATFM delay related data is extracted from the Network Manager.    
+All other airport related data is collected through the Airport Operator Data Flow (APDF). Under the APDF airports are required to report flight-by-flight data on a monthly basis. The data is reported during the month following the month of operations. Thus, typically, APDF data becomes available the 2nd month following the month of operation.    
+
+**Data and metrics are shown based on availability at the moment of publication**    
+
+*	traffic data comprises all IFR flight plans for the airport
+*	ATFM delay data captures the arrival ATFM delay triggered by constraints at the airport.
+*	ATFM delays are grouped according to the regulation reason as described in https://ansperformance.eu/definition/atfm-delay-codes/
+*	additional ASMA time measures the difference between an observed travel time elapsing from entering the 40NM radius around the airport to landing. This time is compared against a reference time to the respective entry sector, aircraft type, and landing runway.
+*	in analogy, additional taxi-times are measured for the taxi-out and taxi-in phase. The observed taxi times are compared with a respective reference time. The referncereference time considers the parking position and runway used by the departure/arrival.
+*	pre-dearturedeparture delay provides for the airspace user reported delay reasoning in case of departures blocking off late. Delay codes have to be provided for delays >= 4 minutes. Most Aairports per se do not validate these delay codes, however, effort is underway to ensure appropriateness of the reported delay codes.
+*	turnaround shows the time elapsing between an aircraft blocking in and blocking off for the next flight.
 
 <!--
 * punctuality is measured for the arrival and departure phase. The delay is expressed as the difference between the actual and scheduled off-block (i.e. departure) or in-block (i.e. arrival).
